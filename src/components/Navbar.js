@@ -4,11 +4,14 @@ import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import MailIcon from "@mui/icons-material/Mail";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleNightMode } from "../redux/nightModeReducer";
 
 const Container = Styled.div`
 display:flex;
 align-items:center;
 background-color:white;
+
 position:sticky;
 z-index:2;
 top:0px;
@@ -128,8 +131,6 @@ justify-content:center;
 
 `;
 
-const UserNameContainer = Styled.span`
-`;
 const Img = Styled.img`
 height:30px;
 width:30px;
@@ -152,6 +153,9 @@ padding:5px 10px;`;
 const Navbar = () => {
   const DarkMode = false;
   const [search, setSearch] = useState("");
+  const nightMode = useSelector((state) => state.nightmodebar.toggle);
+  const dispatch = useDispatch();
+
   const handleSearch = () => {
     console.log(search);
   };
@@ -172,7 +176,10 @@ const Navbar = () => {
     color: "black",
     cursor: "pointer",
   };
-  console.log(search);
+  const handleNightMode = () => {
+    dispatch(toggleNightMode());
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -221,6 +228,9 @@ const Navbar = () => {
           <DarkModeIconContainer>
             <DarkModeIcon
               style={DarkMode ? IconStyleDarkMode : IconStyleLightMode}
+              onClick={() => {
+                handleNightMode();
+              }}
             />
           </DarkModeIconContainer>
           <UserContainer clicked={true}>
