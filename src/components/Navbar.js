@@ -70,8 +70,9 @@ border:solid 1.5px gray;
 border-top-left-radius:10px;
 border-bottom-left-radius:10px;
 padding:2px 20px;
-
+border-right:none;
 `;
+
 const Input = Styled.input`
 background-color:white;
 font-size: 18px;
@@ -98,11 +99,11 @@ outline:none;
 const SearchIconContainer = Styled.div`
 height:35px;
 width:35px;
-border:solid 1.5px gray;
 border-left:none;
 display:flex;
 align-items:center;
 jusify-content:center;
+border:solid 1.5px gray;
 border-top-right-radius:10px;
 border-bottom-right-radius:10px;
 padding:2px 4px;
@@ -157,7 +158,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   const handleSearch = () => {
-    console.log(search);
+    // console.log(search);
   };
   const IconStyle = {
     height: "35px",
