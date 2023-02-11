@@ -9,7 +9,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 const Container = Styled.div`
 flex:1;
 height:calc(100vh - 60px);
-
+position:sticky;
+top:0px;
+overflow:scroll;
+&::-webkit-scrollbar{
+  display:none;
+}
 `;
 const Wrapper = Styled.div`
 display:flex;

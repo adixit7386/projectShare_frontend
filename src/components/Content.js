@@ -7,7 +7,13 @@ import Teams from "../components/Teams";
 import Projects from "../components/Projects";
 import { useLocation } from "react-router-dom";
 const Container = Styled.div`
-background-color:red;
+position:sticky;
+top:60px;
+overflow:scroll;
+height:calc(100vh - 60px);
+&::-webkit-scrollbar{
+  display:none;
+}
 flex:3.5;`;
 
 const Content = () => {
