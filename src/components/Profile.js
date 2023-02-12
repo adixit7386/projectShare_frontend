@@ -1,6 +1,8 @@
 import React from "react";
 import Styled from "styled-components";
 import UploadIcon from "@mui/icons-material/Upload";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 const Container = Styled.div``;
 const Wrapper = Styled.div`
 
@@ -63,7 +65,7 @@ font-size:18px;
 color:black;`;
 const TitleContainer = Styled.div``;
 const InputContainer = Styled.div`
-
+margin-top:10px;
 padding:2px 3px;
 border:solid 1px grey;
 border-radius:5px;
@@ -77,6 +79,7 @@ padding:7px 12px;
 &:focus{
   outline:none;
 };
+
 font-size:15px;
 border:none;
 flex:4;`;
@@ -89,6 +92,61 @@ border:none;
 flex:1;`;
 const Option = Styled.option`
 padding:7px 12px;`;
+
+const EducationDetails = Styled.div`
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;`;
+const EducationDetailsHead = Styled.div`
+display:flex;
+align-items:center;
+justify-content:center;
+width:85%;`;
+const EducationDetailsHeading = Styled.span`
+font-size:24px;`;
+
+const Qualification = Styled.div`
+flex:1;
+display:flex;
+align-items:center;
+justify-content:center;
+`;
+const Institution = Styled.div`
+flex:3;
+display:flex;
+align-items:center;
+justify-content:center;`;
+const Score = Styled.div`
+flex:1;
+display:flex;
+align-items:center;
+justify-content:center;`;
+const Year = Styled.div`
+flex:1;
+display:flex;
+align-items:center;
+justify-content:center;`;
+const Edit = Styled.div`
+flex:1;
+display:flex;
+align-items:center;
+justify-content:center;`;
+const Delete = Styled.div`
+flex:1;
+display:flex;
+align-items:center;
+justify-content:center;`;
+const EducationDetailsContent = Styled.div`
+display:flex;
+align-items:center;
+justify-content:center;
+width:85%;
+margin-top:10px;
+`;
+const EducationDetailsData = Styled.span`
+font-size:18px;`;
+const EducationDetailsInput = Styled.div``;
 
 const Profile = () => {
   // const countryCodes = [
@@ -396,6 +454,58 @@ const Profile = () => {
             </InputContainer>
           </DetailInput>
         </DetailContainer>
+        <DetailHeadingContainer>
+          <DetailHeading>Education Details</DetailHeading>
+        </DetailHeadingContainer>
+        <EducationDetails>
+          <EducationDetailsHead>
+            <Qualification>
+              <EducationDetailsHeading>Title</EducationDetailsHeading>
+            </Qualification>
+            <Institution>
+              <EducationDetailsHeading>Institution</EducationDetailsHeading>
+            </Institution>
+            <Score>
+              <EducationDetailsHeading>Score</EducationDetailsHeading>
+            </Score>
+            <Year>
+              <EducationDetailsHeading>Year</EducationDetailsHeading>
+            </Year>
+            <Edit>
+              <EducationDetailsHeading>Edit</EducationDetailsHeading>
+            </Edit>
+            <Delete>
+              <EducationDetailsHeading>Delete</EducationDetailsHeading>
+            </Delete>
+          </EducationDetailsHead>
+          <EducationDetailsContent>
+            <Qualification>
+              <EducationDetailsData>XII</EducationDetailsData>
+            </Qualification>
+            <Institution>
+              <EducationDetailsData>
+                Vidyagyan School Sitapur
+              </EducationDetailsData>
+            </Institution>
+            <Score>
+              <EducationDetailsData>91.4</EducationDetailsData>
+            </Score>
+            <Year>
+              <EducationDetailsData>2029</EducationDetailsData>
+            </Year>
+            <Edit>
+              <EducationDetailsData>
+                <EditIcon style={{ color: "blue", cursor: "pointer" }} />
+              </EducationDetailsData>
+            </Edit>
+            <Delete>
+              <EducationDetailsData>
+                <DeleteIcon style={{ color: "red", cursor: "pointer" }} />
+              </EducationDetailsData>
+            </Delete>
+          </EducationDetailsContent>
+        </EducationDetails>
+        <EducationDetailsInput></EducationDetailsInput>
       </Wrapper>
     </Container>
   );
