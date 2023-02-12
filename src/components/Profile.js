@@ -3,6 +3,7 @@ import Styled from "styled-components";
 import UploadIcon from "@mui/icons-material/Upload";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
 const Container = Styled.div``;
 const Wrapper = Styled.div`
 
@@ -146,8 +147,22 @@ margin-top:10px;
 `;
 const EducationDetailsData = Styled.span`
 font-size:18px;`;
-const EducationDetailsInput = Styled.div``;
+const EducationDetailsInput = Styled.div`
+margin-top:20px;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-wrap:wrap;
+`;
+const AddContainer = Styled.div`
 
+width:85%;
+display:flex;
+align-items:center;
+justify-content:flex-end;
+`;
+const IconContainer = Styled.div`
+`;
 const Profile = () => {
   // const countryCodes = [
   //   { country: "Afghanistan", code: "93", iso: "AF" },
@@ -505,7 +520,57 @@ const Profile = () => {
             </Delete>
           </EducationDetailsContent>
         </EducationDetails>
-        <EducationDetailsInput></EducationDetailsInput>
+        <EducationDetailsInput>
+          <DetailInput>
+            <TitleContainer>
+              <DetailText>Title:</DetailText>
+            </TitleContainer>
+            <InputContainer>
+              <InputDetail type="text" placeholder={"B. Tech"} />
+            </InputContainer>
+          </DetailInput>
+          <DetailInput>
+            <TitleContainer>
+              <DetailText>Institution</DetailText>
+            </TitleContainer>
+            <InputContainer>
+              <InputDetail type="text" placeholder={"Abc College"} />
+            </InputContainer>
+          </DetailInput>
+          <DetailInput>
+            <TitleContainer>
+              <DetailText>Score</DetailText>
+            </TitleContainer>
+            <InputContainer>
+              <Select>
+                <Option>Grade</Option>
+                <Option>Gpa</Option>
+                <Option>Percentage</Option>
+              </Select>
+              <InputDetail type="text" placeholder={"A+"} />
+            </InputContainer>
+          </DetailInput>
+          <DetailInput>
+            <TitleContainer>
+              <DetailText>Year</DetailText>
+            </TitleContainer>
+            <InputContainer>
+              <InputDetail type="text" placeholder={"2020"} />
+            </InputContainer>
+          </DetailInput>
+          <AddContainer>
+            <IconContainer>
+              <AddIcon
+                style={{
+                  color: "blue",
+                  height: "70px",
+                  width: "70px",
+                  cursor: "pointer",
+                }}
+              />
+            </IconContainer>
+          </AddContainer>
+        </EducationDetailsInput>
       </Wrapper>
     </Container>
   );
