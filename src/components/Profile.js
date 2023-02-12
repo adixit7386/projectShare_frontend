@@ -4,6 +4,10 @@ import UploadIcon from "@mui/icons-material/Upload";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import FacebookIcon from "@mui/icons-material/Facebook";
 const Container = Styled.div``;
 const Wrapper = Styled.div`
 
@@ -162,7 +166,14 @@ align-items:center;
 justify-content:flex-end;
 `;
 const IconContainer = Styled.div`
+display:flex;
+align-items:center;
+justify-content:center;
 `;
+
+const SocialContainer = Styled.div`
+`;
+
 const Profile = () => {
   // const countryCodes = [
   //   { country: "Afghanistan", code: "93", iso: "AF" },
@@ -571,6 +582,152 @@ const Profile = () => {
             </IconContainer>
           </AddContainer>
         </EducationDetailsInput>
+        <DetailHeadingContainer>
+          <DetailHeading>Social Media Links</DetailHeading>
+        </DetailHeadingContainer>
+        <SocialContainer>
+          <DetailContainer>
+            <DetailInput>
+              <InputContainer>
+                <IconContainer>
+                  <LinkedInIcon />
+                </IconContainer>
+                <InputDetail
+                  type="link"
+                  placeholder={"adixit7386@instagram.com"}
+                />
+                <IconContainer>
+                  <EditIcon
+                    style={{
+                      color: "blue",
+                      cursor: "pointer",
+                      marginRight: "10px",
+                    }}
+                  />
+                </IconContainer>
+                <IconContainer>
+                  <DeleteIcon
+                    style={{
+                      color: "red",
+                      cursor: "pointer",
+                      marginRight: "10px",
+                    }}
+                  />
+                </IconContainer>
+              </InputContainer>
+            </DetailInput>
+            <DetailInput>
+              <InputContainer>
+                <IconContainer>
+                  <LinkedInIcon />
+                </IconContainer>
+                <InputDetail
+                  type="link"
+                  placeholder={"adixit7386@instagram.com"}
+                />
+                <IconContainer>
+                  <EditIcon
+                    style={{
+                      color: "blue",
+                      cursor: "pointer",
+                      marginRight: "10px",
+                    }}
+                  />
+                </IconContainer>
+                <IconContainer>
+                  <DeleteIcon
+                    style={{
+                      color: "red",
+                      cursor: "pointer",
+                      marginRight: "10px",
+                    }}
+                  />
+                </IconContainer>
+              </InputContainer>
+            </DetailInput>
+            <DetailInput>
+              <InputContainer>
+                <IconContainer>
+                  <LinkedInIcon />
+                </IconContainer>
+                <InputDetail
+                  type="link"
+                  placeholder={"adixit7386@instagram.com"}
+                />
+                <IconContainer>
+                  <EditIcon
+                    style={{
+                      color: "blue",
+                      cursor: "pointer",
+                      marginRight: "10px",
+                    }}
+                  />
+                </IconContainer>
+                <IconContainer>
+                  <DeleteIcon
+                    style={{
+                      color: "red",
+                      cursor: "pointer",
+                      marginRight: "10px",
+                    }}
+                  />
+                </IconContainer>
+              </InputContainer>
+            </DetailInput>
+            <DetailInput>
+              <InputContainer>
+                <IconContainer>
+                  <LinkedInIcon />
+                </IconContainer>
+                <InputDetail
+                  type="link"
+                  placeholder={"adixit7386@instagram.com"}
+                />
+                <IconContainer>
+                  <EditIcon
+                    style={{
+                      color: "blue",
+                      cursor: "pointer",
+                      marginRight: "10px",
+                    }}
+                  />
+                </IconContainer>
+                <IconContainer>
+                  <DeleteIcon
+                    style={{
+                      color: "red",
+                      cursor: "pointer",
+                      marginRight: "10px",
+                    }}
+                  />
+                </IconContainer>
+              </InputContainer>
+            </DetailInput>
+            <DetailInput>
+              <InputContainer>
+                <Select>
+                  <Option>LinkedIn</Option>
+                  <Option>Instagram</Option>
+                  <Option>Github</Option>
+                  <Option>LeetCode</Option>
+                  <Option>Medium</Option>
+                  <Option>Dev.to</Option>
+                </Select>
+                <InputDetail type="link" placeholder={"sdlfkjdsf@cga.co"} />
+                <IconContainer>
+                  <AddIcon
+                    style={{
+                      color: "green",
+                      height: "30px",
+                      width: "30px",
+                      cursor: "pointer",
+                    }}
+                  />
+                </IconContainer>
+              </InputContainer>
+            </DetailInput>
+          </DetailContainer>
+        </SocialContainer>
       </Wrapper>
     </Container>
   );
