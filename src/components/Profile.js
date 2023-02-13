@@ -45,6 +45,7 @@ font-size:28px;
 `;
 const Input = Styled.input``;
 const Label = Styled.label`
+font-weight:500;
 display:flex;
 align-items:center;
 margin-bottom:10px;
@@ -185,7 +186,36 @@ justify-content:center;
 
 const SocialContainer = Styled.div`
 `;
+const ProjectsContainer = Styled.div`
 
+`;
+const ProjectHeadContainer = Styled.div`
+width:80%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+`;
+const ProjectTitleContainer = Styled.div`
+align-items:center;
+display:flex;
+justify-content:center;`;
+const ProjectIconContainer = Styled.div`
+align-items:center;
+display:flex;
+justify-content:center;`;
+const ProjectDateContainer = Styled.div`
+width:80%;
+margin-top:20px;`;
+const DateSpan = Styled.div``;
+const ProjectLinkContainer = Styled.div`
+width:80%;
+margin-top:20px;`;
+const Linked = Styled.a``;
+const ProjectDescriptionContainer = Styled.div`
+width:80%;
+`;
+const Paragraph = Styled.p`
+align:left;`;
 const Profile = () => {
   // const countryCodes = [
   //   { country: "Afghanistan", code: "93", iso: "AF" },
@@ -772,6 +802,174 @@ const Profile = () => {
             </DetailInput>
           </DetailContainer>
         </SocialContainer>
+        <DetailHeadingContainer>
+          <DetailHeading>Projects</DetailHeading>
+        </DetailHeadingContainer>
+        <ProjectsContainer>
+          <DetailContainer>
+            <ProjectHeadContainer>
+              <ProjectTitleContainer>
+                <Label>Image Inpainting</Label>
+              </ProjectTitleContainer>
+              <ProjectIconContainer>
+                <DeleteIcon
+                  style={{
+                    color: "red",
+                    cursor: "pointer",
+                    marginRight: "20px",
+                  }}
+                />
+                <EditIcon
+                  style={{
+                    color: "blue",
+                    cursor: "pointer",
+                    marginRight: "20px",
+                  }}
+                />
+              </ProjectIconContainer>
+            </ProjectHeadContainer>
+            <ProjectDateContainer>
+              <DateSpan>may 2020 - july 2021</DateSpan>
+            </ProjectDateContainer>
+            <ProjectLinkContainer>
+              <Linked href="http://www.sarkariresults.com">
+                http://www.sarkariresults.com
+              </Linked>
+            </ProjectLinkContainer>
+            <ProjectDescriptionContainer>
+              <Paragraph>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore
+                eligendi quis vel! Lorem ipsum dolor sit amet consectetur
+                adipisicing elit. Ut unde modi et soluta possimus illo optio
+                ipsa tempore! Obcaecati quis earum id nemo sequi, dignissimos
+                odio explicabo soluta accusamus corrupti commodi accusantium
+                facere eveniet quidem adipisci natus fugiat maiores, illo
+                possimus aperiam hic magni laboriosam. Inventore dolores sunt
+                harum nostrum.
+              </Paragraph>
+            </ProjectDescriptionContainer>
+          </DetailContainer>
+          <DetailContainer>
+            <ProjectHeadContainer>
+              <ProjectTitleContainer>
+                <Label>Image Inpainting</Label>
+              </ProjectTitleContainer>
+              <ProjectIconContainer>
+                <DeleteIcon
+                  style={{
+                    color: "red",
+                    cursor: "pointer",
+                    marginRight: "20px",
+                  }}
+                />
+                <EditIcon
+                  style={{
+                    color: "blue",
+                    cursor: "pointer",
+                    marginRight: "20px",
+                  }}
+                />
+              </ProjectIconContainer>
+            </ProjectHeadContainer>
+            <ProjectLinkContainer>
+              <Linked href="http://www.sarkariresults.com">
+                http://www.sarkariresults.com
+              </Linked>
+            </ProjectLinkContainer>
+            <ProjectDescriptionContainer>
+              <Paragraph>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore
+                eligendi quis vel! Lorem ipsum dolor sit amet consectetur
+                adipisicing elit. Ut unde modi et soluta possimus illo optio
+                ipsa tempore! Obcaecati quis earum id nemo sequi, dignissimos
+                odio explicabo soluta accusamus corrupti commodi accusantium
+                facere eveniet quidem adipisci natus fugiat maiores, illo
+                possimus aperiam hic magni laboriosam. Inventore dolores sunt
+                harum nostrum.
+              </Paragraph>
+            </ProjectDescriptionContainer>
+          </DetailContainer>
+          <DetailContainer>
+            <ProjectHeadContainer>
+              <ProjectTitleContainer>
+                <Label>Image Inpainting</Label>
+              </ProjectTitleContainer>
+              <ProjectIconContainer>
+                <DeleteIcon
+                  style={{
+                    color: "red",
+                    cursor: "pointer",
+                    marginRight: "20px",
+                  }}
+                />
+                <EditIcon
+                  style={{
+                    color: "blue",
+                    cursor: "pointer",
+                    marginRight: "20px",
+                  }}
+                />
+              </ProjectIconContainer>
+            </ProjectHeadContainer>
+            <ProjectLinkContainer>
+              <Linked href="http://www.sarkariresults.com">
+                http://www.sarkariresults.com
+              </Linked>
+            </ProjectLinkContainer>
+            <ProjectDescriptionContainer>
+              <Paragraph>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore
+                eligendi quis vel! Lorem ipsum dolor sit amet consectetur
+                adipisicing elit. Ut unde modi et soluta possimus illo optio
+                ipsa tempore! Obcaecati quis earum id nemo sequi, dignissimos
+                odio explicabo soluta accusamus corrupti commodi accusantium
+                facere eveniet quidem adipisci natus fugiat maiores, illo
+                possimus aperiam hic magni laboriosam. Inventore dolores sunt
+                harum nostrum.
+              </Paragraph>
+            </ProjectDescriptionContainer>
+          </DetailContainer>
+          <DetailContainer>
+            <ProjectHeadContainer>
+              <ProjectTitleContainer>
+                <Label>Image Inpainting</Label>
+              </ProjectTitleContainer>
+              <ProjectIconContainer>
+                <DeleteIcon
+                  style={{
+                    color: "red",
+                    cursor: "pointer",
+                    marginRight: "20px",
+                  }}
+                />
+                <EditIcon
+                  style={{
+                    color: "blue",
+                    cursor: "pointer",
+                    marginRight: "20px",
+                  }}
+                />
+              </ProjectIconContainer>
+            </ProjectHeadContainer>
+            <ProjectLinkContainer>
+              <Linked href="http://www.sarkariresults.com">
+                http://www.sarkariresults.com
+              </Linked>
+            </ProjectLinkContainer>
+            <ProjectDescriptionContainer>
+              <Paragraph>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore
+                eligendi quis vel! Lorem ipsum dolor sit amet consectetur
+                adipisicing elit. Ut unde modi et soluta possimus illo optio
+                ipsa tempore! Obcaecati quis earum id nemo sequi, dignissimos
+                odio explicabo soluta accusamus corrupti commodi accusantium
+                facere eveniet quidem adipisci natus fugiat maiores, illo
+                possimus aperiam hic magni laboriosam. Inventore dolores sunt
+                harum nostrum.
+              </Paragraph>
+            </ProjectDescriptionContainer>
+          </DetailContainer>
+        </ProjectsContainer>
       </Wrapper>
     </Container>
   );
