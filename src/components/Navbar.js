@@ -10,7 +10,7 @@ import { toggleNightMode } from "../redux/nightModeReducer";
 const Container = Styled.div`
 display:flex;
 align-items:center;
-background-color:white;
+background-color:#f6faf9;
 
 position:sticky;
 z-index:2;
@@ -74,7 +74,7 @@ border-right:none;
 `;
 
 const Input = Styled.input`
-background-color:white;
+background-color:#f6faf9;
 font-size: 18px;
 font-size: 18px;
 flex: 1;

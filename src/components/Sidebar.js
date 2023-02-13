@@ -7,7 +7,7 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { useLocation, useNavigate } from "react-router-dom";
 const Container = Styled.div`
-border-right:solid 1px lightgrey;
+
 flex:1;
 height:calc(100vh - 60px);
 position:sticky;
@@ -16,6 +16,7 @@ overflow:scroll;
 &::-webkit-scrollbar{
   display:none;
 }
+background-color:#f6faf9;
 `;
 const Wrapper = Styled.div`
 display:flex;
@@ -38,12 +39,12 @@ display:flex;
 align-items:center;
 border-radius:10px;
 background-color:${(props) =>
-  props.location === props.name ? "#f6f9fa" : "white"};
+  props.location === props.name ? "lightgrey" : "#f6f9fa"};
 justify-content:center;
 transition:all 0.7s ease;
 &:hover{
   cursor:pointer;
-  background-color:#f6f9fa;
+  background-color:lightgrey;
 
 }`;
 const TdIcon1 = Styled.td`

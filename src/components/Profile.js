@@ -8,7 +8,11 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 // import GitHubIcon from "@mui/icons-material/GitHub";
 // import InstagramIcon from "@mui/icons-material/Instagram";
 // import FacebookIcon from "@mui/icons-material/Facebook";
-const Container = Styled.div``;
+const Container = Styled.div`
+margin:20px 20px ;
+border-radius:20px;
+
+box-shadow:0px 0px 10px lightgrey;`;
 const Wrapper = Styled.div`
 
 padding:10px;`;
