@@ -469,6 +469,14 @@ const Profile = () => {
           </DetailInput>
           <DetailInput>
             <TitleContainer>
+              <DetailText>Status</DetailText>
+            </TitleContainer>
+            <InputContainer>
+              <InputDetail type="text" placeholder={"occupied"} />
+            </InputContainer>
+          </DetailInput>
+          <DetailInput>
+            <TitleContainer>
               <DetailText>About Myself</DetailText>
             </TitleContainer>
             <InputContainer>
