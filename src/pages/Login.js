@@ -165,7 +165,7 @@ const Login = () => {
         <Button
           type="submit"
           onClick={() => {
-            navigate("/");
+            navigate("/]");
           }}
         >
           Login

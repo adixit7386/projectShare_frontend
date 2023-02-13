@@ -5,9 +5,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import FacebookIcon from "@mui/icons-material/Facebook";
+// import GitHubIcon from "@mui/icons-material/GitHub";
+// import InstagramIcon from "@mui/icons-material/Instagram";
+// import FacebookIcon from "@mui/icons-material/Facebook";
 const Container = Styled.div``;
 const Wrapper = Styled.div`
 
@@ -95,6 +95,14 @@ padding:7px 12px;
 };
 border:none;
 flex:1;`;
+const TextArea = Styled.textarea`
+border:None;
+&:focus{
+  outline:none;
+};
+width:100%;
+`;
+
 const Option = Styled.option`
 padding:7px 12px;`;
 
@@ -445,10 +453,34 @@ const Profile = () => {
         <DetailContainer>
           <DetailInput>
             <TitleContainer>
+              <DetailText>Name</DetailText>
+            </TitleContainer>
+            <InputContainer>
+              <InputDetail type="text" placeholder={"name"} />
+            </InputContainer>
+          </DetailInput>
+          <DetailInput>
+            <TitleContainer>
+              <DetailText>Job Title</DetailText>
+            </TitleContainer>
+            <InputContainer>
+              <InputDetail type="text" placeholder={"SDE 2 Amazon"} />
+            </InputContainer>
+          </DetailInput>
+          <DetailInput>
+            <TitleContainer>
+              <DetailText>About Myself</DetailText>
+            </TitleContainer>
+            <InputContainer>
+              <TextArea placeholder="Introduction and career Objective"></TextArea>
+            </InputContainer>
+          </DetailInput>
+          <DetailInput>
+            <TitleContainer>
               <DetailText>DOB:</DetailText>
             </TitleContainer>
             <InputContainer>
-              <InputDetail type="date" placeholder={"name"} />
+              <InputDetail type="date" />
               <Select>
                 <Option>Public</Option>
                 <Option>Private</Option>
@@ -573,7 +605,7 @@ const Profile = () => {
             <IconContainer>
               <AddIcon
                 style={{
-                  color: "blue",
+                  color: "green",
                   height: "70px",
                   width: "70px",
                   cursor: "pointer",
