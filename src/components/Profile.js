@@ -239,6 +239,62 @@ flex:1;
 align-items:center;
 justify-content:center;`;
 
+const AddSectionButton = Styled.button`
+margin-top:20px;
+padding:7px 12px;
+border:none;
+background-color:#3C84AB;
+color:white;
+border-radius:5px;
+font-size:24px;
+transition:all 0.4s ease;
+cursor:pointer;
+&:hover{
+  background-color:#87CEEB;
+}
+`;
+const AddButton = Styled.button`
+
+padding:3px 7px;
+border:none;
+background-color:#3C84AB;
+color:white;
+border-radius:5px;
+font-size:24px;
+transition:all 0.4s ease;
+cursor:pointer;
+&:hover{
+  background-color:#87CEEB;
+}
+`;
+
+const CreateButton = Styled.button`
+margin-top:20px;
+margin-right:20px;
+padding:3px 7px;
+border:none;
+background-color:red;
+color:white;
+border-radius:5px;
+font-size:24px;
+transition:all 0.4s ease;
+cursor:pointer;
+&:hover{
+  background-color:orange;
+}`;
+const UpdateButton = Styled.button`
+margin-top:20px;
+padding:3px 7px;
+border:none;
+background-color:blue;
+color:white;
+border-radius:5px;
+font-size:24px;
+transition:all 0.4s ease;
+cursor:pointer;
+&:hover{
+  background-color:lightblue;
+}`;
 const Profile = () => {
   // const countryCodes = [
   //   { country: "Afghanistan", code: "93", iso: "AF" },
@@ -668,14 +724,7 @@ const Profile = () => {
           </DetailInput>
           <AddContainer>
             <IconContainer>
-              <AddIcon
-                style={{
-                  color: "green",
-                  height: "70px",
-                  width: "70px",
-                  cursor: "pointer",
-                }}
-              />
+              <AddSectionButton>Add</AddSectionButton>
             </IconContainer>
           </AddContainer>
         </EducationDetailsInput>
@@ -812,15 +861,16 @@ const Profile = () => {
                 </Select>
                 <InputDetail type="link" placeholder={"sdlfkjdsf@cga.co"} />
                 <IconContainer>
-                  <AddIcon
+                  {/* <AddIcon
                     style={{
                       color: "green",
                       height: "30px",
                       width: "30px",
                       cursor: "pointer",
                     }}
-                  />
+                  /> */}
                 </IconContainer>
+                <AddButton>Add</AddButton>
               </InputContainer>
             </DetailInput>
           </DetailContainer>
@@ -1041,14 +1091,15 @@ const Profile = () => {
         </ProjectsInputContainer>
         <AddContainer>
           <IconContainer>
-            <AddIcon
+            <AddSectionButton>Add</AddSectionButton>
+            {/* <AddIcon
               style={{
                 color: "green",
                 height: "70px",
                 width: "70px",
                 cursor: "pointer",
               }}
-            />
+            /> */}
           </IconContainer>
         </AddContainer>
         <DetailHeadingContainer>
@@ -1098,19 +1149,26 @@ const Profile = () => {
                   <Option>Professional</Option>
                 </Select>
                 <IconContainer>
-                  <AddIcon
+                  {/* <AddIcon
                     style={{
                       color: "green",
                       height: "30px",
                       width: "30px",
                       cursor: "pointer",
                     }}
-                  />
+                  /> */}
+                  <AddButton>Add</AddButton>
                 </IconContainer>
               </InputContainer>
             </DetailInput>
           </DetailContainer>
         </SkillsContainer>
+        <AddContainer>
+          <IconContainer>
+            <CreateButton>Create</CreateButton>
+            <UpdateButton>Update</UpdateButton>
+          </IconContainer>
+        </AddContainer>
       </Wrapper>
     </Container>
   );
