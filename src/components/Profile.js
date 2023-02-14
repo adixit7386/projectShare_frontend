@@ -216,6 +216,8 @@ width:80%;
 `;
 const Paragraph = Styled.p`
 align:left;`;
+const ProjectsInputContainer = Styled.div``;
+
 const Profile = () => {
   // const countryCodes = [
   //   { country: "Afghanistan", code: "93", iso: "AF" },
@@ -970,6 +972,64 @@ const Profile = () => {
             </ProjectDescriptionContainer>
           </DetailContainer>
         </ProjectsContainer>
+        <ProjectsInputContainer>
+          <DetailContainer>
+            <DetailInput>
+              <TitleContainer>
+                <DetailText>Title</DetailText>
+              </TitleContainer>
+              <InputContainer>
+                <InputDetail type="text" placeholder={"Image Impainting"} />
+              </InputContainer>
+            </DetailInput>
+            <DetailInput>
+              <TitleContainer>
+                <DetailText>Duration</DetailText>
+              </TitleContainer>
+              <InputContainer>
+                <span>From</span>
+                <InputDetail type="date" />
+                <span>To</span>
+                <InputDetail type="date" />
+              </InputContainer>
+            </DetailInput>
+            <DetailInput>
+              <TitleContainer>
+                <DetailText>Link</DetailText>
+              </TitleContainer>
+              <InputContainer>
+                <InputDetail
+                  type="text"
+                  placeholder={"http://localhost:3000"}
+                />
+                <Select>
+                  <Option>Public</Option>
+                  <Option>Private</Option>
+                </Select>
+              </InputContainer>
+            </DetailInput>
+            <DetailInput>
+              <TitleContainer>
+                <DetailText>Description</DetailText>
+              </TitleContainer>
+              <InputContainer>
+                <TextArea placeholder="about project"></TextArea>
+              </InputContainer>
+            </DetailInput>
+          </DetailContainer>
+        </ProjectsInputContainer>
+        <AddContainer>
+          <IconContainer>
+            <AddIcon
+              style={{
+                color: "green",
+                height: "70px",
+                width: "70px",
+                cursor: "pointer",
+              }}
+            />
+          </IconContainer>
+        </AddContainer>
       </Wrapper>
     </Container>
   );
