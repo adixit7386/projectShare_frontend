@@ -64,8 +64,8 @@ display:flex;
 align-items:center;
 justify-content:center;`;
 const DetailHeading = Styled.span`
-font-size:25px;
-font-weight:400;
+font-size:30px;
+font-weight:500;
 color:grey;`;
 const DetailInput = Styled.div`
 width:40%;
@@ -217,6 +217,27 @@ width:80%;
 const Paragraph = Styled.p`
 align:left;`;
 const ProjectsInputContainer = Styled.div``;
+
+const SkillsContainer = Styled.div`
+width:100%;`;
+const SkillText = Styled.span`
+font-size:18px;
+color:black;
+`;
+const SkillDescription = Styled.div`
+
+margin:10px 20px;
+display:flex;
+`;
+const SkillName = Styled.div`
+flex:3;
+
+`;
+const SkillRating = Styled.div`
+display:flex;
+flex:1;
+align-items:center;
+justify-content:center;`;
 
 const Profile = () => {
   // const countryCodes = [
@@ -1030,6 +1051,66 @@ const Profile = () => {
             />
           </IconContainer>
         </AddContainer>
+        <DetailHeadingContainer>
+          <DetailHeading>Skills</DetailHeading>
+        </DetailHeadingContainer>
+        <SkillsContainer>
+          <DetailContainer>
+            <DetailInput>
+              <SkillDescription>
+                <SkillName>
+                  <SkillText>Problem Solving</SkillText>
+                </SkillName>
+                <SkillRating>
+                  <SkillText>4.5</SkillText>
+                </SkillRating>
+              </SkillDescription>
+            </DetailInput>
+            <DetailInput>
+              <SkillDescription>
+                <SkillName>
+                  <SkillText>Problem Solving</SkillText>
+                </SkillName>
+                <SkillRating>
+                  <SkillText>4.5</SkillText>
+                </SkillRating>
+              </SkillDescription>
+            </DetailInput>
+            <DetailInput>
+              <SkillDescription>
+                <SkillName>
+                  <SkillText>Problem Solving</SkillText>
+                </SkillName>
+                <SkillRating>
+                  <SkillText>4.5</SkillText>
+                </SkillRating>
+              </SkillDescription>
+            </DetailInput>
+            <DetailInput>
+              <InputContainer>
+                <InputDetail type="text" placeholder={"javascript"} />
+
+                <Select>
+                  <Option>Beginner</Option>
+
+                  <Option>Intermediate</Option>
+                  <Option>Advanced</Option>
+                  <Option>Professional</Option>
+                </Select>
+                <IconContainer>
+                  <AddIcon
+                    style={{
+                      color: "green",
+                      height: "30px",
+                      width: "30px",
+                      cursor: "pointer",
+                    }}
+                  />
+                </IconContainer>
+              </InputContainer>
+            </DetailInput>
+          </DetailContainer>
+        </SkillsContainer>
       </Wrapper>
     </Container>
   );
