@@ -2,9 +2,11 @@ import React from "react";
 import Styled from "styled-components";
 import Home from "../components/Home";
 import Profile from "../components/Profile";
+import ViewProfile from "../components/ViewProfile";
 import Chats from "../components/Chats";
 import Teams from "../components/Teams";
 import Projects from "../components/Projects";
+
 import { useLocation } from "react-router-dom";
 const Container = Styled.div`
 position:sticky;
@@ -18,15 +20,21 @@ flex:3.5;`;
 
 const Content = () => {
   let Location = useLocation();
-  Location = Location.pathname.split("/")[1];
 
+  Location = Location.pathname.split("/");
+
+  let page = Location[1];
+  let Id = Location[2];
+  console.log(Location);
   return (
     <Container>
-      {Location === "home" && <Home />}
-      {Location === "profile" && <Profile />}
-      {Location === "chats" && <Chats />}
-      {Location === "teams" && <Teams />}
-      {Location === "projects" && <Projects />}
+      {page === "home" && <Home />}
+
+      {page === "profile" && Location.length <= 2 && <Profile />}
+      {page === "profile" && Location.length > 2 && <ViewProfile />}
+      {page === "chats" && <Chats />}
+      {page === "teams" && <Teams />}
+      {page === "projects" && <Projects />}
     </Container>
   );
 };
