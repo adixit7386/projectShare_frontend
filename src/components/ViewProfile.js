@@ -42,19 +42,43 @@ const Name = Styled.span`
 font-weight:500;
 font-size:28px;
 `;
-const JobTitleContainer = Styled.div``;
-const JobTitleContainerText = Styled.span``;
-const StatusContainer = Styled.div``;
-const StatusContainerText = Styled.span``;
-const DOBContainer = Styled.div``;
-const DOBContainerText = Styled.span``;
-const EmailContainer = Styled.div``;
-const EmailContainerText = Styled.span``;
-const ContactContainer = Styled.div``;
-const ContactContainerText = Styled.span``;
+const JobTitleContainer = Styled.div`
+display:flex;
+align-items:center;
+justify-content:center;`;
+const JobTitleContainerText = Styled.span`
+font-size:18px;`;
+const StatusContainer = Styled.div`
+display:flex;
+align-items:center;
+justify-content:center;`;
+const StatusContainerText = Styled.span`
+font-size:18px;`;
+const DOBContainer = Styled.div`
+display:flex;
+align-items:center;
+justify-content:center;`;
+const DOBContainerText = Styled.span`
+font-size:18px;`;
+const EmailContainer = Styled.div`
+display:flex;
+align-items:center;
+justify-content:center;`;
+const EmailContainerText = Styled.span`
+font-size:18px;`;
+const ContactContainer = Styled.div`
+display:flex;
+align-items:center;
+justify-content:center;`;
+const ContactContainerText = Styled.span`
+font-size:18px;`;
 const DescriptionContainer = Styled.div`
+text-align:justify;
 width:85%;`;
-const DescriptionContainerText = Styled.span``;
+const DescriptionContainerText = Styled.span`
+font-size:18px;
+color:grey;
+`;
 
 const Input = Styled.input``;
 
@@ -88,12 +112,6 @@ const DetailInput = Styled.div`
 width:40%;
 margin:10px 20px;`;
 
-const DetailText = Styled.span`
-font-size:18px;
-color:black;`;
-
-const TitleContainer = Styled.div``;
-
 const InputContainer = Styled.div`
 margin-top:10px;
 padding:2px 3px;
@@ -112,25 +130,6 @@ padding:7px 12px;
 font-size:15px;
 border:none;
 flex:4;`;
-
-const Select = Styled.select`
-padding:7px 12px;
-&:focus{
-  outline:none;
-};
-border:none;
-flex:1;`;
-
-const TextArea = Styled.textarea`
-border:None;
-&:focus{
-  outline:none;
-};
-width:100%;
-`;
-
-const Option = Styled.option`
-padding:7px 12px;`;
 
 const EducationDetails = Styled.div`
 display:flex;
@@ -279,11 +278,7 @@ const Profile = () => {
               <StatusContainerText>2h mon-fri</StatusContainerText>
             </StatusContainer>
           </DetailInput>
-          <DetailInput>
-            <TitleContainer>
-              <DetailText>Status</DetailText>
-            </TitleContainer>
-          </DetailInput>
+
           <DetailInput>
             <DOBContainer>
               <DOBContainerText>jan-15-2004</DOBContainerText>
@@ -307,19 +302,6 @@ const Profile = () => {
               quidem consequuntur voluptate tenetur ipsam illo repudiandae ullam
               vitae magnam eius nisi veniam nobis, dicta autem? Nostrum quod
               totam, aliquid ratione adipisci asperiores molestias? Reiciendis
-              numquam odit vel veritatis provident recusandae corrupti quisquam
-              expedita architecto sed quasi nam rerum veniam, excepturi possimus
-              quae aperiam repellendus! Eius consequatur exercitationem
-              voluptate necessitatibus facere explicabo blanditiis, cumque vitae
-              fuga voluptates, similique assumenda rerum autem quaerat
-              aspernatur dolorem praesentium sapiente reiciendis laborum! Id
-              animi ab facere at similique. Voluptatibus, porro dolorem cum
-              adipisci illo distinctio officiis maxime aliquam repellat delectus
-              soluta, amet quisquam eaque voluptatum officia totam dignissimos
-              eligendi commodi accusantium neque. Blanditiis ipsum facilis
-              exercitationem nemo, officiis ad nostrum voluptates ex molestiae
-              maiores rem repellat voluptatibus dolores placeat cum debitis esse
-              quod. Quae, optio.
             </DescriptionContainerText>
           </DescriptionContainer>
         </DetailContainer>
