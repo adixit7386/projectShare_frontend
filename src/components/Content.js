@@ -24,7 +24,7 @@ const Content = () => {
   Location = Location.pathname.split("/");
 
   let page = Location[1];
-  let Id = Location[2];
+
   console.log(Location);
   return (
     <Container>

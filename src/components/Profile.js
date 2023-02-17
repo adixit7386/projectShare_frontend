@@ -3,18 +3,13 @@ import Styled from "styled-components";
 import UploadIcon from "@mui/icons-material/Upload";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
+
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-// import GitHubIcon from "@mui/icons-material/GitHub";
-// import InstagramIcon from "@mui/icons-material/Instagram";
-// import FacebookIcon from "@mui/icons-material/Facebook";
+
 const Container = Styled.div`
-margin:20px 20px ;
-border-radius:20px;
+`;
 
-box-shadow:0px 0px 10px lightgrey;`;
 const Wrapper = Styled.div`
-
 padding:10px;`;
 
 const HeadContainer = Styled.div`
@@ -22,23 +17,28 @@ display:flex;
 align-items:center;
 justify-content:center;
 `;
+
 const NameImgContainer = Styled.div`
 display:flex;
 align-items:center;
 justify-content:center;
 flex-direction:column;
 `;
+
 const ImgContainer = Styled.div`
 display:flex;
 align-items:center;
 flex-direction:column;
 justify-content:center;`;
+
 const NameContainer = Styled.div``;
+
 const Img = Styled.img`
 margin-bottom:10px;
 width:100px;
 height:100px;
 border-radius:50%;`;
+
 const Name = Styled.span`
 font-weight:500;
 font-size:28px;

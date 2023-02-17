@@ -3,7 +3,7 @@ import Styled from "styled-components";
 import HomeIcon from "@mui/icons-material/Home";
 import Person2Icon from "@mui/icons-material/Person2";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
-import GroupsIcon from "@mui/icons-material/Groups";
+
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { useLocation, useNavigate } from "react-router-dom";
 const Container = Styled.div`
@@ -117,21 +117,6 @@ const Sidebar = () => {
             </TdIcon1>
             <TdText>
               <Heading>Chats</Heading>
-            </TdText>
-            <TdIcon2></TdIcon2>
-          </Tr>
-          <Tr
-            location={Location}
-            name={"teams"}
-            onClick={() => {
-              handleClick("teams");
-            }}
-          >
-            <TdIcon1>
-              <GroupsIcon style={IconStyle} />
-            </TdIcon1>
-            <TdText>
-              <Heading>Teams</Heading>
             </TdText>
             <TdIcon2></TdIcon2>
           </Tr>
