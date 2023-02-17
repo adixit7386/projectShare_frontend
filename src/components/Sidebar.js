@@ -41,8 +41,11 @@ border-radius:10px;
 background-color:${(props) =>
   props.location === props.name ? "lightgrey" : "#f6f9fa"};
 justify-content:center;
-transition:all 0.7s ease;
+
+transition:all 0.3s ease;
+
 &:hover{
+  transform:scale(1.01);
   cursor:pointer;
   background-color:lightgrey;
 
