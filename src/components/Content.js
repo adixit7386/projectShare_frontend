@@ -6,7 +6,7 @@ import ViewProfile from "../components/ViewProfile";
 import Chats from "../components/Chats";
 import Teams from "../components/Teams";
 import Projects from "../components/Projects";
-
+import CreateProject from "../components/CreateProject";
 import { useLocation } from "react-router-dom";
 const Container = Styled.div`
 position:sticky;
@@ -25,7 +25,7 @@ const Content = () => {
 
   let page = Location[1];
 
-  console.log(Location);
+  // console.log(Location);
   return (
     <Container>
       {page === "home" && <Home />}
@@ -34,7 +34,13 @@ const Content = () => {
       {page === "profile" && Location.length > 2 && <ViewProfile />}
       {page === "chats" && <Chats />}
       {page === "teams" && <Teams />}
-      {page === "projects" && <Projects />}
+      {page === "projects" && Location.length <= 2 && <Projects />}
+      {page === "projects" && Location.length > 2 && Location[2] === "new" && (
+        <CreateProject />
+      )}
+      {page === "projects" && Location.length > 2 && Location[2] !== "new" && (
+        <Projects />
+      )}
     </Container>
   );
 };
