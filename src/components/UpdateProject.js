@@ -107,7 +107,7 @@ const CreateProject = () => {
     <Container>
       <Wrapper>
         <Header>
-          <Heading>Create New Project</Heading>
+          <Heading>Update Project</Heading>
         </Header>
         <MiddleContainer>
           <InputItem>
@@ -186,7 +186,7 @@ const CreateProject = () => {
           </InputItemDescription>
         </DescriptionContainer>
         <BottomContainer>
-          <CreateButton>Create</CreateButton>
+          <CreateButton>Update</CreateButton>
         </BottomContainer>
       </Wrapper>
     </Container>

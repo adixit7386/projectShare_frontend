@@ -34,6 +34,10 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
+    path: "/projects/update/:id",
+    element: <Home />,
+  },
+  {
     path: "/",
     element: <Navigate replace to="/home" />,
   },

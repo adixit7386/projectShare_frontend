@@ -96,7 +96,11 @@ const Projects = () => {
             Create New Project
           </Button>
         </Header>
-        <ProjectContainer>
+        <ProjectContainer
+          onClick={() => {
+            navigate("23984789347");
+          }}
+        >
           <DetailContainer>
             <TitleContainer>
               <TitleText>Image Inpainting</TitleText>

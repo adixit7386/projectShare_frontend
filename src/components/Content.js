@@ -7,6 +7,7 @@ import Chats from "../components/Chats";
 import Teams from "../components/Teams";
 import Projects from "../components/Projects";
 import CreateProject from "../components/CreateProject";
+import UpdateProject from "../components/UpdateProject";
 import { useLocation } from "react-router-dom";
 const Container = Styled.div`
 position:sticky;
@@ -38,9 +39,9 @@ const Content = () => {
       {page === "projects" && Location.length > 2 && Location[2] === "new" && (
         <CreateProject />
       )}
-      {page === "projects" && Location.length > 2 && Location[2] !== "new" && (
-        <Projects />
-      )}
+      {page === "projects" &&
+        Location.length > 2 &&
+        Location[2] === "update" && <UpdateProject />}
     </Container>
   );
 };
