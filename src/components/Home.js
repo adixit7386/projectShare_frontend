@@ -1,6 +1,7 @@
 import React from "react";
 import Styled from "styled-components";
 import SearchProject from "./SearchProject";
+import SearchPeople from "./SearchPeople";
 const Container = Styled.div``;
 const Header = Styled.div`
 margin:10px 20px;
@@ -27,9 +28,11 @@ const Home = () => {
           <Option>People</Option>
         </Select>
       </Header>
-      <SearchProject></SearchProject>
-      <SearchProject></SearchProject>
-      <SearchProject></SearchProject>
+      <SearchPeople></SearchPeople>
+      <SearchPeople></SearchPeople>
+      <SearchPeople></SearchPeople>
+      <SearchPeople></SearchPeople>
+      <SearchPeople></SearchPeople>
     </Container>
   );
 };
