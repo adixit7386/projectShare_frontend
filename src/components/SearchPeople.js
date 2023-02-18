@@ -1,6 +1,5 @@
 import React from "react";
 import Styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 
 const PeopleContainer = Styled.div`
 cursor:pointer;
@@ -53,7 +52,6 @@ height:100px;
 height:100px;
 border-radius:50%;`;
 const Projects = () => {
-  const navigate = useNavigate();
   return (
     <PeopleContainer>
       <DetailContainer>

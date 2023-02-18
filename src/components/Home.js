@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Styled from "styled-components";
 import SearchProject from "./SearchProject";
 import SearchPeople from "./SearchPeople";
@@ -20,19 +20,37 @@ padding:7px 12px;
 const Option = Styled.option`
 padding:5px 9px;`;
 const Home = () => {
+  const [filter, setFilter] = useState("People");
+
   return (
     <Container>
       <Header>
-        <Select>
+        <Select
+          onChange={(e) => {
+            setFilter(e.target.value);
+          }}
+        >
           <Option>Projects</Option>
           <Option>People</Option>
         </Select>
       </Header>
-      <SearchPeople></SearchPeople>
-      <SearchPeople></SearchPeople>
-      <SearchPeople></SearchPeople>
-      <SearchPeople></SearchPeople>
-      <SearchPeople></SearchPeople>
+      {filter === "People" ? (
+        <>
+          <SearchPeople></SearchPeople>
+          <SearchPeople></SearchPeople>
+          <SearchPeople></SearchPeople>
+          <SearchPeople></SearchPeople>
+          <SearchPeople></SearchPeople>
+        </>
+      ) : (
+        <>
+          <SearchProject></SearchProject>
+          <SearchProject></SearchProject>
+          <SearchProject></SearchProject>
+          <SearchProject></SearchProject>
+          <SearchProject></SearchProject>
+        </>
+      )}
     </Container>
   );
 };
