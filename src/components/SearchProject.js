@@ -27,6 +27,7 @@ flex-direction:column;
 `;
 
 const TitleContainer = Styled.div`
+font-weight:600;
 flex:1;`;
 const TitleText = Styled.span`
 font-size:20px;`;
@@ -56,6 +57,8 @@ margin-top:10px;`;
 const LeaderText = Styled.span``;
 
 const DescriptionContainer = Styled.div`
+color:grey;
+font-weight:500;
 flex:2;`;
 
 const Projects = () => {
