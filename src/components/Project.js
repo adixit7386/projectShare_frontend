@@ -41,6 +41,23 @@ flex:1
 const Link = Styled.a``;
 const BottomContainer = Styled.div``;
 const Paragraph = Styled.p``;
+const ButtonContainer = Styled.div`
+display:flex;
+align-items:center;
+justify-content:flex-end;`;
+const ButtonDelete = Styled.button`
+margin:10px 30px;
+padding:5px 12px;
+font-size:24px;
+border:none;
+background-color:red;
+color:white;
+border-radius:10px;
+transition:all 0.3s ease;
+cursor:pointer;
+&:hover{
+    transform:scale(1.1);
+}`;
 const Project = () => {
   return (
     <Container>
@@ -121,6 +138,9 @@ const Project = () => {
             temporibus.
           </Paragraph>
         </BottomContainer>
+        <ButtonContainer>
+          <ButtonDelete>Delete Project</ButtonDelete>
+        </ButtonContainer>
       </Wrapper>
     </Container>
   );
