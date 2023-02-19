@@ -12,9 +12,11 @@ import Project from "../components/Project";
 import { useLocation } from "react-router-dom";
 
 const Container = Styled.div`
+
 position:sticky;
 top:60px;
-overflow:scroll;
+overflow-x:hidden;
+overflow-y:scroll;
 height:calc(100vh - 60px);
 &::-webkit-scrollbar{
   display:none;

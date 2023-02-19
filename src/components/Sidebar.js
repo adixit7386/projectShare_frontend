@@ -11,7 +11,7 @@ const Container = Styled.div`
 flex:1;
 height:calc(100vh - 60px);
 position:sticky;
-top:0px;
+top:60px;
 overflow:scroll;
 &::-webkit-scrollbar{
   display:none;

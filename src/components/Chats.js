@@ -1,23 +1,19 @@
 import React from "react";
 import Styled from "styled-components";
+import LeftSideContainer from "./LeftSideContainer";
+import ContentContainer from "./ContentContainer";
 const Container = Styled.div`
+position:sticky;
+width:100%;
+height:calc(100vh - 60px);
+
 `;
 
 const Chats = () => {
   return (
     <Container>
-      Chats Chats ChatsChatsChatsChatsChatsChatsChatsChatsChatsChats
-      ChatsChatsChatsChatsChats Chats ChatsChats Chats ChatsChatsChats
-      ChatsChats ChatsChats ChatsChats ChatsChats ChatsChats ChatsChatsChats
-      Chats ChatsChats ChatsChats Chats Chats ChatsChats Chats Chats Chats
-      ChatsChatsChatsChatsChatsChats ChatsChats ChatsChats ChatsChats Chats
-      Chats Chats ChatsChatsChatsChatsChatsChatsChatsChatsChatsChatsChatsChats
-      Chats ChatsChats ChatsChats Chats Chats Chats Chats Chats Chats Chats
-      Chats Chats ChatsChatsChatsChatsChatsChatsChatsChatsChatsChats
-      ChatsChatsChatsChatsChats Chats ChatsChats Chats ChatsChatsChats
-      ChatsChats ChatsChats ChatsChats ChatsChats ChatsChats ChatsChatsChats
-      Chats ChatsChats ChatsChats Chats Chats ChatsChats Chats Chats Chats
-      ChatsChatsChatsChatsChatsChats ChatsChats ChatsChats ChatsChats Chats
+      <LeftSideContainer />
+      <ContentContainer />
     </Container>
   );
 };
