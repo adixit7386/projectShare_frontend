@@ -66,7 +66,7 @@ const Projects = () => {
   return (
     <ProjectContainer
       onClick={() => {
-        navigate("23984789347");
+        navigate("/projects/23984789347");
       }}
     >
       <DetailContainer>

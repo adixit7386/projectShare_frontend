@@ -30,8 +30,8 @@ const Home = () => {
             setFilter(e.target.value);
           }}
         >
-          <Option>Projects</Option>
           <Option>People</Option>
+          <Option>Projects</Option>
         </Select>
       </Header>
       {filter === "People" ? (
