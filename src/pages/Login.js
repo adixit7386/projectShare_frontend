@@ -3,12 +3,18 @@ import Styled from "styled-components";
 import Toast from "../components/Toast";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+let nightMode = true;
 const Container = Styled.div`
 height:100vh;
-background-color:#f8f9fa;
+
+background-color:${(props) => (nightMode ? "#1F1F1F" : "#f8f9fa")};
+color:${(props) => (nightMode ? "white" : "black")};
 display:flex;
 align-items:center;
 justify-content:center;
+
 `;
 
 const Wrapper = Styled.div`
@@ -36,31 +42,35 @@ margin-top:10px;
 `;
 
 const InputContainer = Styled.div`
-display:flex;
-align-items:center;
-justify-content:center;
-padding:10px 5px;
-height:30px;
-background-color:white;
-border:solid gray 1px;
-border-top:${(props) => props.name === "password" && "none"};
-border-top-left-radius:${(props) => props.name === "username" && "5px"};
-border-top-right-radius:${(props) => props.name === "username" && "5px"};
-border-bottom-right-radius:${(props) => props.name === "password" && "5px"};
-border-bottom-left-radius:${(props) => props.name === "password" && "5px"};
-width:90%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 5px;
+  height:30px;
+  background-color:${(props) => (nightMode ? "#292929" : "white")};
+  border:solid gray 1px;
+  border-top:${(props) => props.name === "password" && "none"};
+  border-top-left-radius:${(props) => props.name === "username" && "5px"};
+  border-top-right-radius:${(props) => props.name === "username" && "5px"};
+  border-bottom-right-radius:${(props) => props.name === "password" && "5px"};
+  border-bottom-left-radius:${(props) => props.name === "password" && "5px"};
+  width:90%;
 `;
 const Input = Styled.input`
-font-size:18px;
-width:90%;
-height:90%;
-border:none;
-&:focus{
-width:90%;
-height:90%;
-border:none;
-outline:none;
-}
+  font-size:18px;
+  background-color:${(props) => (nightMode ? "#292929" : "white")};
+  color:${(props) => (nightMode ? "white" : "grey")};
+  width:90%;
+  height:90%;
+  border:none;
+  &:focus{
+    width:90%;
+    height:90%;
+    border:none;
+    background-color:${(props) => (nightMode ? "#292929" : "white")};
+    color:${(props) => (nightMode ? "white" : "grey")};
+    outline:none;
+  }
 `;
 const CheckboxContainer = Styled.div`
 width:90%;
@@ -93,6 +103,8 @@ const Warning = Styled.span`
 margin-top:10px;`;
 const Login = () => {
   // const dispatch = useDispatch();
+  nightMode = useSelector((state) => state.nightmodebar.toggle);
+
   const navigate = useNavigate();
   // const [userName, setUserName] = useState();
   // const [password, setPassword] = useState();

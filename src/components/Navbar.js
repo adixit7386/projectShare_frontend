@@ -181,7 +181,7 @@ const Navbar = () => {
   const handleNightMode = () => {
     dispatch(toggleNightMode());
   };
-
+  console.log(nightMode);
   return (
     <Container>
       <Wrapper>
