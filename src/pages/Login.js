@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Styled from "styled-components";
-import Toast from "../components/Toast";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-
+import Loader from "../components/Loader";
+import { loginStart, loginSuccess, loginFailure } from "../redux/userReducer";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 let nightMode = true;
 const Container = Styled.div`
 height:100vh;
@@ -106,52 +107,36 @@ const Login = () => {
   nightMode = useSelector((state) => state.nightmodebar.toggle);
 
   const navigate = useNavigate();
-  // const [userName, setUserName] = useState();
-  // const [password, setPassword] = useState();
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const user = {
+    username: userName,
+    password: password,
+  };
+  const dispatch = useDispatch();
+  const handleClick = async (e) => {
+    e.preventDefault();
+    if (!password || !userName) {
+      return;
+    }
+    setLoading(true);
+    try {
+      dispatch(loginStart());
+      const res = await axios.post(
+        "http://localhost:5000/api/user/login",
+        user
+      );
 
-  // const user = {
-  //   username: userName,
-  //   password: password,
-  // };
-  // const [isnotification, setIsNotification] = useState(false);
-  // const [notification, setNotification] = useState("");
-  // const ManageNotification = (message) => {
-  //   let msg = message;
-  //   setTimeout(() => {
-  //     setIsNotification(true);
-  //     setNotification(msg);
-  //   }, 10);
-  //   setIsNotification(false);
-  // };
-  // const handleClick = async (e) => {
-  //   e.preventDefault();
-  //   if (!password || !userName) {
-  //     ManageNotification("Please Provide all the details");
-  //     return;
-  //   }
+      dispatch(loginSuccess(res.data));
 
-  //   try {
-  //     dispatch(loginStart());
-  //     const res = await axios.post(
-  //       "https://livechat-backend.onrender.com/api/user/login",
-  //       user
-  //     );
-
-  //     dispatch(loginSuccess(res.data));
-  //     // navigate("/");
-  //     // var user2 = {};
-  //     // user2 = Users();
-  //     // console.log(user2);
-  //     // setTimeout(() => {
-  //     navigate("/");
-  //     // }, 1000);
-  //     // console.log("hello world");
-  //   } catch (err) {
-  //     ManageNotification("username or password is incorrect");
-  //     console.log(err);
-  //     dispatch(loginFailure());
-  //   }
-  // };
+      navigate("/home");
+    } catch (err) {
+      console.log(err);
+      dispatch(loginFailure());
+    }
+    setLoading(false);
+  };
 
   return (
     <Container>
@@ -162,25 +147,36 @@ const Login = () => {
         </Title>
         <LoginText>Please Login</LoginText>
         <InputContainer name="username">
-          <Input placeholder="Username" />
+          <Input
+            placeholder="Username"
+            onChange={(e) => {
+              setUserName(e.target.value);
+            }}
+          />
         </InputContainer>
         <InputContainer name="password">
-          <Input type="password" placeholder="Password" />
+          <Input
+            type="password"
+            placeholder="Password"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
         </InputContainer>
         <CheckboxContainer>
           <Input
             style={{ width: "20px", marginRight: "10px" }}
             type="checkbox"
-          ></Input>
+          />
           <label>Remember Me</label>
         </CheckboxContainer>
         <Button
           type="submit"
-          onClick={() => {
-            navigate("/]");
+          onClick={(e) => {
+            handleClick(e);
           }}
         >
-          Login
+          {loading ? <Loader /> : "Login"}
         </Button>
 
         <Warning>
