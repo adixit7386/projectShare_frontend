@@ -3,6 +3,7 @@ import Styled from "styled-components";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
 import MailIcon from "@mui/icons-material/Mail";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleNightMode } from "../redux/nightModeReducer";
@@ -228,12 +229,21 @@ const Navbar = () => {
             />
           </MailIconContainer>
           <DarkModeIconContainer>
-            <DarkModeIcon
-              style={DarkMode ? IconStyleDarkMode : IconStyleLightMode}
-              onClick={() => {
-                handleNightMode();
-              }}
-            />
+            {nightMode ? (
+              <DarkModeIcon
+                style={IconStyleLightMode}
+                onClick={() => {
+                  handleNightMode();
+                }}
+              />
+            ) : (
+              <LightModeIcon
+                style={IconStyleDarkMode}
+                onClick={() => {
+                  handleNightMode();
+                }}
+              />
+            )}
           </DarkModeIconContainer>
           <UserContainer clicked={true}>
             <Img

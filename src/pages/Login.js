@@ -24,6 +24,9 @@ align-items:center;
 justify-content:center;
 flex-direction:column;
 width:300px;
+padding:40px 40px;
+border-radius:10px;
+background-color:${(props) => (nightMode ? "#292929" : "white")};
 
 `;
 const Title = Styled.h1`
@@ -69,9 +72,20 @@ const Input = Styled.input`
     height:90%;
     border:none;
     background-color:${(props) => (nightMode ? "#292929" : "white")};
-    color:${(props) => (nightMode ? "white" : "grey")};
+    color:${(props) => (nightMode ? "white" : "black")};
     outline:none;
   }
+  &:-webkit-autofill,
+&:-webkit-autofill:hover, 
+&:-webkit-autofill:focus, 
+&:-webkit-autofill:active{
+   
+    -webkit-box-shadow: ${(props) =>
+      nightMode
+        ? "0 0 0 30px #292929 inset !important"
+        : "0 0 0 30px #292929 inset !important"};
+    -webkit-text-fill-color: ${(props) => (nightMode ? "white" : "black")};
+}
 `;
 const CheckboxContainer = Styled.div`
 width:90%;
