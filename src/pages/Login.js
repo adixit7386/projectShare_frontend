@@ -157,7 +157,7 @@ const Login = () => {
 
       navigate("/home");
     } catch (err) {
-      console.log(err);
+      handleNotification("Incorrect username or password");
       dispatch(loginFailure());
     }
     setLoading(false);
