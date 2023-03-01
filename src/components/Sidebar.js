@@ -3,9 +3,10 @@ import Styled from "styled-components";
 import HomeIcon from "@mui/icons-material/Home";
 import Person2Icon from "@mui/icons-material/Person2";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
-
+import { useSelector } from "react-redux";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { useLocation, useNavigate } from "react-router-dom";
+let nightMode = true;
 const Container = Styled.div`
 
 flex:1;
@@ -16,7 +17,8 @@ overflow:scroll;
 &::-webkit-scrollbar{
   display:none;
 }
-background-color:#f6faf9;
+background-color:${(props) => (nightMode ? "#1F1F1F" : "#f8f9fa")};
+color:${(props) => (nightMode ? "white" : "black")};
 `;
 const Wrapper = Styled.div`
 display:flex;
@@ -39,7 +41,14 @@ display:flex;
 align-items:center;
 border-radius:10px;
 background-color:${(props) =>
-  props.location === props.name ? "lightgrey" : "#f6f9fa"};
+  props.location === props.name
+    ? nightMode
+      ? "#292929"
+      : "#f6f9fa"
+    : nightMode
+    ? "#1F1F1F"
+    : "#f6f9fa"};
+  
 justify-content:center;
 
 transition:all 0.3s ease;
@@ -47,7 +56,7 @@ transition:all 0.3s ease;
 &:hover{
   transform:scale(1.01);
   cursor:pointer;
-  background-color:lightgrey;
+  background-color:${(props) => (nightMode ? "#292929" : "lightgrey")};;
 
 }`;
 const TdIcon1 = Styled.td`
@@ -63,6 +72,8 @@ flex:1;`;
 const Heading = Styled.span`
 font-size:18px`;
 const Sidebar = () => {
+  nightMode = useSelector((state) => state.nightmodebar.toggle);
+
   const navigate = useNavigate();
   const IconStyle = {
     height: "30px",

@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { Mobile } from "../responsive";
 import axios from "axios";
 import Toast from "../components/Toast";
-import ForumIcon from "@mui/icons-material/Forum";
 import { validURL } from "../config/chatLogics";
 import { useSelector } from "react-redux";
 let nightMode = true;

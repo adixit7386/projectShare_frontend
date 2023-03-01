@@ -7,11 +7,12 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import MailIcon from "@mui/icons-material/Mail";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleNightMode } from "../redux/nightModeReducer";
-
+let nightMode = true;
 const Container = Styled.div`
 display:flex;
 align-items:center;
-background-color:#f6faf9;
+background-color:${(props) => (nightMode ? "#1F1F1F" : "#f8f9fa")};
+color:${(props) => (nightMode ? "white" : "black")};
 
 position:sticky;
 z-index:2;
@@ -75,7 +76,8 @@ border-right:none;
 `;
 
 const Input = Styled.input`
-background-color:#f6faf9;
+background-color:${(props) => (nightMode ? "#1F1F1F" : "#f6f9fa")};
+  color:${(props) => (nightMode ? "white" : "grey")};
 
 font-size: 18px;
 font-size: 18px;
@@ -90,11 +92,22 @@ outline:none;
 font-size: 18px;
 flex: 1;
 border:none;
-
+background-color:${(props) => (nightMode ? "#1F1F1F" : "#f6f9fa")};
+    color:${(props) => (nightMode ? "white" : "black")};
 height: 35px;
 outline:none;
 }
-
+  &:-webkit-autofill,
+&:-webkit-autofill:hover, 
+&:-webkit-autofill:focus, 
+&:-webkit-autofill:active{
+   
+    -webkit-box-shadow: ${(props) =>
+      nightMode
+        ? "0 0 0 30px #1F1F1F inset !important"
+        : "0 0 0 30px #f6f9fa inset !important"};
+    -webkit-text-fill-color: ${(props) => (nightMode ? "white" : "black")};
+}
 
 `;
 
@@ -127,9 +140,7 @@ cursor:pointer;
 display:flex;
 align-items:center;
 justify-content:center;
-&:hover{
-    background-color:lightgrey;
-}
+
 
 
 `;
@@ -138,6 +149,7 @@ const Img = Styled.img`
 height:30px;
 width:30px;
 border-radius:50%;
+filter:${() => nightMode && "invert(1)"};
 
 
 `;
@@ -154,9 +166,8 @@ justify-content:center;
 padding:5px 10px;`;
 
 const Navbar = () => {
-  const DarkMode = false;
   const [search, setSearch] = useState("");
-  const nightMode = useSelector((state) => state.nightmodebar.toggle);
+  nightMode = useSelector((state) => state.nightmodebar.toggle);
   const dispatch = useDispatch();
 
   const handleSearch = () => {
@@ -170,19 +181,19 @@ const Navbar = () => {
   const IconStyleDarkMode = {
     height: "30px",
     width: "30px",
-    color: "white",
+    color: "black",
     cursor: "pointer",
   };
   const IconStyleLightMode = {
     height: "30px",
     width: "30px",
-    color: "black",
+    color: "white",
     cursor: "pointer",
   };
   const handleNightMode = () => {
     dispatch(toggleNightMode());
   };
-  console.log(nightMode);
+
   return (
     <Container>
       <Wrapper>
@@ -225,7 +236,7 @@ const Navbar = () => {
         <Right>
           <MailIconContainer>
             <MailIcon
-              style={DarkMode ? IconStyleDarkMode : IconStyleLightMode}
+              style={nightMode ? IconStyleLightMode : IconStyleDarkMode}
             />
           </MailIconContainer>
           <DarkModeIconContainer>

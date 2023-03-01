@@ -2,15 +2,18 @@ import React, { useState } from "react";
 import Styled from "styled-components";
 import SearchProject from "./SearchProject";
 import SearchPeople from "./SearchPeople";
-const Container = Styled.div``;
+let nightMode = true;
+const Container = Styled.div`
+
+background-color:${(props) => (nightMode ? "#292929" : "white")};`;
 const Header = Styled.div`
-margin:10px 20px;
+padding:10px 20px;
 display:flex;
 align-items:center;
 justify-content:space-between;`;
 
 const Select = Styled.select`
-
+background-color:${(props) => (nightMode ? "#292929" : "white")};
 font-size:18px;
 border:none;
 padding:7px 12px;
