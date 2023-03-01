@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import Styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { Mobile } from "../responsive";
-
+import axios from "axios";
 import Toast from "../components/Toast";
 import ForumIcon from "@mui/icons-material/Forum";
-
+import { validURL } from "../config/chatLogics";
 const Container = Styled.div`
 
 height:100vh;
@@ -123,97 +123,94 @@ border-radius:50%;
 object-fit:cover;`;
 const Label = Styled.label``;
 const Login = () => {
-  // let user = {};
-  // const [userName, setUserName] = useState("");
+  let user = {};
+  const [userName, setUserName] = useState("");
 
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [repassword, setRepassword] = useState("");
-  // const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [repassword, setRepassword] = useState("");
+  const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // const [imgLink, setImgLink] = useState("");
+  const [imgLink, setImgLink] = useState("");
 
-  // const navigate = useNavigate();
-  // const [isnotification, setIsNotification] = useState(false);
-  // const [notification, setNotification] = useState("");
-  // const ManageNotification = (message) => {
-  //   let msg = message;
-  //   setTimeout(() => {
-  //     setIsNotification(true);
-  //     setNotification(msg);
-  //   }, 10);
-  //   setIsNotification(false);
-  // };
-  // const handleClick = async () => {
-  //   if (!password || !repassword || !userName || !password || !email || !name) {
-  //     ManageNotification("Please Provide all the details");
-
-  //     return;
-  //   }
-  //   if (password !== repassword) {
-  //     ManageNotification("Passwords do not match");
-
-  //     return;
-  //   }
-
-  //   user.username = userName;
-  //   user.email = email;
-  //   user.password = password;
-  //   user.name = name;
-  //   user.image = imgLink;
-
-  //   try {
-  //     const res = await axios.post(
-  //       "https://livechat-backend.onrender.com/api/user/register",
-  //       user
-  //     );
-
-  //     if (res.status === 201) {
-  //       navigate("/login");
-  //     }
-  //   } catch (err) {
-  //     ManageNotification("This user already exists");
-  //   }
-  // };
-
-  // const setFiles = (img) => {
-  //   setLoading(true);
-  //   if (img === undefined) {
-  //     ManageNotification("Please select the image");
-  //     setLoading(false);
-  //     return;
-  //   }
-
-  //   if (img.type === "image/jpeg" || img.type === "image/png") {
-  //     const data = new FormData();
-  //     data.append("file", img);
-  //     data.append("upload_preset", "react-chat-app");
-  //     data.append("cloud_name", "dcvv2vevf");
-  //     fetch("https://api.cloudinary.com/v1_1/dcvv2vevf/image/upload", {
-  //       method: "post",
-  //       body: data,
-  //     })
-  //       .then((resp) => resp.json())
-  //       .then((data) => {
-  //         setImgLink(data.url.toString());
-  //         setLoading(false);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //         setLoading(false);
-  //       });
-  //   }
-  // };
-  const IconStyle = {
-    height: "35px",
-    width: "35px",
-    color: "#0081B4",
+  const navigate = useNavigate();
+  const [isnotification, setIsNotification] = useState(false);
+  const [notification, setNotification] = useState("");
+  const ManageNotification = (message) => {
+    let msg = message;
+    setTimeout(() => {
+      setIsNotification(true);
+      setNotification(msg);
+    }, 10);
+    setIsNotification(false);
   };
+  const handleClick = async () => {
+    if (!password || !repassword || !userName || !password || !email || !name) {
+      ManageNotification("Please Provide all the details");
+
+      return;
+    }
+    if (password !== repassword) {
+      ManageNotification("Passwords do not match");
+
+      return;
+    }
+
+    user.username = userName;
+    user.email = email;
+    user.password = password;
+    user.name = name;
+    user.image = imgLink;
+
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/user/register",
+        user
+      );
+
+      if (res.status === 201) {
+        navigate("/login");
+      }
+      console.log(res);
+    } catch (err) {
+      ManageNotification("This user already exists");
+    }
+  };
+
+  const setFiles = (img) => {
+    setLoading(true);
+    if (img === undefined) {
+      ManageNotification("Please select the image");
+      setLoading(false);
+      return;
+    }
+
+    if (img.type === "image/jpeg" || img.type === "image/png") {
+      const data = new FormData();
+      data.append("file", img);
+      data.append("upload_preset", "react-chat-app");
+      data.append("cloud_name", "dcvv2vevf");
+      fetch("https://api.cloudinary.com/v1_1/dcvv2vevf/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          setImgLink(data.url.toString());
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoading(false);
+        });
+    }
+  };
+
   return (
     <Container>
       <Wrapper>
-        {/* {isnotification && <Toast message={notification} />} */}
+        {isnotification && <Toast message={notification} />}
 
         <Title>
           project<Span>Share</Span>
@@ -221,10 +218,20 @@ const Login = () => {
         <LoginText>Please Register Here</LoginText>
         <InputWrapper>
           <InputContainer name="name">
-            <Input placeholder="Name" />
+            <Input
+              placeholder="Name"
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+            />
           </InputContainer>
           <InputContainer name="image">
-            <Input hidden id="image" type="file" />
+            <Input
+              hidden
+              id="image"
+              type="file"
+              onChange={(e) => setFiles(e.target.files[0])}
+            />
             <Label
               htmlFor="image"
               style={{
@@ -237,24 +244,49 @@ const Login = () => {
             </Label>
             <Img
               src={
-                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                validURL(imgLink)
+                  ? imgLink
+                  : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
               }
             />
           </InputContainer>
           <InputContainer name="username">
-            <Input placeholder="Username" />
+            <Input
+              placeholder="Username"
+              onChange={(e) => setUserName(e.target.value)}
+            />
           </InputContainer>
           <InputContainer name="email">
-            <Input type="email" placeholder="E-mail" />
+            <Input
+              type="email"
+              placeholder="E-mail"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
           </InputContainer>
           <InputContainer name="password">
-            <Input type="password" placeholder="Password" />
+            <Input
+              type="password"
+              placeholder="Password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
           </InputContainer>
           <InputContainer name="repeatpassword">
-            <Input type="password" placeholder="Repeat Password" />
+            <Input
+              type="password"
+              placeholder="Repeat Password"
+              onChange={(e) => {
+                setRepassword(e.target.value);
+              }}
+            />
           </InputContainer>
         </InputWrapper>
-        <Button type="button">Register</Button>
+        <Button type="button" onClick={() => handleClick()}>
+          Register
+        </Button>
 
         <CheckboxContainer>
           <Warning>
