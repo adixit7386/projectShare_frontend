@@ -6,10 +6,13 @@ import axios from "axios";
 import Toast from "../components/Toast";
 import ForumIcon from "@mui/icons-material/Forum";
 import { validURL } from "../config/chatLogics";
+import { useSelector } from "react-redux";
+let nightMode = true;
 const Container = Styled.div`
 
 height:100vh;
-background-color:#f8f9fa;
+background-color:${(props) => (nightMode ? "#1F1F1F" : "#f8f9fa")};
+color:${(props) => (nightMode ? "white" : "black")};
 display:flex;
 align-items:center;
 justify-content:center;
@@ -22,6 +25,9 @@ align-items:center;
 justify-content:center;
 flex-direction:column;
 width:700px;
+padding:40px 40px;
+background-color:${(props) => (nightMode ? "#292929" : "white")};
+border-radius:10px;
 
 `;
 const Title = Styled.h1`
@@ -55,17 +61,19 @@ align-items:center;
 justify-content:center;
 padding:10px 5px;
 height:30px;
-background-color:white;
+
 border:solid gray 1px;
 border-radius:5px;
 margin:6px 12px;
 
 width:300px;
 ${Mobile({ margin: "3px 12px" })};
+background-color:${(props) => (nightMode ? "#292929" : "white")};
 `;
 const Input = Styled.input`
 
-
+background-color:${(props) => (nightMode ? "#292929" : "white")};
+  color:${(props) => (nightMode ? "white" : "grey")};
 font-size:18px;
 width:90%;
 height:90%;
@@ -81,7 +89,22 @@ transition:all 0.3s ease;
     font-size:18px;
 width:90%;
 height:90%;
+background-color:${(props) => (nightMode ? "#292929" : "white")};
+    color:${(props) => (nightMode ? "white" : "black")};
 }
+
+ &:-webkit-autofill,
+&:-webkit-autofill:hover, 
+&:-webkit-autofill:focus, 
+&:-webkit-autofill:active{
+   
+    -webkit-box-shadow: ${(props) =>
+      nightMode
+        ? "0 0 0 30px #292929 inset !important"
+        : "0 0 0 30px white inset !important"};
+    -webkit-text-fill-color: ${(props) => (nightMode ? "white" : "black")};
+}
+
 
 `;
 const CheckboxContainer = Styled.div`
@@ -123,6 +146,7 @@ border-radius:50%;
 object-fit:cover;`;
 const Label = Styled.label``;
 const Login = () => {
+  nightMode = useSelector((state) => state.nightmodebar.toggle);
   let user = {};
   const [userName, setUserName] = useState("");
 

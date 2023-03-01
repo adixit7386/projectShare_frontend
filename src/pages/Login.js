@@ -25,8 +25,8 @@ align-items:center;
 justify-content:center;
 flex-direction:column;
 width:300px;
-padding:40px 40px;
 border-radius:10px;
+padding:40px 40px;
 background-color:${(props) => (nightMode ? "#292929" : "white")};
 
 `;
@@ -84,7 +84,7 @@ const Input = Styled.input`
     -webkit-box-shadow: ${(props) =>
       nightMode
         ? "0 0 0 30px #292929 inset !important"
-        : "0 0 0 30px #292929 inset !important"};
+        : "0 0 0 30px white inset !important"};
     -webkit-text-fill-color: ${(props) => (nightMode ? "white" : "black")};
 }
 `;
