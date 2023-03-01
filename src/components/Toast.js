@@ -17,20 +17,16 @@ position:absolute;
 height:50px;
 width:300px;
 color:white;
-background-color:#C64343;
+background-color:#0d6efd;
 z-index:8;
 top:20px;
 right:${(props) => (props.visibility ? "20px" : "-600px")};
 transition:all 0.5s ease;
-
 border-radius:5px;
-
 display:flex;align-items:center;
 justify-content:center;
 `;
-// const Heading = Styled.span`
-// font-size:20px;
-// `;
+
 const Toast = ({ message }) => {
   const [visible, setVisible] = useState(false);
 

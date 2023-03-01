@@ -3,6 +3,7 @@ import Styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
+import Toast from "../components/Toast";
 import { loginStart, loginSuccess, loginFailure } from "../redux/userReducer";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
@@ -124,6 +125,15 @@ const Login = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [notification, setNotification] = useState(false);
+  const [message, setMessage] = useState("");
+  const handleNotification = (message) => {
+    setNotification(true);
+    setMessage(message);
+    setTimeout(() => {
+      setNotification(false);
+    }, 3000);
+  };
   const user = {
     username: userName,
     password: password,
@@ -132,6 +142,7 @@ const Login = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     if (!password || !userName) {
+      handleNotification("Please fill all the details");
       return;
     }
     setLoading(true);
@@ -154,7 +165,7 @@ const Login = () => {
 
   return (
     <Container>
-      {/* {isnotification && <Toast message={notification} />} */}
+      {notification && <Toast message={message} />}
       <Wrapper>
         <Title>
           project<Span>Share</Span>
