@@ -160,14 +160,12 @@ const Login = () => {
   const [imgLink, setImgLink] = useState("");
 
   const navigate = useNavigate();
-  const [isnotification, setIsNotification] = useState(false);
 
   const ManageNotification = (message) => {
+    dispatch(toggleWarningBar(message));
     setTimeout(() => {
-      setIsNotification(true);
-      dispatch(toggleWarningBar(message));
-    }, 10);
-    setIsNotification(false);
+      dispatch(toggleWarningBar(""));
+    }, 3000);
   };
   const handleClick = async () => {
     if (!password || !repassword || !userName || !password || !email || !name) {
@@ -234,8 +232,6 @@ const Login = () => {
   return (
     <Container>
       <Wrapper>
-        {isnotification && <Toast />}
-
         <Title>
           project<Span>Share</Span>
         </Title>
