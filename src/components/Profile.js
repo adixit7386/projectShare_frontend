@@ -253,6 +253,7 @@ align-items:center;
 justify-content:flex-end;
 `;
 const IconContainer = Styled.div`
+flex:1;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -343,6 +344,13 @@ cursor:pointer;
   background-color:#87CEEB;
 }
 `;
+const LinkContainer = Styled.div`
+  flex:5;
+
+`;
+const LinkText = Styled.a`
+
+font-size:20px;`;
 
 const CreateButton = Styled.button`
 margin-top:20px;
@@ -382,16 +390,22 @@ const Profile = () => {
     year: "",
   });
   const [educationArray, setEducationArray] = useState([]);
+  const [social, setSocial] = useState({ website: "", link: "" });
+  const [socialArray, setSocialArray] = useState([]);
+  const [projects, setProjects] = useState({
+    title: "",
+    link: "",
+    from: "",
+    to: "",
+    description: "",
+  });
+  const [projectsArray, setProjectsArray] = useState([]);
   const [skills, setSkills] = useState({});
-  const [projects, setProjects] = useState({});
-  const [social, setSocial] = useState({});
-  const [notification, setNotification] = useState(false);
 
   const handleNotification = (message) => {
-    setNotification(true);
     dispatch(toggleWarningBar(message));
     setTimeout(() => {
-      setNotification(false);
+      dispatch(toggleWarningBar(""));
     }, 3000);
   };
   const handlePersonalDetails = (e) => {
@@ -410,7 +424,6 @@ const Profile = () => {
       !educationDetails.score ||
       !educationDetails.year
     ) {
-      console.log("error");
       handleNotification("Plese fill all the details");
       return;
     }
@@ -423,11 +436,26 @@ const Profile = () => {
       year: "",
     });
   };
-
+  const handleSocialLinks = (e) => {
+    setSocial({ ...social, [e.target.name]: e.target.value });
+  };
+  const addSocialArray = () => {
+    if (!social.website || !social.link) {
+      handleNotification("Plese fill all the details");
+      return;
+    }
+    setSocialArray([...socialArray, social]);
+    setSocial({ website: "", link: "" });
+  };
+  const handleProjects = (e) => {
+    setProjects({ ...projects, [e.target.name]: e.target.value });
+  };
+  const addProjectsArray = () => {
+    setProjectsArray([...projectsArray, projects]);
+  };
+  console.log(projectsArray);
   return (
     <Container>
-      {notification && <Toast />}
-
       <Wrapper>
         <HeadContainer>
           <NameImgContainer>
@@ -674,125 +702,34 @@ const Profile = () => {
         </DetailHeadingContainer>
         <SocialContainer>
           <DetailContainer>
+            {socialArray?.map((item) => (
+              <DetailInput>
+                <InputContainer>
+                  <LinkContainer>
+                    <LinkText href={item.link}>{item.website}</LinkText>
+                  </LinkContainer>
+
+                  <IconContainer>
+                    <DeleteIcon
+                      style={{
+                        color: "red",
+                        cursor: "pointer",
+                        marginRight: "10px",
+                      }}
+                    />
+                  </IconContainer>
+                </InputContainer>
+              </DetailInput>
+            ))}
+
             <DetailInput>
               <InputContainer>
-                <IconContainer>
-                  <LinkedInIcon />
-                </IconContainer>
-                <InputDetail
-                  type="link"
-                  placeholder={"adixit7386@instagram.com"}
-                />
-                <IconContainer>
-                  <EditIcon
-                    style={{
-                      color: "blue",
-                      cursor: "pointer",
-                      marginRight: "10px",
-                    }}
-                  />
-                </IconContainer>
-                <IconContainer>
-                  <DeleteIcon
-                    style={{
-                      color: "red",
-                      cursor: "pointer",
-                      marginRight: "10px",
-                    }}
-                  />
-                </IconContainer>
-              </InputContainer>
-            </DetailInput>
-            <DetailInput>
-              <InputContainer>
-                <IconContainer>
-                  <LinkedInIcon />
-                </IconContainer>
-                <InputDetail
-                  type="link"
-                  placeholder={"adixit7386@instagram.com"}
-                />
-                <IconContainer>
-                  <EditIcon
-                    style={{
-                      color: "blue",
-                      cursor: "pointer",
-                      marginRight: "10px",
-                    }}
-                  />
-                </IconContainer>
-                <IconContainer>
-                  <DeleteIcon
-                    style={{
-                      color: "red",
-                      cursor: "pointer",
-                      marginRight: "10px",
-                    }}
-                  />
-                </IconContainer>
-              </InputContainer>
-            </DetailInput>
-            <DetailInput>
-              <InputContainer>
-                <IconContainer>
-                  <LinkedInIcon />
-                </IconContainer>
-                <InputDetail
-                  type="link"
-                  placeholder={"adixit7386@instagram.com"}
-                />
-                <IconContainer>
-                  <EditIcon
-                    style={{
-                      color: "blue",
-                      cursor: "pointer",
-                      marginRight: "10px",
-                    }}
-                  />
-                </IconContainer>
-                <IconContainer>
-                  <DeleteIcon
-                    style={{
-                      color: "red",
-                      cursor: "pointer",
-                      marginRight: "10px",
-                    }}
-                  />
-                </IconContainer>
-              </InputContainer>
-            </DetailInput>
-            <DetailInput>
-              <InputContainer>
-                <IconContainer>
-                  <LinkedInIcon />
-                </IconContainer>
-                <InputDetail
-                  type="link"
-                  placeholder={"adixit7386@instagram.com"}
-                />
-                <IconContainer>
-                  <EditIcon
-                    style={{
-                      color: "blue",
-                      cursor: "pointer",
-                      marginRight: "10px",
-                    }}
-                  />
-                </IconContainer>
-                <IconContainer>
-                  <DeleteIcon
-                    style={{
-                      color: "red",
-                      cursor: "pointer",
-                      marginRight: "10px",
-                    }}
-                  />
-                </IconContainer>
-              </InputContainer>
-            </DetailInput>
-            <DetailInput>
-              <InputContainer>
-                <Select>
+                <Select
+                  name="website"
+                  onChange={(e) => {
+                    handleSocialLinks(e);
+                  }}
+                >
                   <Option>LinkedIn</Option>
                   <Option>Instagram</Option>
                   <Option>Github</Option>
@@ -800,7 +737,13 @@ const Profile = () => {
                   <Option>Medium</Option>
                   <Option>Dev.to</Option>
                 </Select>
-                <InputDetail type="link" placeholder={"sdlfkjdsf@cga.co"} />
+                <InputDetail
+                  type="link"
+                  name="link"
+                  value={social.link}
+                  onChange={(e) => handleSocialLinks(e)}
+                  placeholder={"sdlfkjdsf@cga.co"}
+                />
                 <IconContainer>
                   {/* <AddIcon
                     style={{
@@ -811,7 +754,13 @@ const Profile = () => {
                     }}
                   /> */}
                 </IconContainer>
-                <AddButton>Add</AddButton>
+                <AddButton
+                  onClick={() => {
+                    addSocialArray();
+                  }}
+                >
+                  Add
+                </AddButton>
               </InputContainer>
             </DetailInput>
           </DetailContainer>
@@ -991,7 +940,12 @@ const Profile = () => {
                 <DetailText>Title</DetailText>
               </TitleContainer>
               <InputContainer>
-                <InputDetail type="text" placeholder={"Image Impainting"} />
+                <InputDetail
+                  type="text"
+                  name="title"
+                  onChange={(e) => handleProjects(e)}
+                  placeholder={"Image Impainting"}
+                />
               </InputContainer>
             </DetailInput>
             <DetailInput>
@@ -1000,9 +954,17 @@ const Profile = () => {
               </TitleContainer>
               <InputContainer>
                 <span>From</span>
-                <InputDetail type="date" />
+                <InputDetail
+                  name="from"
+                  onChange={(e) => handleProjects(e)}
+                  type="date"
+                />
                 <span>To</span>
-                <InputDetail type="date" />
+                <InputDetail
+                  name="to"
+                  onChange={(e) => handleProjects(e)}
+                  type="date"
+                />
               </InputContainer>
             </DetailInput>
             <DetailInput>
@@ -1012,12 +974,10 @@ const Profile = () => {
               <InputContainer>
                 <InputDetail
                   type="text"
+                  name="link"
+                  onChange={(e) => handleProjects(e)}
                   placeholder={"http://localhost:3000"}
                 />
-                <Select>
-                  <Option>Public</Option>
-                  <Option>Private</Option>
-                </Select>
               </InputContainer>
             </DetailInput>
             <DetailInput>
@@ -1025,14 +985,20 @@ const Profile = () => {
                 <DetailText>Description</DetailText>
               </TitleContainer>
               <InputContainer>
-                <TextArea placeholder="about project"></TextArea>
+                <TextArea
+                  onChange={(e) => handleProjects(e)}
+                  name="description"
+                  placeholder="about project"
+                ></TextArea>
               </InputContainer>
             </DetailInput>
           </DetailContainer>
         </ProjectsInputContainer>
         <AddContainer>
           <IconContainer>
-            <AddSectionButton>Add</AddSectionButton>
+            <AddSectionButton onClick={() => addProjectsArray()}>
+              Add
+            </AddSectionButton>
             {/* <AddIcon
               style={{
                 color: "green",
