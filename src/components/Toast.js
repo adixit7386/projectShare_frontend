@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleWarningBar } from "../redux/warningReducer";
+
 const ParentContainer = Styled.div`
 
 position:absolute;
@@ -33,6 +35,7 @@ justify-content:center;
 `;
 
 const Toast = () => {
+  const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const warning = useSelector((state) => state.warning);
   useEffect(() => {
@@ -47,6 +50,7 @@ const Toast = () => {
       setVisible(false);
     }, 2000);
   };
+
   return (
     <ParentContainer visibility={visible}>
       <Container visibility={visible}>{warning.warning}</Container>

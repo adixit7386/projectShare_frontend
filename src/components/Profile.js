@@ -3,8 +3,9 @@ import Styled from "styled-components";
 import UploadIcon from "@mui/icons-material/Upload";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import { toggleWarningBar } from "../redux/warningReducer";
 import Toast from "../components/Toast";
 let nightMode = true;
 const Container = Styled.div`
@@ -372,6 +373,7 @@ cursor:pointer;
 }`;
 const Profile = () => {
   nightMode = useSelector((state) => state.nightmodebar.toggle);
+  const dispatch = useDispatch();
   const [personalDetails, setPersonalDetails] = useState({});
   const [educationDetails, setEducationDetails] = useState({
     title: "",
@@ -384,10 +386,10 @@ const Profile = () => {
   const [projects, setProjects] = useState({});
   const [social, setSocial] = useState({});
   const [notification, setNotification] = useState(false);
-  const [message, setMessage] = useState("");
+
   const handleNotification = (message) => {
     setNotification(true);
-    setMessage(message);
+    dispatch(toggleWarningBar(message));
     setTimeout(() => {
       setNotification(false);
     }, 3000);
@@ -424,7 +426,7 @@ const Profile = () => {
 
   return (
     <Container>
-      {notification && <Toast message={message} />}
+      {notification && <Toast />}
 
       <Wrapper>
         <HeadContainer>

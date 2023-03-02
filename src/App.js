@@ -4,6 +4,9 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Navigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleWarningBar } from "./redux/warningReducer";
+import Toast from "./components/Toast";
 const router = createBrowserRouter([
   {
     path: "/home",
@@ -51,7 +54,15 @@ const router = createBrowserRouter([
   },
 ]);
 const App = () => {
-  return <RouterProvider router={router} />;
+  const dispatch = useDispatch();
+  const warning = useSelector((state) => state.warning);
+
+  return (
+    <div>
+      {warning.toggle && <Toast />}
+      <RouterProvider router={router} />
+    </div>
+  );
 };
 
 export default App;
