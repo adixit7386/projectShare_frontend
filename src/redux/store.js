@@ -20,6 +20,7 @@ import createGroupReducer from "./createGroupReducer";
 import notificationReducer from "./notificationReducer";
 import updateChats from "./updateChats";
 import notificationBarReducer from "./notificationBarReducer";
+import warningReducer from "./warningReducer";
 const persistConfig = {
   key: "root",
   version: 1,
@@ -36,6 +37,7 @@ const rootReducer = combineReducers({
   updatechats: updateChats,
   notification: notificationReducer,
   notificationbar: notificationBarReducer,
+  warning: warningReducer,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({

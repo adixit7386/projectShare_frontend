@@ -51,7 +51,7 @@ background-color:${(props) =>
   
 justify-content:center;
 
-transition:all 0.3s ease;
+
 
 &:hover{
   transform:scale(1.01);

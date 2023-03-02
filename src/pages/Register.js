@@ -5,7 +5,8 @@ import { Mobile } from "../responsive";
 import axios from "axios";
 import Toast from "../components/Toast";
 import { validURL } from "../config/chatLogics";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleWarningBar } from "../redux/warningReducer";
 let nightMode = true;
 const Container = Styled.div`
 
@@ -146,6 +147,7 @@ object-fit:cover;`;
 const Label = Styled.label``;
 const Login = () => {
   nightMode = useSelector((state) => state.nightmodebar.toggle);
+  const dispatch = useDispatch();
   let user = {};
   const [userName, setUserName] = useState("");
 
@@ -159,12 +161,11 @@ const Login = () => {
 
   const navigate = useNavigate();
   const [isnotification, setIsNotification] = useState(false);
-  const [notification, setNotification] = useState("");
+
   const ManageNotification = (message) => {
-    let msg = message;
     setTimeout(() => {
       setIsNotification(true);
-      setNotification(msg);
+      dispatch(toggleWarningBar(message));
     }, 10);
     setIsNotification(false);
   };
@@ -233,7 +234,7 @@ const Login = () => {
   return (
     <Container>
       <Wrapper>
-        {isnotification && <Toast message={notification} />}
+        {isnotification && <Toast />}
 
         <Title>
           project<Span>Share</Span>

@@ -10,6 +10,7 @@ import {
   validURL,
 } from "../config/chatLogics";
 const ParentContainer = Styled.div`
+
 position:absolute;
 top:0px;
 left:0px;

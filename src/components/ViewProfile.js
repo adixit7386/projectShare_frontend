@@ -1,8 +1,11 @@
 import React from "react";
 import Styled from "styled-components";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-
+import { useSelector } from "react-redux";
+let nightMode = true;
 const Container = Styled.div`
+background-color:${(props) => (nightMode ? "#1F1F1F" : "#f8f9fa")};
+color:${(props) => (nightMode ? "white" : "black")};
 margin:20px 20px ;
 border-radius:20px;
 box-shadow:0px 0px 10px lightgrey;`;
@@ -248,6 +251,7 @@ align-items:center;
 justify-content:center;`;
 
 const Profile = () => {
+  nightMode = useSelector((state) => state.nightmodebar.toggle);
   return (
     <Container>
       <Wrapper>

@@ -1,16 +1,19 @@
 import React from "react";
 import Styled from "styled-components";
-
+import { useSelector } from "react-redux";
+let nightMode = true;
 const PeopleContainer = Styled.div`
+background-color:${(props) => (nightMode ? "#1F1F1F" : "#f8f9fa")};
+color:${(props) => (nightMode ? "white" : "black")};
 cursor:pointer;
 margin:10px 20px;
 display:flex;
 align-items:flex-start;
 justify-content:center;
-box-shadow:0px 0px 5px grey;
+
 border-radius:10px;
 padding:7px 12px;
-transition:all 0.3s ease;
+
 &:hover{
 
   transform:scale(1.01);
@@ -52,6 +55,7 @@ height:100px;
 height:100px;
 border-radius:50%;`;
 const Projects = () => {
+  nightMode = useSelector((state) => state.nightmodebar.toggle);
   return (
     <PeopleContainer>
       <DetailContainer>

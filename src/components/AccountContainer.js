@@ -97,6 +97,7 @@ const PersonContainer = ({ toggle }) => {
     dispatch(resetActiveChat());
     navigate("/login");
   };
+  console.log(user.name);
   return (
     <ParentContainer
       className="parent"

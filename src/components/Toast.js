@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Styled from "styled-components";
-
+import { useSelector } from "react-redux";
 const ParentContainer = Styled.div`
+
 position:absolute;
+top:0px;
+left:0px;
+right:0px;
+bottom:0px;
 height:100vh;
 width:100vw;
 visibility:${(props) => (props.visibility === true ? "visible" : "hidden")};
 overflow:hidden;
-z-index:8;
+z-index:10;
 display:flex;
 justify-content:flex-end;
 
@@ -27,9 +32,9 @@ display:flex;align-items:center;
 justify-content:center;
 `;
 
-const Toast = ({ message }) => {
+const Toast = () => {
   const [visible, setVisible] = useState(false);
-
+  const warning = useSelector((state) => state.warning);
   useEffect(() => {
     setTimeout(() => {
       setVisible(true);
@@ -44,7 +49,7 @@ const Toast = ({ message }) => {
   };
   return (
     <ParentContainer visibility={visible}>
-      <Container visibility={visible}>{message}</Container>
+      <Container visibility={visible}>{warning.warning}</Container>
     </ParentContainer>
   );
 };

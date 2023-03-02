@@ -5,8 +5,10 @@ import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import MailIcon from "@mui/icons-material/Mail";
+import AccountContainer from "../components/AccountContainer";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleNightMode } from "../redux/nightModeReducer";
+import { toggleAccountBar } from "../redux/accountReducer";
 let nightMode = true;
 const Container = Styled.div`
 display:flex;
@@ -21,7 +23,7 @@ justify-content:center;
 height:59px;
 padding-left:20px;
 padding-right:20px;
-border-bottom:1px solid lightgray;
+border-bottom:${(props) => (nightMode ? "#1F1F1F" : "1px solid lightgrey")};
 `;
 const Wrapper = Styled.div`
 flex:1;
@@ -168,6 +170,7 @@ padding:5px 10px;`;
 const Navbar = () => {
   const [search, setSearch] = useState("");
   nightMode = useSelector((state) => state.nightmodebar.toggle);
+  const accountBar = useSelector((state) => state.accountbar.toggle);
   const dispatch = useDispatch();
 
   const handleSearch = () => {
@@ -196,6 +199,7 @@ const Navbar = () => {
 
   return (
     <Container>
+      <AccountContainer toggle={accountBar} />
       <Wrapper>
         <Left>
           <IconContainer>
@@ -258,6 +262,9 @@ const Navbar = () => {
           </DarkModeIconContainer>
           <UserContainer clicked={true}>
             <Img
+              onClick={() => {
+                dispatch(toggleAccountBar());
+              }}
               src={
                 "https://cdn4.iconfinder.com/data/icons/man-user-human-person-business-profile-avatar/100/20-1User_13-512.png"
               }

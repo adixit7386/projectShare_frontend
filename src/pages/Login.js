@@ -6,6 +6,7 @@ import Loader from "../components/Loader";
 import Toast from "../components/Toast";
 import { loginStart, loginSuccess, loginFailure } from "../redux/userReducer";
 import { useSelector, useDispatch } from "react-redux";
+import { toggleWarningBar } from "../redux/warningReducer";
 import axios from "axios";
 let nightMode = true;
 const Container = Styled.div`
@@ -126,10 +127,11 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [notification, setNotification] = useState(false);
-  const [message, setMessage] = useState("");
+
   const handleNotification = (message) => {
     setNotification(true);
-    setMessage(message);
+    dispatch(toggleWarningBar(message));
+
     setTimeout(() => {
       setNotification(false);
     }, 3000);
@@ -165,7 +167,7 @@ const Login = () => {
 
   return (
     <Container>
-      {notification && <Toast message={message} />}
+      {notification && <Toast />}
       <Wrapper>
         <Title>
           project<Span>Share</Span>
