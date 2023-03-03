@@ -9,6 +9,7 @@ import { setActiveChat } from "../redux/activeChatReducer";
 import { toggleUpdateChat } from "../redux/updateChats";
 import CloseIcon from "@mui/icons-material/Close";
 import { Mobile } from "../responsive";
+import { toggleWarningBar } from "../redux/warningReducer";
 const ParentContainer = Styled.div`
 position:absolute;
 top:0px;
@@ -16,8 +17,8 @@ left:0px;
 z-index:5;
 background-color:${(props) =>
   props.toggle ? "rgba(0,0,0,0.2)" : "rgba(0,0,0,0.09)"};
-height:100vh;
-width:100vw;
+height:100%;
+width:100%;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -169,20 +170,14 @@ const CreateGroup = ({ toggle }) => {
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
   const User = useSelector((state) => state.user.currentUser);
-  const [isnotification, setIsNotification] = useState(false);
-  const [notification, setNotification] = useState("");
-  // const [addedUsers, setAddedUsers] = useState([]);
-  const [ChatName, setChatName] = useState("");
-  // let usersArray = [];
 
-  // addedUsers.map((item) => usersArray.push(item.userId));
+  const [ChatName, setChatName] = useState("");
+
   const ManageNotification = (message) => {
-    let msg = message;
+    dispatch(toggleWarningBar(message));
     setTimeout(() => {
-      setIsNotification(true);
-      setNotification(msg);
-    }, 1000);
-    setIsNotification(false);
+      dispatch(toggleWarningBar(""));
+    }, 3000);
   };
   const handleChange = (e) => {
     setSearch(e.target.value);
@@ -191,7 +186,7 @@ const CreateGroup = ({ toggle }) => {
   const handleClickSearch = async () => {
     try {
       const { data } = await axios.get(
-        `https://livechat-backend.onrender.com/api/user?search=${search}`,
+        `http://localhost:5000/api/user?search=${search}`,
         { headers: { Authorization: `Bearer ${User.accessToken}` } }
       );
       setData(data);
@@ -212,7 +207,7 @@ const CreateGroup = ({ toggle }) => {
       };
 
       const { data } = await axios.put(
-        "https://livechat-backend.onrender.com/api/chat/rename",
+        "http://localhost:5000/api/chat/rename",
         { ChatId: activeChat._id, ChatName: ChatName },
         config
       );
@@ -232,7 +227,7 @@ const CreateGroup = ({ toggle }) => {
 
     try {
       const { data } = await axios.put(
-        "https://livechat-backend.onrender.com/api/chat/groupadd",
+        "http://localhost:5000/api/chat/groupadd",
         users,
         {
           headers: {
@@ -263,7 +258,7 @@ const CreateGroup = ({ toggle }) => {
 
     try {
       const { data } = await axios.put(
-        "https://livechat-backend.onrender.com/api/chat/groupremove",
+        "http://localhost:5000/api/chat/groupremove",
         users,
         {
           headers: {
@@ -293,7 +288,6 @@ const CreateGroup = ({ toggle }) => {
       }}
       toggle={toggle}
     >
-      {isnotification && <Toast message={notification} />}
       <Container>
         <HeadingContainer>
           <Heading>{activeChat.ChatName}</Heading>

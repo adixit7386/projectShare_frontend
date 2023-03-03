@@ -69,7 +69,7 @@ const SidebarContainer = () => {
   const [currentChat, setCurrentChat] = useState(true);
   const activeChat = useSelector((item) => item.activechat.active);
   const activeStyle = {};
-  console.log(activeChat);
+
   return (
     <Container active={activeChat === null ? false : true}>
       <SwitchDiv>

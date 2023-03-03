@@ -14,6 +14,7 @@ border: 5px solid #f3f3f3; /* Light grey */
   border-radius: 50%;
   width: 20px;
   height: 20px;
+  
   animation: spin 0.5s linear infinite;
   
   @keyframes spin {

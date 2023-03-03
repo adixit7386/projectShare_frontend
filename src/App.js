@@ -56,6 +56,9 @@ const router = createBrowserRouter([
 const App = () => {
   const dispatch = useDispatch();
   const warning = useSelector((state) => state.warning);
+  if (warning.toggle === true) {
+    dispatch(toggleWarningBar(""));
+  }
 
   return (
     <div>

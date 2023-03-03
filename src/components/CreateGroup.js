@@ -9,16 +9,17 @@ import { setActiveChat } from "../redux/activeChatReducer";
 import { toggleCreateGroup } from "../redux/createGroupReducer";
 import { toggleUpdateChat } from "../redux/updateChats";
 import { Mobile } from "../responsive";
+import { toggleWarningBar } from "../redux/warningReducer";
 import CloseIcon from "@mui/icons-material/Close";
 const ParentContainer = Styled.div`
 position:absolute;
 top:0px;
 left:0px;
-z-index:5;
+z-index:10;
 background-color:${(props) =>
   props.toggle ? "rgba(0,0,0,0.2)" : "rgba(0,0,0,0.09)"};
-height:100vh;
-width:100vw;
+width:100%;
+height:100%;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -175,20 +176,17 @@ const CreateGroup = ({ toggle }) => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
-  const [isnotification, setIsNotification] = useState(false);
-  const [notification, setNotification] = useState("");
+
   const [addedUsers, setAddedUsers] = useState([]);
   const [ChatName, setChatName] = useState("");
   let usersArray = [];
   let group = {};
   addedUsers.map((item) => usersArray.push(item.userId));
-  const ManageNotification = (message) => {
-    let msg = message;
+  const handleNotification = (message) => {
+    dispatch(toggleWarningBar(message));
     setTimeout(() => {
-      setIsNotification(true);
-      setNotification(msg);
-    }, 1000);
-    setIsNotification(false);
+      dispatch(toggleWarningBar(""));
+    }, 3000);
   };
   const handleChange = (e) => {
     setSearch(e.target.value);
@@ -197,15 +195,15 @@ const CreateGroup = ({ toggle }) => {
   const handleClickSearch = async () => {
     try {
       const { data } = await axios.get(
-        `https://livechat-backend.onrender.com/api/user?search=${search}`,
+        `http://localhost:5000/api/user?search=${search}`,
         { headers: { Authorization: `Bearer ${User.accessToken}` } }
       );
       setData(data);
       if (data.length === 0) {
-        ManageNotification("No User Found");
+        handleNotification("No User Found");
       }
     } catch (error) {
-      ManageNotification("Search Failed");
+      handleNotification("Search Failed");
     }
   };
   const handleClick = ({ userId, name }) => {
@@ -232,7 +230,7 @@ const CreateGroup = ({ toggle }) => {
 
     try {
       const { data } = await axios.post(
-        "https://livechat-backend.onrender.com/api/chat/group",
+        "http://localhost:5000/api/chat/group",
         group,
         {
           headers: {
@@ -244,9 +242,10 @@ const CreateGroup = ({ toggle }) => {
       dispatch(setActiveChat(data));
       dispatch(toggleUpdateChat());
       dispatch(toggleCreateGroup());
-      navigate("/");
+      navigate("/chats");
     } catch (err) {
-      ManageNotification("couldn't create a chat");
+      console.log(err);
+      handleNotification("couldn't create a chat");
     }
   };
   const handleToggle = (e) => {
@@ -263,7 +262,6 @@ const CreateGroup = ({ toggle }) => {
       }}
       toggle={toggle}
     >
-      {isnotification && <Toast message={notification} />}
       <Container>
         <HeadingContainer>
           <Heading>Create Group Chat</Heading>

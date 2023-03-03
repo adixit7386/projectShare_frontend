@@ -84,7 +84,7 @@ const SidebarContainer = () => {
     const fetchChat = async (userId) => {
       try {
         const { data } = await axios.get(
-          "https://livechat-backend.onrender.com/api/chat/",
+          "http://localhost:5000/api/chat/",
 
           {
             headers: {

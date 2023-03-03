@@ -3,7 +3,6 @@ import Styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
-import Toast from "../components/Toast";
 import { loginStart, loginSuccess, loginFailure } from "../redux/userReducer";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleWarningBar } from "../redux/warningReducer";
