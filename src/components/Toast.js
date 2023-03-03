@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleWarningBar } from "../redux/warningReducer";
-
+import WarningIcon from "@mui/icons-material/Warning";
 const ParentContainer = Styled.div`
 
 position:absolute;
@@ -24,15 +24,22 @@ position:absolute;
 height:50px;
 width:300px;
 color:white;
-background-color:#0d6efd;
+background-color:#0081B4;
 z-index:8;
-top:20px;
+top:65px;
 right:${(props) => (props.visibility ? "20px" : "-600px")};
 transition:all 0.5s ease;
 border-radius:5px;
 display:flex;align-items:center;
 justify-content:center;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:5px 12px;
 `;
+const ContainerText = Styled.span`
+font-size:20px;
+color:white;`;
 
 const Toast = () => {
   const dispatch = useDispatch();
@@ -53,7 +60,10 @@ const Toast = () => {
 
   return (
     <ParentContainer visibility={visible}>
-      <Container visibility={visible}>{warning.warning}</Container>
+      <Container visibility={visible}>
+        <WarningIcon style={{ marginRight: "20px" }} />
+        <ContainerText>{warning.warning}</ContainerText>
+      </Container>
     </ParentContainer>
   );
 };

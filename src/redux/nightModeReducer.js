@@ -7,7 +7,7 @@ const nightModeSlice = createSlice({
   },
   reducers: {
     toggleNightMode: (state) => {
-      state.toggle = false;
+      state.toggle = !state.toggle;
     },
   },
 });
