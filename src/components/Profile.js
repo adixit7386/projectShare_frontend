@@ -460,7 +460,7 @@ const Profile = () => {
   const [skills, setSkills] = useState({ skill: "", rating: "" });
   const [skillsArray, setSkillsArray] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [imgLink, setImgLink] = useState("");
+  const [imgLink, setImgLink] = useState(user.image);
   const handleNotification = (message) => {
     dispatch(toggleWarningBar(message));
     setTimeout(() => {
@@ -710,17 +710,21 @@ const Profile = () => {
                 Authorization: `Bearer ${user.accessToken}`,
               },
             };
+            let imagelink = data.url.toString();
+
             try {
               const res = await axios.put(
                 `http://localhost:5000/api/user/register`,
-                { image: data.url.toString() },
+                { image: imagelink },
                 config
               );
+
               setImgLink(data.url.toString());
               handleNotification("image updated successfully");
               dispatch(loginSuccess(res.data));
             } catch (error) {
               handleNotification("image couldn't be updated");
+              console.log(error);
             }
             setLoading(false);
           };
@@ -753,7 +757,7 @@ const Profile = () => {
                   hidden
                 />
                 <Label htmlFor="image">
-                  Upload Image <UploadIcon />
+                  {loading ? "uploading..." : "Upload Image"} <UploadIcon />
                 </Label>
               </ImgContainer>
             </NameImgContainer>

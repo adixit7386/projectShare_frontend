@@ -9,6 +9,7 @@ import AccountContainer from "../components/AccountContainer";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleNightMode } from "../redux/nightModeReducer";
 import { toggleAccountBar } from "../redux/accountReducer";
+import { validURL } from "../config/chatLogics";
 let nightMode = true;
 const Container = Styled.div`
 display:flex;
@@ -152,6 +153,7 @@ height:30px;
 width:30px;
 border-radius:50%;
 filter:${() => nightMode && "invert(1)"};
+object-fit:cover;
 
 
 `;
@@ -171,6 +173,7 @@ const Navbar = () => {
   const [search, setSearch] = useState("");
   nightMode = useSelector((state) => state.nightmodebar.toggle);
   const accountBar = useSelector((state) => state.accountbar.toggle);
+  const user = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
 
   const handleSearch = () => {
@@ -266,7 +269,9 @@ const Navbar = () => {
                 dispatch(toggleAccountBar());
               }}
               src={
-                "https://cdn4.iconfinder.com/data/icons/man-user-human-person-business-profile-avatar/100/20-1User_13-512.png"
+                validURL(user.image)
+                  ? user.image
+                  : "https://cdn4.iconfinder.com/data/icons/man-user-human-person-business-profile-avatar/100/20-1User_13-512.png"
               }
             />
           </UserContainer>
