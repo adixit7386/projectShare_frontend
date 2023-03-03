@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Styled from "styled-components";
 import UploadIcon from "@mui/icons-material/Upload";
 import EditIcon from "@mui/icons-material/Edit";
@@ -435,6 +435,7 @@ const Profile = () => {
   nightMode = useSelector((state) => state.nightmodebar.toggle);
   const user = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
+  const [existingProfile, setExistingProfile] = useState(false);
   const [personalDetails, setPersonalDetails] = useState({});
   const [educationDetails, setEducationDetails] = useState({
     title: "",
@@ -547,6 +548,34 @@ const Profile = () => {
   const deleteSkillsArray = (item) => {
     setSkillsArray(skillsArray.filter((i) => i !== item));
   };
+
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const savedUserProfile = await axios.get(
+          `http://localhost:5000/api/profile/${user._id}`
+        );
+        let existingUserProfile = savedUserProfile.data;
+        if (existingUserProfile) {
+          setExistingProfile(true);
+          setPersonalDetails({
+            name: existingUserProfile.name,
+            jobtitle: existingUserProfile.jobtitle,
+            status: existingUserProfile.status,
+            description: existingUserProfile.description,
+          });
+          setEducationArray(existingUserProfile.education);
+          setSocialArray(existingUserProfile.links);
+          setSkillsArray(existingUserProfile.skills);
+          setProjectsArray(existingUserProfile.projects);
+        } else {
+        }
+      } catch (error) {
+        handleNotification("Invalid UserId");
+      }
+    };
+    getUserData();
+  }, [user._id]);
   const handleCreateProfile = async () => {
     userProfile = {
       userId: user._id,
@@ -588,11 +617,9 @@ const Profile = () => {
         userProfile,
         config
       );
-      console.log(res.data);
     } catch (err) {
       console.log(err);
     }
-    console.log(userProfile);
   };
 
   return (
@@ -627,6 +654,7 @@ const Profile = () => {
                 <InputDetail
                   type="text"
                   name="name"
+                  value={personalDetails.name}
                   onChange={(e) => handlePersonalDetails(e)}
                   placeholder={"name"}
                 />
@@ -640,6 +668,7 @@ const Profile = () => {
                 <InputDetail
                   type="text"
                   name="jobtitle"
+                  value={personalDetails.jobtitle}
                   placeholder={"SDE 2 Amazon"}
                   onChange={(e) => handlePersonalDetails(e)}
                 />
@@ -653,6 +682,7 @@ const Profile = () => {
                 <InputDetail
                   type="text"
                   name="status"
+                  value={personalDetails.status}
                   placeholder={"occupied"}
                   onChange={(e) => handlePersonalDetails(e)}
                 />
@@ -665,6 +695,7 @@ const Profile = () => {
               <InputContainer>
                 <TextArea
                   name="description"
+                  value={personalDetails.description}
                   placeholder="Introduction and career Objective"
                   onChange={(e) => handlePersonalDetails(e)}
                 ></TextArea>
@@ -1116,14 +1147,17 @@ const Profile = () => {
         <Section>
           <SubmitContainer>
             <IconContainer>
-              <CreateButton
-                onClick={() => {
-                  handleCreateProfile();
-                }}
-              >
-                Create
-              </CreateButton>
-              <UpdateButton>Update</UpdateButton>
+              {existingProfile === false ? (
+                <CreateButton
+                  onClick={() => {
+                    handleCreateProfile();
+                  }}
+                >
+                  Create
+                </CreateButton>
+              ) : (
+                <UpdateButton>Update</UpdateButton>
+              )}
             </IconContainer>
           </SubmitContainer>
         </Section>
