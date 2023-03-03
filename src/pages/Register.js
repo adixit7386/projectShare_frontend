@@ -156,7 +156,6 @@ const Login = () => {
   const [repassword, setRepassword] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
-
   const [imgLink, setImgLink] = useState("");
 
   const navigate = useNavigate();

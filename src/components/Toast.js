@@ -61,7 +61,7 @@ const Toast = () => {
   return (
     <ParentContainer visibility={visible}>
       <Container visibility={visible}>
-        <WarningIcon style={{ marginRight: "20px" }} />
+        {/* <WarningIcon style={{ marginRight: "20px" }} /> */}
         <ContainerText>{warning.warning}</ContainerText>
       </Container>
     </ParentContainer>

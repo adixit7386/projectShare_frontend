@@ -5,7 +5,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useSelector, useDispatch } from "react-redux";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import { validURL } from "../config/chatLogics";
 import { toggleWarningBar } from "../redux/warningReducer";
+import { loginSuccess } from "../redux/userReducer";
 import axios from "axios";
 import Toast from "../components/Toast";
 let nightMode = true;
@@ -39,6 +41,7 @@ justify-content:center;`;
 const NameContainer = Styled.div``;
 
 const Img = Styled.img`
+object-fit:cover;
 margin-bottom:10px;
 width:100px;
 height:100px;
@@ -456,6 +459,8 @@ const Profile = () => {
   const [projectsArray, setProjectsArray] = useState([]);
   const [skills, setSkills] = useState({ skill: "", rating: "" });
   const [skillsArray, setSkillsArray] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [imgLink, setImgLink] = useState("");
   const handleNotification = (message) => {
     dispatch(toggleWarningBar(message));
     setTimeout(() => {
@@ -617,11 +622,116 @@ const Profile = () => {
         userProfile,
         config
       );
+      handleNotification("Profile created successfully");
     } catch (err) {
       console.log(err);
     }
   };
+  const handleUpdateProfile = async () => {
+    userProfile = {
+      userId: user._id,
+      ...userProfile,
+      ...personalDetails,
+      education: educationArray,
+      links: socialArray,
+      projects: projectsArray,
+      skills: skillsArray,
+    };
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`,
+      },
+    };
+    const validUserProfile = (userProfile) => {
+      if (
+        userProfile.userId === "" ||
+        userProfile.name === "" ||
+        userProfile.jobtitle === "" ||
+        userProfile.status === "" ||
+        userProfile.description === "" ||
+        userProfile.education.length === 0 ||
+        userProfile.links.length === 0 ||
+        userProfile.projects.length === 0 ||
+        userProfile.skills.length === 0
+      ) {
+        return false;
+      }
+      return true;
+    };
+    try {
+      if (!validUserProfile(userProfile)) {
+        handleNotification("please fill all the details");
+        return;
+      }
+      const res = await axios.put(
+        "http://localhost:5000/api/profile",
+        userProfile,
+        config
+      );
+      let existingUserProfile = res.data;
+      setPersonalDetails({
+        name: existingUserProfile.name,
+        jobtitle: existingUserProfile.jobtitle,
+        status: existingUserProfile.status,
+        description: existingUserProfile.description,
+      });
+      setEducationArray(existingUserProfile.education);
+      setSocialArray(existingUserProfile.links);
+      setSkillsArray(existingUserProfile.skills);
+      setProjectsArray(existingUserProfile.projects);
+      handleNotification("profile updated successfully");
+    } catch (err) {
+      handleNotification("server error");
+      console.log(err);
+    }
+  };
+  const setFiles = (img) => {
+    setLoading(true);
+    if (img === undefined) {
+      handleNotification("Please select the image");
+      setLoading(false);
+      return;
+    }
 
+    if (img.type === "image/jpeg" || img.type === "image/png") {
+      const data = new FormData();
+      data.append("file", img);
+      data.append("upload_preset", "react-chat-app");
+      data.append("cloud_name", "dcvv2vevf");
+      fetch("https://api.cloudinary.com/v1_1/dcvv2vevf/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          const getUserData = async () => {
+            const config = {
+              headers: {
+                Authorization: `Bearer ${user.accessToken}`,
+              },
+            };
+            try {
+              const res = await axios.put(
+                `http://localhost:5000/api/user/register`,
+                { image: data.url.toString() },
+                config
+              );
+              setImgLink(data.url.toString());
+              handleNotification("image updated successfully");
+              dispatch(loginSuccess(res.data));
+            } catch (error) {
+              handleNotification("image couldn't be updated");
+            }
+            setLoading(false);
+          };
+          getUserData();
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoading(false);
+        });
+    }
+  };
   return (
     <Container>
       <Wrapper>
@@ -631,10 +741,17 @@ const Profile = () => {
               <ImgContainer>
                 <Img
                   src={
-                    "https://wallpapers.com/images/high/deadpool-logo-cool-profile-picture-g2sv7i8j6nzd7tfa.webp"
+                    validURL(imgLink)
+                      ? imgLink
+                      : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                   }
                 />
-                <Input id="image" type="file" hidden />
+                <Input
+                  id="image"
+                  type="file"
+                  onChange={(e) => setFiles(e.target.files[0])}
+                  hidden
+                />
                 <Label htmlFor="image">
                   Upload Image <UploadIcon />
                 </Label>
@@ -1156,7 +1273,13 @@ const Profile = () => {
                   Create
                 </CreateButton>
               ) : (
-                <UpdateButton>Update</UpdateButton>
+                <UpdateButton
+                  onClick={() => {
+                    handleUpdateProfile();
+                  }}
+                >
+                  Update
+                </UpdateButton>
               )}
             </IconContainer>
           </SubmitContainer>
