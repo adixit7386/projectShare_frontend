@@ -2,6 +2,7 @@ import React from "react";
 import Styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { validURL } from "../config/chatLogics";
 let nightMode = true;
 const ProjectContainer = Styled.div`
 background-color:${(props) => (nightMode ? "#1F1F1F" : "#f8f9fa")};
@@ -57,67 +58,45 @@ width:50px;`;
 
 const LeaderContainer = Styled.div`
 margin-top:10px;`;
-const LeaderText = Styled.span``;
+const LeaderText = Styled.a``;
 
 const DescriptionContainer = Styled.div`
 color:grey;
 font-weight:500;
 flex:2;`;
 
-const Projects = () => {
+const Projects = ({ item }) => {
   nightMode = useSelector((state) => state.nightmodebar.toggle);
   const navigate = useNavigate();
+
   return (
     <ProjectContainer
       onClick={() => {
-        navigate("/projects/23984789347");
+        navigate(`/projects/${item._id}`);
       }}
     >
       <DetailContainer>
         <TitleContainer>
-          <TitleText>Image Inpainting</TitleText>
+          <TitleText>{item.title}</TitleText>
         </TitleContainer>
         <PeopleContainer>
-          <ImgContainer>
-            <Image
-              src={
-                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-              }
-            />
-          </ImgContainer>
-          <ImgContainer>
-            <Image
-              src={
-                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-              }
-            />
-          </ImgContainer>
-          <ImgContainer>
-            <Image
-              src={
-                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-              }
-            />
-          </ImgContainer>
-          <ImgContainer>
-            <Image
-              src={
-                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-              }
-            />
-          </ImgContainer>
+          {item.members?.map((item) => (
+            <ImgContainer>
+              <Image
+                src={
+                  validURL(item.image)
+                    ? item.image
+                    : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                }
+              />
+            </ImgContainer>
+          ))}
         </PeopleContainer>
         <LeaderContainer>
-          <LeaderText>Posted 13 days ago</LeaderText>
+          <LeaderText href={item.link}>{item.link}</LeaderText>
         </LeaderContainer>
       </DetailContainer>
-      <DescriptionContainer>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Numquam facere
-        voluptatibus impedit dignissimos eos, quisquam delectus quidem fugit
-        pariatur vitae, odit vero nobis nulla, nesciunt architecto sapiente ut
-        perferendis ullam voluptatum libero. Explicabo repellendus fugit, nam
-        vero provident consequuntur nostrum?
-      </DescriptionContainer>
+      <DescriptionContainer>{item.description}</DescriptionContainer>
     </ProjectContainer>
   );
 };

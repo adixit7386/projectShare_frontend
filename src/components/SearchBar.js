@@ -250,6 +250,7 @@ const SearchBar = () => {
         { headers: { Authorization: `Bearer ${user.accessToken}` } }
       );
       setData(data);
+
       if (data.length === 0) {
         ManageNotification("No User Found");
       }

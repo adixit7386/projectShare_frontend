@@ -10,10 +10,6 @@ const warningSlice = createSlice({
     toggleWarningBar: (state, action) => {
       state.toggle = !state.toggle;
       state.warning = action.payload;
-      setTimeout(() => {
-        state.toggle = !state.toggle;
-        // dispatch(toggleWarningBar(""));
-      }, 3000);
     },
   },
 });

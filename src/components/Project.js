@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Styled from "styled-components";
-
+import { useLocation } from "react-router-dom";
+import Loader from "../components/Loader";
+import { validURL } from "../config/chatLogics";
+import axios from "axios";
 const Container = Styled.div`
 `;
 const Wrapper = Styled.div`
@@ -59,84 +62,56 @@ cursor:pointer;
     transform:scale(1.1);
 }`;
 const Project = () => {
+  let location = useLocation();
+  location = location.pathname.split("/");
+  let projectId = location[2];
+  console.log(location);
+  const [project, setProject] = useState({});
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const fetchProject = async () => {
+      setLoading(true);
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/api/project/${projectId}`
+        );
+
+        setProject(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+      setLoading(false);
+    };
+    fetchProject();
+  }, [projectId]);
+  console.log(project);
   return (
     <Container>
       <Wrapper>
+        {loading && <Loader />}
         <HeadContainer>
-          <Heading>Image InPainting</Heading>
+          <Heading>{project.title}</Heading>
         </HeadContainer>
         <MiddleContainer>
           <PeopleContainer>
-            <ImgContainer>
-              <Image
-                src={
-                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                }
-              />
-            </ImgContainer>
-            <ImgContainer>
-              <Image
-                src={
-                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                }
-              />
-            </ImgContainer>
-            <ImgContainer>
-              <Image
-                src={
-                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                }
-              />
-            </ImgContainer>
-            <ImgContainer>
-              <Image
-                src={
-                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                }
-              />
-            </ImgContainer>
-            <ImgContainer>
-              <Image
-                src={
-                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                }
-              />
-            </ImgContainer>
+            {project.members?.map((item) => (
+              <ImgContainer>
+                <Image
+                  src={
+                    validURL(item.image)
+                      ? item.image
+                      : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                  }
+                />
+              </ImgContainer>
+            ))}
           </PeopleContainer>
           <LinkContainer>
-            <Link href={"https://www.github.com/adixit7386"}>
-              https://www.github.com/adixit7386
-            </Link>
+            <Link href={project.link}>{project.link}</Link>
           </LinkContainer>
         </MiddleContainer>
         <BottomContainer>
-          <Paragraph>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere
-            repellat atque tempora similique corrupti consequatur officia nulla,
-            deserunt reprehenderit assumenda minus pariatur eos perferendis, qui
-            provident accusamus ab molestias vel consequuntur cum. Voluptatibus
-            quaerat ipsa, qui corporis excepturi officiis hic delectus minima
-            sapiente temporibus enim minus molestias facere accusamus rerum
-            praesentium. Quia magni perferendis distinctio suscipit porro ipsam
-            atque nam tenetur, ipsum exercitationem sapiente fugiat eius quidem
-            voluptatibus unde blanditiis aspernatur harum similique. Voluptates
-            non reprehenderit exercitationem laboriosam totam sapiente quaerat
-            labore esse voluptatibus officia rem eos, quam rerum magni
-            repellendus eius nobis, sunt dicta unde laborum quia, ipsum
-            consequatur. Et commodi vitae nostrum, quam maxime saepe nihil
-            blanditiis iure quas quia vel aliquid, tenetur explicabo quis
-            temporibus ex voluptates consequuntur quae ad molestiae, recusandae
-            laborum fuga itaque. Magni sequi optio nulla, eveniet impedit odit
-            eaque porro nam ipsum assumenda facilis id animi dolores nobis
-            quibusdam sapiente tempora nemo molestiae tempore veniam nostrum
-            expedita atque nisi consequuntur? Illo minima dolorum dolore
-            deleniti fuga aliquam temporibus sapiente doloremque odio voluptas
-            mollitia illum asperiores soluta, possimus aspernatur molestias
-            tenetur. Quod voluptatum necessitatibus, eligendi nihil praesentium
-            beatae voluptates totam assumenda, hic similique iure distinctio
-            earum perspiciatis! Quae suscipit, alias inventore animi quod
-            temporibus.
-          </Paragraph>
+          <Paragraph>{project.description}</Paragraph>
         </BottomContainer>
         <ButtonContainer>
           <ButtonDelete>Delete Project</ButtonDelete>

@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import SearchProjects from "./SearchProject";
+import Loader from "../components/Loader";
+import axios from "axios";
 const Container = Styled.div`
 `;
 const Wrapper = Styled.div`
@@ -28,6 +31,25 @@ padding:8px 15px;`;
 
 const Projects = () => {
   const navigate = useNavigate();
+  const [data, setData] = useState([]);
+  let user = useSelector((state) => state.user.currentUser);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const fetchProjects = async () => {
+      setLoading(true);
+      try {
+        let res = await axios.get("http://localhost:5000/api/project/user", {
+          headers: { Authorization: `Bearer ${user.accessToken}` },
+        });
+        setData(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    };
+    fetchProjects();
+  }, [user.accessToken]);
+
   return (
     <Container>
       <Wrapper>
@@ -41,7 +63,10 @@ const Projects = () => {
             Create New Project
           </Button>
         </Header>
-        <SearchProjects></SearchProjects>
+        {loading && <Loader />}
+        {data?.map((item) => (
+          <SearchProjects item={item}></SearchProjects>
+        ))}
       </Wrapper>
     </Container>
   );
