@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import { validURL } from "../config/chatLogics";
 import axios from "axios";
@@ -53,7 +53,7 @@ margin:10px 30px;
 padding:5px 12px;
 font-size:24px;
 border:none;
-background-color:red;
+background-color:skyblue;
 color:white;
 border-radius:10px;
 transition:all 0.3s ease;
@@ -62,6 +62,7 @@ cursor:pointer;
     transform:scale(1.1);
 }`;
 const Project = () => {
+  const navigate = useNavigate();
   let location = useLocation();
   location = location.pathname.split("/");
   let projectId = location[2];
@@ -84,7 +85,7 @@ const Project = () => {
     };
     fetchProject();
   }, [projectId]);
-  console.log(project);
+
   return (
     <Container>
       <Wrapper>
@@ -115,6 +116,11 @@ const Project = () => {
         </BottomContainer>
         <ButtonContainer>
           <ButtonDelete>Delete Project</ButtonDelete>
+          <ButtonDelete
+            onClick={() => navigate(`/projects/update/${project._id}`)}
+          >
+            Update Project
+          </ButtonDelete>
         </ButtonContainer>
       </Wrapper>
     </Container>

@@ -44,6 +44,7 @@ const Content = () => {
       {page === "projects" && Location.length > 2 && Location[2] === "new" && (
         <CreateProject />
       )}
+
       {page === "projects" &&
         Location.length > 2 &&
         Location[2] === "update" && <UpdateProject />}
