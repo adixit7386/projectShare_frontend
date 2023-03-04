@@ -482,7 +482,7 @@ const Profile = () => {
   const addEducationDetails = () => {
     if (
       !educationDetails.title ||
-      !educationDetails.college ||
+      !educationDetails.institution ||
       !educationDetails.score ||
       !educationDetails.year
     ) {
@@ -561,6 +561,7 @@ const Profile = () => {
           `http://localhost:5000/api/profile/${user._id}`
         );
         let existingUserProfile = savedUserProfile.data;
+        console.log(existingProfile);
         if (existingUserProfile) {
           setExistingProfile(true);
           setPersonalDetails({
@@ -736,6 +737,7 @@ const Profile = () => {
         });
     }
   };
+  console.log(educationArray);
   return (
     <Container>
       <Wrapper>
@@ -903,13 +905,15 @@ const Profile = () => {
                   <EducationDetailsData>{item.title}</EducationDetailsData>
                 </Qualification>
                 <Institution>
-                  <EducationDetailsData>{item.college}</EducationDetailsData>
+                  <EducationDetailsData>
+                    {item.institution}
+                  </EducationDetailsData>
                 </Institution>
                 <Score>
                   <EducationDetailsData>{item.score}</EducationDetailsData>
                 </Score>
                 <Year>
-                  <EducationDetailsData>{item.score}</EducationDetailsData>
+                  <EducationDetailsData>{item.year}</EducationDetailsData>
                 </Year>
 
                 <Delete>
@@ -946,11 +950,11 @@ const Profile = () => {
               </TitleContainer>
               <InputContainer>
                 <InputDetail
-                  name="college"
+                  name="institution"
                   onChange={(e) => {
                     handleEducationDetails(e);
                   }}
-                  value={educationDetails.college}
+                  value={educationDetails.institution}
                   type="text"
                   placeholder={"Abc College"}
                 />
