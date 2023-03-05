@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Styled from "styled-components";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import axios from "axios";
+import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { validURL } from "../config/chatLogics";
 let nightMode = true;
 const Container = Styled.div`
+
 background-color:${(props) => (nightMode ? "#1F1F1F" : "#f8f9fa")};
 color:${(props) => (nightMode ? "white" : "black")};
 margin:20px 20px ;
@@ -39,6 +43,7 @@ const Img = Styled.img`
 margin-bottom:10px;
 width:100px;
 height:100px;
+object-fit:cover;
 border-radius:50%;`;
 
 const Name = Styled.span`
@@ -118,7 +123,7 @@ margin:10px 20px;`;
 const InputContainer = Styled.div`
 margin-top:10px;
 padding:2px 3px;
-border:solid 1px grey;
+
 border-radius:5px;
 display:flex;
 align-items:center;
@@ -223,7 +228,13 @@ const Linked = Styled.a``;
 const ProjectDescriptionContainer = Styled.div`
 width:80%;
 `;
+const LinkContainer = Styled.div`
+  flex:5;
 
+`;
+const LinkText = Styled.a`
+
+font-size:20px;`;
 const Paragraph = Styled.p`
 align:left;`;
 
@@ -252,6 +263,31 @@ justify-content:center;`;
 
 const Profile = () => {
   nightMode = useSelector((state) => state.nightmodebar.toggle);
+  let location = useLocation();
+  let userId = location.pathname.split("/")[2];
+  console.log(userId);
+  // let userId = "";
+  const [loading, setLoading] = useState(false);
+  const [profile, setProfile] = useState({});
+  const user = useSelector((state) => state.user.currentUser);
+
+  useEffect(() => {
+    const getUserProfile = async () => {
+      setLoading(true);
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/api/profile/${userId}`,
+          { headers: { Authorization: `Bearer ${user.accessToken}` } }
+        );
+
+        setProfile(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    };
+    getUserProfile();
+  }, []);
   return (
     <Container>
       <Wrapper>
@@ -260,13 +296,15 @@ const Profile = () => {
             <ImgContainer>
               <Img
                 src={
-                  "https://wallpapers.com/images/high/deadpool-logo-cool-profile-picture-g2sv7i8j6nzd7tfa.webp"
+                  validURL(profile.userId?.image)
+                    ? profile.userId?.image
+                    : "https://wallpapers.com/images/high/deadpool-logo-cool-profile-picture-g2sv7i8j6nzd7tfa.webp"
                 }
               />
               <Input id="image" type="file" hidden />
             </ImgContainer>
             <NameContainer>
-              <Name>Abhay Dixit</Name>
+              <Name>{profile.name}</Name>
             </NameContainer>
           </NameImgContainer>
         </HeadContainer>
@@ -274,38 +312,18 @@ const Profile = () => {
         <DetailContainer>
           <DetailInput>
             <JobTitleContainer>
-              <JobTitleContainerText>SDE AMAZON</JobTitleContainerText>
+              <JobTitleContainerText>{profile.jobtitle}</JobTitleContainerText>
             </JobTitleContainer>
           </DetailInput>
           <DetailInput>
             <StatusContainer>
-              <StatusContainerText>2h mon-fri</StatusContainerText>
+              <StatusContainerText>{profile.status}</StatusContainerText>
             </StatusContainer>
           </DetailInput>
 
-          <DetailInput>
-            <DOBContainer>
-              <DOBContainerText>jan-15-2004</DOBContainerText>
-            </DOBContainer>
-          </DetailInput>
-          <DetailInput>
-            <EmailContainer>
-              <EmailContainerText>adixit7386@gmail.com</EmailContainerText>
-            </EmailContainer>
-          </DetailInput>
-          <DetailInput>
-            <ContactContainer>
-              <ContactContainerText>+91 7880987614</ContactContainerText>
-            </ContactContainer>
-          </DetailInput>
           <DescriptionContainer>
             <DescriptionContainerText>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi,
-              totam quis officia enim tempora at voluptate distinctio alias,
-              quod minus sed fugit dolor. Eaque et dolorum esse atque neque
-              quidem consequuntur voluptate tenetur ipsam illo repudiandae ullam
-              vitae magnam eius nisi veniam nobis, dicta autem? Nostrum quod
-              totam, aliquid ratione adipisci asperiores molestias? Reiciendis
+              {profile.description}
             </DescriptionContainerText>
           </DescriptionContainer>
         </DetailContainer>
@@ -327,22 +345,22 @@ const Profile = () => {
               <EducationDetailsHeading>Year</EducationDetailsHeading>
             </Year>
           </EducationDetailsHead>
-          <EducationDetailsContent>
-            <Qualification>
-              <EducationDetailsData>XII</EducationDetailsData>
-            </Qualification>
-            <Institution>
-              <EducationDetailsData>
-                Vidyagyan School Sitapur
-              </EducationDetailsData>
-            </Institution>
-            <Score>
-              <EducationDetailsData>91.4</EducationDetailsData>
-            </Score>
-            <Year>
-              <EducationDetailsData>2029</EducationDetailsData>
-            </Year>
-          </EducationDetailsContent>
+          {profile.education?.map((item) => (
+            <EducationDetailsContent>
+              <Qualification>
+                <EducationDetailsData>{item.title}</EducationDetailsData>
+              </Qualification>
+              <Institution>
+                <EducationDetailsData>{item.institution}</EducationDetailsData>
+              </Institution>
+              <Score>
+                <EducationDetailsData>{item.score}</EducationDetailsData>
+              </Score>
+              <Year>
+                <EducationDetailsData>{item.year}</EducationDetailsData>
+              </Year>
+            </EducationDetailsContent>
+          ))}
         </EducationDetails>
 
         <DetailHeadingContainer>
@@ -350,155 +368,41 @@ const Profile = () => {
         </DetailHeadingContainer>
         <SocialContainer>
           <DetailContainer>
-            <DetailInput>
-              <InputContainer>
-                <IconContainer>
-                  <LinkedInIcon />
-                </IconContainer>
-                <InputDetail
-                  type="link"
-                  placeholder={"adixit7386@instagram.com"}
-                />
-              </InputContainer>
-            </DetailInput>
-            <DetailInput>
-              <InputContainer>
-                <IconContainer>
-                  <LinkedInIcon />
-                </IconContainer>
-                <InputDetail
-                  type="link"
-                  placeholder={"adixit7386@instagram.com"}
-                />
-              </InputContainer>
-            </DetailInput>
-            <DetailInput>
-              <InputContainer>
-                <IconContainer>
-                  <LinkedInIcon />
-                </IconContainer>
-                <InputDetail
-                  type="link"
-                  placeholder={"adixit7386@instagram.com"}
-                />
-              </InputContainer>
-            </DetailInput>
-            <DetailInput>
-              <InputContainer>
-                <IconContainer>
-                  <LinkedInIcon />
-                </IconContainer>
-                <InputDetail
-                  type="link"
-                  placeholder={"adixit7386@instagram.com"}
-                />
-              </InputContainer>
-            </DetailInput>
+            {profile.links?.map((item) => (
+              <DetailInput>
+                <InputContainer>
+                  <LinkContainer>
+                    <LinkText href={item.link}>{item.website}</LinkText>
+                  </LinkContainer>
+                </InputContainer>
+              </DetailInput>
+            ))}
           </DetailContainer>
         </SocialContainer>
         <DetailHeadingContainer>
           <DetailHeading>Projects</DetailHeading>
         </DetailHeadingContainer>
         <ProjectsContainer>
-          <DetailContainer>
-            <ProjectHeadContainer>
-              <ProjectTitleContainer>
-                <Label>Image Inpainting</Label>
-              </ProjectTitleContainer>
-            </ProjectHeadContainer>
-            <ProjectDateContainer>
-              <DateSpan>may 2020 - july 2021</DateSpan>
-            </ProjectDateContainer>
-            <ProjectLinkContainer>
-              <Linked href="http://www.sarkariresults.com">
-                http://www.sarkariresults.com
-              </Linked>
-            </ProjectLinkContainer>
-            <ProjectDescriptionContainer>
-              <Paragraph>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore
-                eligendi quis vel! Lorem ipsum dolor sit amet consectetur
-                adipisicing elit. Ut unde modi et soluta possimus illo optio
-                ipsa tempore! Obcaecati quis earum id nemo sequi, dignissimos
-                odio explicabo soluta accusamus corrupti commodi accusantium
-                facere eveniet quidem adipisci natus fugiat maiores, illo
-                possimus aperiam hic magni laboriosam. Inventore dolores sunt
-                harum nostrum.
-              </Paragraph>
-            </ProjectDescriptionContainer>
-          </DetailContainer>
-          <DetailContainer>
-            <ProjectHeadContainer>
-              <ProjectTitleContainer>
-                <Label>Image Inpainting</Label>
-              </ProjectTitleContainer>
-            </ProjectHeadContainer>
-            <ProjectLinkContainer>
-              <Linked href="http://www.sarkariresults.com">
-                http://www.sarkariresults.com
-              </Linked>
-            </ProjectLinkContainer>
-            <ProjectDescriptionContainer>
-              <Paragraph>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore
-                eligendi quis vel! Lorem ipsum dolor sit amet consectetur
-                adipisicing elit. Ut unde modi et soluta possimus illo optio
-                ipsa tempore! Obcaecati quis earum id nemo sequi, dignissimos
-                odio explicabo soluta accusamus corrupti commodi accusantium
-                facere eveniet quidem adipisci natus fugiat maiores, illo
-                possimus aperiam hic magni laboriosam. Inventore dolores sunt
-                harum nostrum.
-              </Paragraph>
-            </ProjectDescriptionContainer>
-          </DetailContainer>
-          <DetailContainer>
-            <ProjectHeadContainer>
-              <ProjectTitleContainer>
-                <Label>Image Inpainting</Label>
-              </ProjectTitleContainer>
-            </ProjectHeadContainer>
-            <ProjectLinkContainer>
-              <Linked href="http://www.sarkariresults.com">
-                http://www.sarkariresults.com
-              </Linked>
-            </ProjectLinkContainer>
-            <ProjectDescriptionContainer>
-              <Paragraph>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore
-                eligendi quis vel! Lorem ipsum dolor sit amet consectetur
-                adipisicing elit. Ut unde modi et soluta possimus illo optio
-                ipsa tempore! Obcaecati quis earum id nemo sequi, dignissimos
-                odio explicabo soluta accusamus corrupti commodi accusantium
-                facere eveniet quidem adipisci natus fugiat maiores, illo
-                possimus aperiam hic magni laboriosam. Inventore dolores sunt
-                harum nostrum.
-              </Paragraph>
-            </ProjectDescriptionContainer>
-          </DetailContainer>
-          <DetailContainer>
-            <ProjectHeadContainer>
-              <ProjectTitleContainer>
-                <Label>Image Inpainting</Label>
-              </ProjectTitleContainer>
-            </ProjectHeadContainer>
-            <ProjectLinkContainer>
-              <Linked href="http://www.sarkariresults.com">
-                http://www.sarkariresults.com
-              </Linked>
-            </ProjectLinkContainer>
-            <ProjectDescriptionContainer>
-              <Paragraph>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore
-                eligendi quis vel! Lorem ipsum dolor sit amet consectetur
-                adipisicing elit. Ut unde modi et soluta possimus illo optio
-                ipsa tempore! Obcaecati quis earum id nemo sequi, dignissimos
-                odio explicabo soluta accusamus corrupti commodi accusantium
-                facere eveniet quidem adipisci natus fugiat maiores, illo
-                possimus aperiam hic magni laboriosam. Inventore dolores sunt
-                harum nostrum.
-              </Paragraph>
-            </ProjectDescriptionContainer>
-          </DetailContainer>
+          {profile.projects?.map((item) => (
+            <DetailContainer>
+              <ProjectHeadContainer>
+                <ProjectTitleContainer>
+                  <Label>{item.title}</Label>
+                </ProjectTitleContainer>
+              </ProjectHeadContainer>
+              <ProjectDateContainer>
+                <DateSpan>
+                  {item.from} to {item.to}
+                </DateSpan>
+              </ProjectDateContainer>
+              <ProjectLinkContainer>
+                <Linked href={item.link}>{item.link}</Linked>
+              </ProjectLinkContainer>
+              <ProjectDescriptionContainer>
+                <Paragraph>{item.description}</Paragraph>
+              </ProjectDescriptionContainer>
+            </DetailContainer>
+          ))}
         </ProjectsContainer>
 
         <DetailHeadingContainer>
@@ -506,36 +410,18 @@ const Profile = () => {
         </DetailHeadingContainer>
         <SkillsContainer>
           <DetailContainer>
-            <DetailInput>
-              <SkillDescription>
-                <SkillName>
-                  <SkillText>Problem Solving</SkillText>
-                </SkillName>
-                <SkillRating>
-                  <SkillText>4.5</SkillText>
-                </SkillRating>
-              </SkillDescription>
-            </DetailInput>
-            <DetailInput>
-              <SkillDescription>
-                <SkillName>
-                  <SkillText>Problem Solving</SkillText>
-                </SkillName>
-                <SkillRating>
-                  <SkillText>4.5</SkillText>
-                </SkillRating>
-              </SkillDescription>
-            </DetailInput>
-            <DetailInput>
-              <SkillDescription>
-                <SkillName>
-                  <SkillText>Problem Solving</SkillText>
-                </SkillName>
-                <SkillRating>
-                  <SkillText>4.5</SkillText>
-                </SkillRating>
-              </SkillDescription>
-            </DetailInput>
+            {profile.skills?.map((item) => (
+              <DetailInput>
+                <SkillDescription>
+                  <SkillName>
+                    <SkillText>{item.skill}</SkillText>
+                  </SkillName>
+                  <SkillRating>
+                    <SkillText>{item.rating}</SkillText>
+                  </SkillRating>
+                </SkillDescription>
+              </DetailInput>
+            ))}
           </DetailContainer>
         </SkillsContainer>
       </Wrapper>
