@@ -49,7 +49,7 @@ const Projects = () => {
     };
     fetchProjects();
   }, [user.accessToken]);
-
+  console.log(data);
   return (
     <Container>
       <Wrapper>

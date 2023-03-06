@@ -5,6 +5,8 @@ import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import MailIcon from "@mui/icons-material/Mail";
+import { useNavigate } from "react-router-dom";
+import { Mobile } from "../responsive";
 import AccountContainer from "../components/AccountContainer";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleNightMode } from "../redux/nightModeReducer";
@@ -54,7 +56,8 @@ padding:0px 10px 0px 10px;
 const Title = Styled.h1`
 margin: 0px auto 0px auto;
 cursor:pointer;
-font-size:32px;`;
+font-size:32px;
+${Mobile({ fontSize: "28px" })};`;
 const Span = Styled.span`
 color:#0081B4;
 font-size:32px;
@@ -75,6 +78,7 @@ border:solid 1.5px gray;
 border-top-left-radius:10px;
 border-bottom-left-radius:10px;
 padding:2px 20px;
+${Mobile({ padding: "2px 10px" })};
 border-right:none;
 `;
 
@@ -89,7 +93,7 @@ border:none;
 
 height: 30px;
 outline:none;
-    
+ 
 &:focus{
  font-size: 18px;
 font-size: 18px;
@@ -110,7 +114,8 @@ outline:none;
         ? "0 0 0 30px #1F1F1F inset !important"
         : "0 0 0 30px #f6f9fa inset !important"};
     -webkit-text-fill-color: ${(props) => (nightMode ? "white" : "black")};
-}
+};
+${Mobile({ maxWidth: "30px" })};
 
 `;
 
@@ -174,10 +179,11 @@ const Navbar = () => {
   nightMode = useSelector((state) => state.nightmodebar.toggle);
   const accountBar = useSelector((state) => state.accountbar.toggle);
   const user = useSelector((state) => state.user.currentUser);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSearch = () => {
-    // console.log(search);
+    navigate(`/home/${search}`);
   };
   const IconStyle = {
     height: "35px",
@@ -210,7 +216,8 @@ const Navbar = () => {
           </IconContainer>
           <TitleContainer>
             <Title>
-              project<Span>Share</Span>
+              project
+              {/* <Span>Share</Span> */}
             </Title>
           </TitleContainer>
         </Left>
@@ -241,11 +248,6 @@ const Navbar = () => {
           </SearchIconContainer>
         </Center>
         <Right>
-          <MailIconContainer>
-            <MailIcon
-              style={nightMode ? IconStyleLightMode : IconStyleDarkMode}
-            />
-          </MailIconContainer>
           <DarkModeIconContainer>
             {nightMode ? (
               <DarkModeIcon

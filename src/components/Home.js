@@ -3,6 +3,7 @@ import Styled from "styled-components";
 import SearchProject from "./SearchProject";
 import SearchPeople from "./SearchPeople";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 let nightMode = true;
 const Container = Styled.div`
@@ -42,32 +43,54 @@ const Home = () => {
   const [filter, setFilter] = useState("People");
   const [projects, setProjects] = useState([]);
   const [people, setPeople] = useState([]);
+
+  let location = useLocation();
+  location = location.pathname.split("/");
+  let search = location[2];
+
   useEffect(() => {
     const fetchPeople = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/profile", {
-          headers: { Authorization: `Bearer ${user.accessToken}` },
-        });
+        const res = search
+          ? await axios.get(
+              `http://localhost:5000/api/profile?search=${search}`,
+              {
+                headers: { Authorization: `Bearer ${user.accessToken}` },
+              }
+            )
+          : await axios.get("http://localhost:5000/api/profile", {
+              headers: { Authorization: `Bearer ${user.accessToken}` },
+            });
         setPeople(res.data);
       } catch (error) {
         console.log(error);
       }
     };
     fetchPeople();
-  }, []);
+  }, [search, user.accessToken]);
+
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/project", {
-          headers: { Authorization: `Bearer ${user.accessToken}` },
-        });
+        let res = search
+          ? await axios.get(
+              `http://localhost:5000/api/project?search=${search}`,
+              {
+                headers: { Authorization: `Bearer ${user.accessToken}` },
+              }
+            )
+          : await axios.get("http://localhost:5000/api/project", {
+              headers: { Authorization: `Bearer ${user.accessToken}` },
+            });
         setProjects(res.data);
+        console.log(res.data);
       } catch (error) {
         console.log(error);
       }
     };
     fetchProjects();
-  }, []);
+  }, [search, user.accessToken]);
+
   return (
     <Container>
       <Header>

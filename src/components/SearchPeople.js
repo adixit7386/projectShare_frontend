@@ -19,7 +19,7 @@ padding:7px 12px;
 
 &:hover{
 
-  transform:scale(1.01);
+  transform:scale(1.005);
 }
 
 `;
@@ -43,8 +43,7 @@ const StatusText = Styled.span`
 color:green;
 font-size:18px;
 font-weight:500;`;
-const LinkContainer = Styled.div``;
-const LinkText = Styled.span``;
+
 const ProfileContainer = Styled.div`
 flex:0.5;`;
 const DescriptionContainer = Styled.div`
@@ -58,6 +57,7 @@ align-items:center;
 justify-content:center;
 `;
 const Img = Styled.img`
+
 width:100px;
 height:100px;
 object-fit:cover;

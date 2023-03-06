@@ -267,7 +267,7 @@ const Profile = () => {
   let userId = location.pathname.split("/")[2];
 
   const [loading, setLoading] = useState(false);
-  const [profile, setProfile] = useState({});
+  const [profile, setProfile] = useState();
   const user = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
@@ -289,141 +289,153 @@ const Profile = () => {
   }, []);
   return (
     <Container>
-      <Wrapper>
-        <HeadContainer>
-          <NameImgContainer>
-            <ImgContainer>
-              <Img
-                src={
-                  validURL(profile?.userId?.image)
-                    ? profile.userId?.image
-                    : "https://wallpapers.com/images/high/deadpool-logo-cool-profile-picture-g2sv7i8j6nzd7tfa.webp"
-                }
-              />
-              <Input id="image" type="file" hidden />
-            </ImgContainer>
-            <NameContainer>
-              <Name>{profile?.name}</Name>
-            </NameContainer>
-          </NameImgContainer>
-        </HeadContainer>
+      {!profile ? (
+        <Wrapper>
+          <DetailHeadingContainer>
+            <DetailHeading>profile doesn't exist</DetailHeading>
+          </DetailHeadingContainer>
+        </Wrapper>
+      ) : (
+        <Wrapper>
+          <HeadContainer>
+            <NameImgContainer>
+              <ImgContainer>
+                <Img
+                  src={
+                    validURL(profile?.userId?.image)
+                      ? profile.userId?.image
+                      : "https://wallpapers.com/images/high/deadpool-logo-cool-profile-picture-g2sv7i8j6nzd7tfa.webp"
+                  }
+                />
+                <Input id="image" type="file" hidden />
+              </ImgContainer>
+              <NameContainer>
+                <Name>{profile?.name}</Name>
+              </NameContainer>
+            </NameImgContainer>
+          </HeadContainer>
 
-        <DetailContainer>
-          <DetailInput>
-            <JobTitleContainer>
-              <JobTitleContainerText>{profile?.jobtitle}</JobTitleContainerText>
-            </JobTitleContainer>
-          </DetailInput>
-          <DetailInput>
-            <StatusContainer>
-              <StatusContainerText>{profile?.status}</StatusContainerText>
-            </StatusContainer>
-          </DetailInput>
+          <DetailContainer>
+            <DetailInput>
+              <JobTitleContainer>
+                <JobTitleContainerText>
+                  {profile?.jobtitle}
+                </JobTitleContainerText>
+              </JobTitleContainer>
+            </DetailInput>
+            <DetailInput>
+              <StatusContainer>
+                <StatusContainerText>{profile?.status}</StatusContainerText>
+              </StatusContainer>
+            </DetailInput>
 
-          <DescriptionContainer>
-            <DescriptionContainerText>
-              {profile?.description}
-            </DescriptionContainerText>
-          </DescriptionContainer>
-        </DetailContainer>
-        <DetailHeadingContainer>
-          <DetailHeading>Education Details</DetailHeading>
-        </DetailHeadingContainer>
-        <EducationDetails>
-          <EducationDetailsHead>
-            <Qualification>
-              <EducationDetailsHeading>Title</EducationDetailsHeading>
-            </Qualification>
-            <Institution>
-              <EducationDetailsHeading>Institution</EducationDetailsHeading>
-            </Institution>
-            <Score>
-              <EducationDetailsHeading>Score</EducationDetailsHeading>
-            </Score>
-            <Year>
-              <EducationDetailsHeading>Year</EducationDetailsHeading>
-            </Year>
-          </EducationDetailsHead>
-          {profile?.education?.map((item) => (
-            <EducationDetailsContent>
+            <DescriptionContainer>
+              <DescriptionContainerText>
+                {profile?.description}
+              </DescriptionContainerText>
+            </DescriptionContainer>
+          </DetailContainer>
+          <DetailHeadingContainer>
+            <DetailHeading>Education Details</DetailHeading>
+          </DetailHeadingContainer>
+          <EducationDetails>
+            <EducationDetailsHead>
               <Qualification>
-                <EducationDetailsData>{item?.title}</EducationDetailsData>
+                <EducationDetailsHeading>Title</EducationDetailsHeading>
               </Qualification>
               <Institution>
-                <EducationDetailsData>{item?.institution}</EducationDetailsData>
+                <EducationDetailsHeading>Institution</EducationDetailsHeading>
               </Institution>
               <Score>
-                <EducationDetailsData>{item?.score}</EducationDetailsData>
+                <EducationDetailsHeading>Score</EducationDetailsHeading>
               </Score>
               <Year>
-                <EducationDetailsData>{item?.year}</EducationDetailsData>
+                <EducationDetailsHeading>Year</EducationDetailsHeading>
               </Year>
-            </EducationDetailsContent>
-          ))}
-        </EducationDetails>
-
-        <DetailHeadingContainer>
-          <DetailHeading>Social Media Links</DetailHeading>
-        </DetailHeadingContainer>
-        <SocialContainer>
-          <DetailContainer>
-            {profile?.links?.map((item) => (
-              <DetailInput>
-                <InputContainer>
-                  <LinkContainer>
-                    <LinkText href={item?.link}>{item?.website}</LinkText>
-                  </LinkContainer>
-                </InputContainer>
-              </DetailInput>
+            </EducationDetailsHead>
+            {profile?.education?.map((item) => (
+              <EducationDetailsContent>
+                <Qualification>
+                  <EducationDetailsData>{item?.title}</EducationDetailsData>
+                </Qualification>
+                <Institution>
+                  <EducationDetailsData>
+                    {item?.institution}
+                  </EducationDetailsData>
+                </Institution>
+                <Score>
+                  <EducationDetailsData>{item?.score}</EducationDetailsData>
+                </Score>
+                <Year>
+                  <EducationDetailsData>{item?.year}</EducationDetailsData>
+                </Year>
+              </EducationDetailsContent>
             ))}
-          </DetailContainer>
-        </SocialContainer>
-        <DetailHeadingContainer>
-          <DetailHeading>Projects</DetailHeading>
-        </DetailHeadingContainer>
-        <ProjectsContainer>
-          {profile?.projects?.map((item) => (
+          </EducationDetails>
+
+          <DetailHeadingContainer>
+            <DetailHeading>Social Media Links</DetailHeading>
+          </DetailHeadingContainer>
+          <SocialContainer>
             <DetailContainer>
-              <ProjectHeadContainer>
-                <ProjectTitleContainer>
-                  <Label>{item?.title}</Label>
-                </ProjectTitleContainer>
-              </ProjectHeadContainer>
-              <ProjectDateContainer>
-                <DateSpan>
-                  {item?.from} to {item?.to}
-                </DateSpan>
-              </ProjectDateContainer>
-              <ProjectLinkContainer>
-                <Linked href={item?.link}>{item?.link}</Linked>
-              </ProjectLinkContainer>
-              <ProjectDescriptionContainer>
-                <Paragraph>{item?.description}</Paragraph>
-              </ProjectDescriptionContainer>
+              {profile?.links?.map((item) => (
+                <DetailInput>
+                  <InputContainer>
+                    <LinkContainer>
+                      <LinkText href={item?.link}>{item?.website}</LinkText>
+                    </LinkContainer>
+                  </InputContainer>
+                </DetailInput>
+              ))}
             </DetailContainer>
-          ))}
-        </ProjectsContainer>
-
-        <DetailHeadingContainer>
-          <DetailHeading>Skills</DetailHeading>
-        </DetailHeadingContainer>
-        <SkillsContainer>
-          <DetailContainer>
-            {profile?.skills?.map((item) => (
-              <DetailInput>
-                <SkillDescription>
-                  <SkillName>
-                    <SkillText>{item?.skill}</SkillText>
-                  </SkillName>
-                  <SkillRating>
-                    <SkillText>{item?.rating}</SkillText>
-                  </SkillRating>
-                </SkillDescription>
-              </DetailInput>
+          </SocialContainer>
+          <DetailHeadingContainer>
+            <DetailHeading>Projects</DetailHeading>
+          </DetailHeadingContainer>
+          <ProjectsContainer>
+            {profile?.projects?.map((item) => (
+              <DetailContainer>
+                <ProjectHeadContainer>
+                  <ProjectTitleContainer>
+                    <Label>{item?.title}</Label>
+                  </ProjectTitleContainer>
+                </ProjectHeadContainer>
+                <ProjectDateContainer>
+                  <DateSpan>
+                    {item?.from} to {item?.to}
+                  </DateSpan>
+                </ProjectDateContainer>
+                <ProjectLinkContainer>
+                  <Linked href={item?.link}>{item?.link}</Linked>
+                </ProjectLinkContainer>
+                <ProjectDescriptionContainer>
+                  <Paragraph>{item?.description}</Paragraph>
+                </ProjectDescriptionContainer>
+              </DetailContainer>
             ))}
-          </DetailContainer>
-        </SkillsContainer>
-      </Wrapper>
+          </ProjectsContainer>
+
+          <DetailHeadingContainer>
+            <DetailHeading>Skills</DetailHeading>
+          </DetailHeadingContainer>
+          <SkillsContainer>
+            <DetailContainer>
+              {profile?.skills?.map((item) => (
+                <DetailInput>
+                  <SkillDescription>
+                    <SkillName>
+                      <SkillText>{item?.skill}</SkillText>
+                    </SkillName>
+                    <SkillRating>
+                      <SkillText>{item?.rating}</SkillText>
+                    </SkillRating>
+                  </SkillDescription>
+                </DetailInput>
+              ))}
+            </DetailContainer>
+          </SkillsContainer>
+        </Wrapper>
+      )}
     </Container>
   );
 };

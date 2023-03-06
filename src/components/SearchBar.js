@@ -5,7 +5,7 @@ import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { useDispatch } from "react-redux";
 import { toggleSidebar } from "../redux/sideReducer";
 import Loader from "../components/Loader";
-// import Toast from "../components/Toast";
+
 import axios from "axios";
 import { validURL } from "../config/chatLogics";
 import { toggleWarningBar } from "../redux/warningReducer";

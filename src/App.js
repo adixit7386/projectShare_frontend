@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -41,6 +41,10 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
+    path: "/home/:search",
+    element: <Home />,
+  },
+  {
     path: "/",
     element: <Navigate replace to="/home" />,
   },
@@ -56,9 +60,11 @@ const router = createBrowserRouter([
 const App = () => {
   const dispatch = useDispatch();
   const warning = useSelector((state) => state.warning);
-  // if (warning.toggle === true) {
+  // const [toggle, setToggle] = useState(true);
+  // if (toggle && warning.toggle === true) {
   //   dispatch(toggleWarningBar(""));
   // }
+  // setToggle(false);
 
   return (
     <div>

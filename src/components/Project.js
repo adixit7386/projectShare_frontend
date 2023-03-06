@@ -36,6 +36,7 @@ height:50px;
 width:50px;
 margin-right:10px;`;
 const Image = Styled.img`
+border:${(props) => props.admin && "solid 1px black"};
 cursor:pointer;
 object-fit:cover;
 border-radius:50%;
@@ -129,6 +130,8 @@ const Project = () => {
             {project.members?.map((item) => (
               <ImgContainer>
                 <Image
+                  onClick={() => navigate(`/profile/${item._id}`)}
+                  admin={item._id === project.projectAdmin}
                   src={
                     validURL(item.image)
                       ? item.image

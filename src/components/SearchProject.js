@@ -18,7 +18,7 @@ padding:7px 12px;
 transition:all 0.3s ease;
 &:hover{
 
-  transform:scale(1.01);
+  transform:scale(1.005);
 }
 
 `;
@@ -40,10 +40,8 @@ const PeopleContainer = Styled.div`
 
 margin-top:10px;
 display:flex;
-overflow:scroll;
-&::-webkit-scrollbar{
-  display:none;
-}`;
+
+`;
 const ImgContainer = Styled.div`
 
 
@@ -51,6 +49,7 @@ height:50px;
 width:50px;
 margin-right:10px;`;
 const Image = Styled.img`
+border:${(props) => props.admin && "solid 1px black"};
 object-fit:cover;
 border-radius:50%;
 height:50px;
@@ -80,12 +79,14 @@ const Projects = ({ item }) => {
           <TitleText>{item.title}</TitleText>
         </TitleContainer>
         <PeopleContainer>
-          {item.members?.map((item) => (
+          {item.members?.map((memberitem) => (
             <ImgContainer>
+              {console.log(item.members, item.projectAdmin)}
               <Image
+                admin={memberitem?._id === item.projectAdmin ? true : false}
                 src={
-                  validURL(item.image)
-                    ? item.image
+                  validURL(memberitem.image)
+                    ? memberitem.image
                     : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                 }
               />
@@ -93,7 +94,7 @@ const Projects = ({ item }) => {
           ))}
         </PeopleContainer>
         <LeaderContainer>
-          <LeaderText href={item.link}>{item.link}</LeaderText>
+          <LeaderText href={item.link}>Link</LeaderText>
         </LeaderContainer>
       </DetailContainer>
       <DescriptionContainer>{item.description}</DescriptionContainer>
