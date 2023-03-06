@@ -4,6 +4,7 @@ import SearchProject from "./SearchProject";
 import SearchPeople from "./SearchPeople";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import Loader from "../components/Loader";
 import axios from "axios";
 let nightMode = true;
 const Container = Styled.div`
@@ -25,6 +26,12 @@ display:flex;
 align-items:center;
 
 justify-content:space-between;`;
+const Loaders = Styled.div`
+padding:10px 20px;
+display:flex;
+align-items:center;
+
+justify-content:center;`;
 
 const Select = Styled.select`
 background-color:${(props) => (nightMode ? "#292929" : "white")};
@@ -40,6 +47,8 @@ padding:5px 9px;`;
 const Home = () => {
   nightMode = useSelector((state) => state.nightmodebar.toggle);
   const user = useSelector((state) => state.user.currentUser);
+  const [peopleLoading, setPeopleLoading] = useState(false);
+  const [projectLoading, setProjectLoading] = useState(false);
   const [filter, setFilter] = useState("People");
   const [projects, setProjects] = useState([]);
   const [people, setPeople] = useState([]);
@@ -50,6 +59,7 @@ const Home = () => {
 
   useEffect(() => {
     const fetchPeople = async () => {
+      setPeopleLoading(true);
       try {
         const res = search
           ? await axios.get(
@@ -65,12 +75,14 @@ const Home = () => {
       } catch (error) {
         console.log(error);
       }
+      setPeopleLoading(false);
     };
     fetchPeople();
   }, [search, user.accessToken]);
 
   useEffect(() => {
     const fetchProjects = async () => {
+      setProjectLoading(true);
       try {
         let res = search
           ? await axios.get(
@@ -83,10 +95,10 @@ const Home = () => {
               headers: { Authorization: `Bearer ${user.accessToken}` },
             });
         setProjects(res.data);
-        console.log(res.data);
       } catch (error) {
         console.log(error);
       }
+      setProjectLoading(false);
     };
     fetchProjects();
   }, [search, user.accessToken]);
@@ -105,6 +117,11 @@ const Home = () => {
       </Header>
       {filter === "People" ? (
         <>
+          {peopleLoading && (
+            <Loaders>
+              <Loader />
+            </Loaders>
+          )}
           {people?.map((item) => (
             <SearchPeople key={item._id} item={item} />
           ))}
