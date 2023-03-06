@@ -6,6 +6,7 @@ import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import { useSelector } from "react-redux";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Mobile } from "../responsive";
 let nightMode = true;
 const Container = Styled.div`
 
@@ -19,6 +20,14 @@ overflow:scroll;
 }
 background-color:${(props) => (nightMode ? "#1F1F1F" : "#f8f9fa")};
 color:${(props) => (nightMode ? "white" : "black")};
+${Mobile({
+  display: (props) => props.sidebar && "none",
+  position: "absolute",
+  top: "0px",
+  zIndex: "5",
+  left: "0px",
+  width: "200px",
+})};
 `;
 const Wrapper = Styled.div`
 display:flex;
@@ -73,6 +82,7 @@ const Heading = Styled.span`
 font-size:18px`;
 const Sidebar = () => {
   nightMode = useSelector((state) => state.nightmodebar.toggle);
+  const sidebar = useSelector((state) => state.sidebar.toggle);
 
   const navigate = useNavigate();
   const IconStyle = {
@@ -86,7 +96,7 @@ const Sidebar = () => {
     navigate("/" + path);
   };
   return (
-    <Container>
+    <Container className="child" sidebar={sidebar}>
       <Wrapper>
         <Table>
           <Tr

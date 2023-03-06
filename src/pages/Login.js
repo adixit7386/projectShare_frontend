@@ -119,7 +119,6 @@ cursor:pointer;
 const Warning = Styled.span`
 margin-top:10px;`;
 const Login = () => {
-  // const dispatch = useDispatch();
   nightMode = useSelector((state) => state.nightmodebar.toggle);
 
   const navigate = useNavigate();

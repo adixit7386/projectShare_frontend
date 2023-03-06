@@ -5,7 +5,7 @@ import Sidebar from "../components/Sidebar";
 import Content from "../components/Content";
 const Container = Styled.div``;
 const Wrapper = Styled.div`
-
+position:relative;
 display:flex;
 align-items:flex-start;
 justify-content:center;
@@ -13,10 +13,11 @@ justify-content:center;
 `;
 
 const Home = () => {
+  const handleClick = (e) => {};
   return (
     <Container>
       <Navbar />
-      <Wrapper>
+      <Wrapper className="parent" onClick={(e) => handleClick(e)}>
         <Sidebar />
         <Content />
       </Wrapper>

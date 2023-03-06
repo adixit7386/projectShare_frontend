@@ -7,6 +7,7 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import MailIcon from "@mui/icons-material/Mail";
 import { useNavigate } from "react-router-dom";
 import { Mobile } from "../responsive";
+import { toggleSidebar } from "../redux/sideReducer";
 import AccountContainer from "../components/AccountContainer";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleNightMode } from "../redux/nightModeReducer";
@@ -212,7 +213,10 @@ const Navbar = () => {
       <Wrapper>
         <Left>
           <IconContainer>
-            <MenuRoundedIcon style={IconStyle} />
+            <MenuRoundedIcon
+              style={IconStyle}
+              onClick={() => dispatch(toggleSidebar())}
+            />
           </IconContainer>
           <TitleContainer>
             <Title>

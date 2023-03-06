@@ -3,7 +3,7 @@ import Styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { Mobile } from "../responsive";
 import axios from "axios";
-import Toast from "../components/Toast";
+import Loader from "../components/Loader";
 import { validURL } from "../config/chatLogics";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleWarningBar } from "../redux/warningReducer";
@@ -156,6 +156,7 @@ const Login = () => {
   const [repassword, setRepassword] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [loadingRegister, setLoadingRegister] = useState(false);
   const [imgLink, setImgLink] = useState("");
 
   const navigate = useNavigate();
@@ -177,7 +178,7 @@ const Login = () => {
 
       return;
     }
-
+    setLoadingRegister(true);
     user.username = userName;
     user.email = email;
     user.password = password;
@@ -193,10 +194,10 @@ const Login = () => {
       if (res.status === 201) {
         navigate("/login");
       }
-      console.log(res);
     } catch (err) {
       ManageNotification("This user already exists");
     }
+    setLoadingRegister(true);
   };
 
   const setFiles = (img) => {
@@ -304,6 +305,7 @@ const Login = () => {
           </InputContainer>
         </InputWrapper>
         <Button type="button" onClick={() => handleClick()}>
+          {loadingRegister ? <Loader /> : "Register"}
           Register
         </Button>
 
