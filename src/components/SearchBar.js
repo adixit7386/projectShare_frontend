@@ -5,10 +5,10 @@ import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { useDispatch } from "react-redux";
 import { toggleSidebar } from "../redux/sideReducer";
 import Loader from "../components/Loader";
-import Toast from "../components/Toast";
+// import Toast from "../components/Toast";
 import axios from "axios";
 import { validURL } from "../config/chatLogics";
-
+import { toggleWarningBar } from "../redux/warningReducer";
 import { toggleCreateGroup } from "../redux/createGroupReducer";
 import { setActiveChat } from "../redux/activeChatReducer";
 import { toggleUpdateChat } from "../redux/updateChats";
@@ -190,21 +190,25 @@ color:grey;
 `;
 const SearchBar = () => {
   const dispatch = useDispatch();
-  const User = useSelector((state) => state.user.currentUser);
+  let user = useSelector((state) => state.user.currentUser);
   let toggle = useSelector((state) => state.sidebar.toggle);
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const ManageNotification = (message) => {
+    dispatch(toggleWarningBar(message));
+    setTimeout(() => {
+      dispatch(toggleWarningBar(""));
+    }, 3000);
+  };
   const createChat = async (userId) => {
-    console.log(userId);
     try {
       const { data } = await axios.post(
         "http://localhost:5000/api/chat/",
         { userId: userId },
         {
           headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${User.accessToken}`,
+            Authorization: `Bearer ${user.accessToken}`,
           },
         }
       );
@@ -223,25 +227,7 @@ const SearchBar = () => {
       dispatch(toggleSidebar());
     }
   };
-  let user;
 
-  if (localStorage.getItem("persist:root") !== undefined) {
-    if (JSON.parse(localStorage?.getItem("persist:root"))?.user !== undefined) {
-      user = JSON.parse(
-        JSON.parse(localStorage?.getItem("persist:root"))?.user
-      )?.currentUser;
-    }
-  }
-  const [isnotification, setIsNotification] = useState(false);
-  const [notification, setNotification] = useState("");
-  const ManageNotification = (message) => {
-    let msg = message;
-    setTimeout(() => {
-      setIsNotification(true);
-      setNotification(msg);
-    }, 1000);
-    setIsNotification(false);
-  };
   const handleClickSearch = async () => {
     setLoading(true);
     try {
@@ -268,7 +254,6 @@ const SearchBar = () => {
         handleClick(e);
       }}
     >
-      {isnotification && <Toast message={notification} />}
       <Container toggle={toggle}>
         <Wrapper>
           <ItemTop>

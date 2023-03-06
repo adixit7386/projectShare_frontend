@@ -265,8 +265,7 @@ const Profile = () => {
   nightMode = useSelector((state) => state.nightmodebar.toggle);
   let location = useLocation();
   let userId = location.pathname.split("/")[2];
-  console.log(userId);
-  // let userId = "";
+
   const [loading, setLoading] = useState(false);
   const [profile, setProfile] = useState({});
   const user = useSelector((state) => state.user.currentUser);
@@ -296,7 +295,7 @@ const Profile = () => {
             <ImgContainer>
               <Img
                 src={
-                  validURL(profile.userId?.image)
+                  validURL(profile?.userId?.image)
                     ? profile.userId?.image
                     : "https://wallpapers.com/images/high/deadpool-logo-cool-profile-picture-g2sv7i8j6nzd7tfa.webp"
                 }
@@ -304,7 +303,7 @@ const Profile = () => {
               <Input id="image" type="file" hidden />
             </ImgContainer>
             <NameContainer>
-              <Name>{profile.name}</Name>
+              <Name>{profile?.name}</Name>
             </NameContainer>
           </NameImgContainer>
         </HeadContainer>
@@ -312,18 +311,18 @@ const Profile = () => {
         <DetailContainer>
           <DetailInput>
             <JobTitleContainer>
-              <JobTitleContainerText>{profile.jobtitle}</JobTitleContainerText>
+              <JobTitleContainerText>{profile?.jobtitle}</JobTitleContainerText>
             </JobTitleContainer>
           </DetailInput>
           <DetailInput>
             <StatusContainer>
-              <StatusContainerText>{profile.status}</StatusContainerText>
+              <StatusContainerText>{profile?.status}</StatusContainerText>
             </StatusContainer>
           </DetailInput>
 
           <DescriptionContainer>
             <DescriptionContainerText>
-              {profile.description}
+              {profile?.description}
             </DescriptionContainerText>
           </DescriptionContainer>
         </DetailContainer>
@@ -345,19 +344,19 @@ const Profile = () => {
               <EducationDetailsHeading>Year</EducationDetailsHeading>
             </Year>
           </EducationDetailsHead>
-          {profile.education?.map((item) => (
+          {profile?.education?.map((item) => (
             <EducationDetailsContent>
               <Qualification>
-                <EducationDetailsData>{item.title}</EducationDetailsData>
+                <EducationDetailsData>{item?.title}</EducationDetailsData>
               </Qualification>
               <Institution>
-                <EducationDetailsData>{item.institution}</EducationDetailsData>
+                <EducationDetailsData>{item?.institution}</EducationDetailsData>
               </Institution>
               <Score>
-                <EducationDetailsData>{item.score}</EducationDetailsData>
+                <EducationDetailsData>{item?.score}</EducationDetailsData>
               </Score>
               <Year>
-                <EducationDetailsData>{item.year}</EducationDetailsData>
+                <EducationDetailsData>{item?.year}</EducationDetailsData>
               </Year>
             </EducationDetailsContent>
           ))}
@@ -368,11 +367,11 @@ const Profile = () => {
         </DetailHeadingContainer>
         <SocialContainer>
           <DetailContainer>
-            {profile.links?.map((item) => (
+            {profile?.links?.map((item) => (
               <DetailInput>
                 <InputContainer>
                   <LinkContainer>
-                    <LinkText href={item.link}>{item.website}</LinkText>
+                    <LinkText href={item?.link}>{item?.website}</LinkText>
                   </LinkContainer>
                 </InputContainer>
               </DetailInput>
@@ -383,23 +382,23 @@ const Profile = () => {
           <DetailHeading>Projects</DetailHeading>
         </DetailHeadingContainer>
         <ProjectsContainer>
-          {profile.projects?.map((item) => (
+          {profile?.projects?.map((item) => (
             <DetailContainer>
               <ProjectHeadContainer>
                 <ProjectTitleContainer>
-                  <Label>{item.title}</Label>
+                  <Label>{item?.title}</Label>
                 </ProjectTitleContainer>
               </ProjectHeadContainer>
               <ProjectDateContainer>
                 <DateSpan>
-                  {item.from} to {item.to}
+                  {item?.from} to {item?.to}
                 </DateSpan>
               </ProjectDateContainer>
               <ProjectLinkContainer>
-                <Linked href={item.link}>{item.link}</Linked>
+                <Linked href={item?.link}>{item?.link}</Linked>
               </ProjectLinkContainer>
               <ProjectDescriptionContainer>
-                <Paragraph>{item.description}</Paragraph>
+                <Paragraph>{item?.description}</Paragraph>
               </ProjectDescriptionContainer>
             </DetailContainer>
           ))}
@@ -410,14 +409,14 @@ const Profile = () => {
         </DetailHeadingContainer>
         <SkillsContainer>
           <DetailContainer>
-            {profile.skills?.map((item) => (
+            {profile?.skills?.map((item) => (
               <DetailInput>
                 <SkillDescription>
                   <SkillName>
-                    <SkillText>{item.skill}</SkillText>
+                    <SkillText>{item?.skill}</SkillText>
                   </SkillName>
                   <SkillRating>
-                    <SkillText>{item.rating}</SkillText>
+                    <SkillText>{item?.rating}</SkillText>
                   </SkillRating>
                 </SkillDescription>
               </DetailInput>

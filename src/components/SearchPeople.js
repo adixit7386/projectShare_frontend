@@ -1,6 +1,8 @@
 import React from "react";
 import Styled from "styled-components";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { validURL } from "../config/chatLogics";
 let nightMode = true;
 const PeopleContainer = Styled.div`
 background-color:${(props) => (nightMode ? "#1F1F1F" : "#f8f9fa")};
@@ -8,8 +10,9 @@ color:${(props) => (nightMode ? "white" : "black")};
 cursor:pointer;
 margin:10px 20px;
 display:flex;
-align-items:flex-start;
+align-items:center;
 justify-content:center;
+
 
 border-radius:10px;
 padding:7px 12px;
@@ -21,7 +24,7 @@ padding:7px 12px;
 
 `;
 const DetailContainer = Styled.div`
-flex:1.5;
+flex:1.2;
 display:flex;
 align-items:flex-start;
 justify-content:center;
@@ -49,45 +52,47 @@ flex:2;`;
 const ParagraphContainer = Styled.p`
 color:grey;
 font-weight:500;`;
-const ImageContainer = Styled.div``;
+const ImageContainer = Styled.div`
+display:flex;
+align-items:center;
+justify-content:center;
+`;
 const Img = Styled.img`
+width:100px;
 height:100px;
-height:100px;
+object-fit:cover;
+
 border-radius:50%;`;
-const Projects = () => {
+const Projects = ({ item }) => {
   nightMode = useSelector((state) => state.nightmodebar.toggle);
+  const navigate = useNavigate();
   return (
-    <PeopleContainer>
+    <PeopleContainer onClick={() => navigate(`/profile/${item?.userId._id}`)}>
       <DetailContainer>
         <NameContainer>
-          <NameText>Abhay Dixit</NameText>
+          <NameText>{item.name}</NameText>
         </NameContainer>
         <RoleContainer>
-          <RoleText>BA3 intern @Barclays</RoleText>
+          <RoleText>{item.jobtitle}</RoleText>
         </RoleContainer>
         <StatusContainer>
-          <StatusText>2h mon-friday</StatusText>
+          <StatusText>{item.status}</StatusText>
         </StatusContainer>
-        <LinkContainer>
-          <a href="https://www.github.com/adixit7386">
-            <LinkText>Github</LinkText>
-          </a>
-        </LinkContainer>
       </DetailContainer>
       <ProfileContainer>
         <ImageContainer>
           <Img
             src={
-              "https://avatars.githubusercontent.com/u/92564357?s=400&u=58b28bd8ecfca5ffe4952d03c521b70fe047df68&v=4"
+              validURL(item.userId?.image)
+                ? item.userId?.image
+                : "https://avatars.githubusercontent.com/u/92564357?s=400&u=58b28bd8ecfca5ffe4952d03c521b70fe047df68&v=4"
             }
           />
         </ImageContainer>
       </ProfileContainer>
       <DescriptionContainer>
         <ParagraphContainer>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio
-          culpa expedita odio veniam soluta consequuntur nemo iure, earum harum
-          exercitationem, explicabo.
+          {item.description.slice(0, 250)}....
         </ParagraphContainer>
       </DescriptionContainer>
     </PeopleContainer>

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Styled from "styled-components";
 import SearchProject from "./SearchProject";
 import SearchPeople from "./SearchPeople";
 import { useSelector } from "react-redux";
+import axios from "axios";
 let nightMode = true;
 const Container = Styled.div`
 
@@ -37,8 +38,36 @@ const Option = Styled.option`
 padding:5px 9px;`;
 const Home = () => {
   nightMode = useSelector((state) => state.nightmodebar.toggle);
+  const user = useSelector((state) => state.user.currentUser);
   const [filter, setFilter] = useState("People");
-
+  const [projects, setProjects] = useState([]);
+  const [people, setPeople] = useState([]);
+  useEffect(() => {
+    const fetchPeople = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/profile", {
+          headers: { Authorization: `Bearer ${user.accessToken}` },
+        });
+        setPeople(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchPeople();
+  }, []);
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/project", {
+          headers: { Authorization: `Bearer ${user.accessToken}` },
+        });
+        setProjects(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchProjects();
+  }, []);
   return (
     <Container>
       <Header>
@@ -53,19 +82,15 @@ const Home = () => {
       </Header>
       {filter === "People" ? (
         <>
-          <SearchPeople></SearchPeople>
-          <SearchPeople></SearchPeople>
-          <SearchPeople></SearchPeople>
-          <SearchPeople></SearchPeople>
-          <SearchPeople></SearchPeople>
+          {people?.map((item) => (
+            <SearchPeople key={item._id} item={item} />
+          ))}
         </>
       ) : (
         <>
-          <SearchProject></SearchProject>
-          <SearchProject></SearchProject>
-          <SearchProject></SearchProject>
-          <SearchProject></SearchProject>
-          <SearchProject></SearchProject>
+          {projects.map((item) => (
+            <SearchProject key={item.id} item={item} />
+          ))}
         </>
       )}
     </Container>
