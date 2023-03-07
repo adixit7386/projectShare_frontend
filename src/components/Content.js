@@ -18,7 +18,7 @@ flex:3.5;
 top:60px;
 position:sticky;
 
-overflow-y:scroll;
+overflow:scroll;
 height:calc(100vh - 60px);
 &::-webkit-scrollbar{
   display:none;

@@ -3,18 +3,26 @@ import Styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { validURL } from "../config/chatLogics";
+import { Mobile } from "../responsive";
 let nightMode = true;
 const ProjectContainer = Styled.div`
+max-width:100vw;
 background-color:${(props) => (nightMode ? "#1F1F1F" : "#f8f9fa")};
 color:${(props) => (nightMode ? "white" : "black")};
+padding:7px 12px;
 cursor:pointer;
 margin:10px 20px;
 display:flex;
 align-items:flex-start;
 justify-content:center;
-
+${Mobile({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexDirection: "column",
+})}
 border-radius:10px;
-padding:7px 12px;
+
 transition:all 0.3s ease;
 &:hover{
 
@@ -23,17 +31,30 @@ transition:all 0.3s ease;
 
 `;
 const DetailContainer = Styled.div`
+max-width:100%;
+
 flex:1;
 display:flex;
 align-items:flex-start;
 justify-content:center;
 flex-direction:column;
+${Mobile({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexDirection: "column",
+})}
 `;
 
 const TitleContainer = Styled.div`
 font-weight:600;
+
+word-wrap:break-word;
+max-width:100%;
 flex:1;`;
-const TitleText = Styled.span`
+const TitleText = Styled.h1`
+word-wrap:break-word;
+
 font-size:20px;`;
 
 const PeopleContainer = Styled.div`
@@ -43,7 +64,12 @@ display:flex;
 
 `;
 const ImgContainer = Styled.div`
-
+${Mobile({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexDirection: "column",
+})}
 
 height:50px;
 width:50px;
@@ -62,6 +88,12 @@ const LeaderText = Styled.a``;
 const DescriptionContainer = Styled.div`
 color:grey;
 font-weight:500;
+${Mobile({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexDirection: "column",
+})}
 flex:2;`;
 
 const Projects = ({ item }) => {

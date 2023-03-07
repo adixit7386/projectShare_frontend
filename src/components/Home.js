@@ -8,12 +8,12 @@ import Loader from "../components/Loader";
 import axios from "axios";
 let nightMode = true;
 const Container = Styled.div`
-
+max-width:100vw;
 background-color:${(props) => (nightMode ? "#292929" : "white")};
 color:${(props) => (nightMode ? "white" : "black")};
 position:sticky;
 height:calc(100vh - 60px);
-overflow:scroll;
+
 &::-webkit-scrollbar{
   display:none;
 }

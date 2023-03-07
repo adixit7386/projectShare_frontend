@@ -5,18 +5,23 @@ import Loader from "../components/Loader";
 import { useSelector, useDispatch } from "react-redux";
 import { validURL } from "../config/chatLogics";
 import { toggleWarningBar } from "../redux/warningReducer";
-
+import { Mobile } from "../responsive";
 import axios from "axios";
 const Container = Styled.div`
+
+max-width:100vw;
 `;
 const Wrapper = Styled.div`
-margin:10px 20px;`;
+margin:10px 20px;
+`;
 const HeadContainer = Styled.div`
 display:flex;
 align-items:center;
 justify-content:center;
 `;
 const Heading = Styled.h1`
+word-wrap:break-word;
+font-size:26px;
 margin:0px;
 `;
 const MiddleContainer = Styled.div`
@@ -51,7 +56,8 @@ const Paragraph = Styled.p``;
 const ButtonContainer = Styled.div`
 display:flex;
 align-items:center;
-justify-content:flex-end;`;
+justify-content:center;
+flex-direction:column;`;
 const ButtonDelete = Styled.button`
 margin:10px 30px;
 padding:5px 12px;
@@ -62,6 +68,9 @@ color:white;
 border-radius:10px;
 transition:all 0.3s ease;
 cursor:pointer;
+${Mobile({
+  margin: "10px 30px",
+})}
 &:hover{
     background-color:#0098B4;
 }`;
@@ -142,7 +151,7 @@ const Project = () => {
             ))}
           </PeopleContainer>
           <LinkContainer>
-            <Link href={project.link}>{project.link}</Link>
+            <Link href={project.link}>Link</Link>
           </LinkContainer>
         </MiddleContainer>
         <BottomContainer>

@@ -3,6 +3,7 @@ import Styled from "styled-components";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { validURL } from "../config/chatLogics";
+import { Mobile } from "../responsive";
 let nightMode = true;
 const PeopleContainer = Styled.div`
 background-color:${(props) => (nightMode ? "#1F1F1F" : "#f8f9fa")};
@@ -12,7 +13,12 @@ margin:10px 20px;
 display:flex;
 align-items:center;
 justify-content:center;
-
+${Mobile({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexDirection: "column",
+})};
 
 border-radius:10px;
 padding:7px 12px;
@@ -29,9 +35,17 @@ display:flex;
 align-items:flex-start;
 justify-content:center;
 flex-direction:column;
+${Mobile({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexDirection: "column",
+})}
 `;
-const NameContainer = Styled.div``;
+const NameContainer = Styled.div`
+word-wrap:break-word;`;
 const NameText = Styled.span`
+
 font-weight:600;
 font-size:24px;`;
 
@@ -47,6 +61,12 @@ font-weight:500;`;
 const ProfileContainer = Styled.div`
 flex:0.5;`;
 const DescriptionContainer = Styled.div`
+${Mobile({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexDirection: "column",
+})}
 flex:2;`;
 const ParagraphContainer = Styled.p`
 color:grey;

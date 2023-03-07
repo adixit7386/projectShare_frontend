@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Styled from "styled-components";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -62,24 +61,7 @@ align-items:center;
 justify-content:center;`;
 const StatusContainerText = Styled.span`
 font-size:18px;`;
-const DOBContainer = Styled.div`
-display:flex;
-align-items:center;
-justify-content:center;`;
-const DOBContainerText = Styled.span`
-font-size:18px;`;
-const EmailContainer = Styled.div`
-display:flex;
-align-items:center;
-justify-content:center;`;
-const EmailContainerText = Styled.span`
-font-size:18px;`;
-const ContactContainer = Styled.div`
-display:flex;
-align-items:center;
-justify-content:center;`;
-const ContactContainerText = Styled.span`
-font-size:18px;`;
+
 const DescriptionContainer = Styled.div`
 text-align:justify;
 width:85%;`;
@@ -130,15 +112,6 @@ align-items:center;
 justify-content:center;
 `;
 
-const InputDetail = Styled.input`
-padding:7px 12px;
-&:focus{
-  outline:none;
-};
-font-size:15px;
-border:none;
-flex:4;`;
-
 const EducationDetails = Styled.div`
 display:flex;
 align-items:center;
@@ -147,8 +120,10 @@ flex-direction:column;`;
 
 const EducationDetailsHead = Styled.div`
 display:flex;
+
 align-items:center;
 justify-content:center;
+
 width:85%;`;
 
 const EducationDetailsHeading = Styled.span`
@@ -190,10 +165,7 @@ margin-top:10px;
 const EducationDetailsData = Styled.span`
 font-size:18px;`;
 
-const IconContainer = Styled.div`
-display:flex;
-align-items:center;
-justify-content:center;
+const Section = Styled.div`
 `;
 
 const SocialContainer = Styled.div`
@@ -335,43 +307,45 @@ const Profile = () => {
               </DescriptionContainerText>
             </DescriptionContainer>
           </DetailContainer>
-          <DetailHeadingContainer>
-            <DetailHeading>Education Details</DetailHeading>
-          </DetailHeadingContainer>
-          <EducationDetails>
-            <EducationDetailsHead>
-              <Qualification>
-                <EducationDetailsHeading>Title</EducationDetailsHeading>
-              </Qualification>
-              <Institution>
-                <EducationDetailsHeading>Institution</EducationDetailsHeading>
-              </Institution>
-              <Score>
-                <EducationDetailsHeading>Score</EducationDetailsHeading>
-              </Score>
-              <Year>
-                <EducationDetailsHeading>Year</EducationDetailsHeading>
-              </Year>
-            </EducationDetailsHead>
-            {profile?.education?.map((item) => (
-              <EducationDetailsContent>
+          <Section>
+            <DetailHeadingContainer>
+              <DetailHeading>Education Details</DetailHeading>
+            </DetailHeadingContainer>
+            <EducationDetails>
+              <EducationDetailsHead>
                 <Qualification>
-                  <EducationDetailsData>{item?.title}</EducationDetailsData>
+                  <EducationDetailsHeading>Title</EducationDetailsHeading>
                 </Qualification>
                 <Institution>
-                  <EducationDetailsData>
-                    {item?.institution}
-                  </EducationDetailsData>
+                  <EducationDetailsHeading>Institution</EducationDetailsHeading>
                 </Institution>
                 <Score>
-                  <EducationDetailsData>{item?.score}</EducationDetailsData>
+                  <EducationDetailsHeading>Score</EducationDetailsHeading>
                 </Score>
                 <Year>
-                  <EducationDetailsData>{item?.year}</EducationDetailsData>
+                  <EducationDetailsHeading>Year</EducationDetailsHeading>
                 </Year>
-              </EducationDetailsContent>
-            ))}
-          </EducationDetails>
+              </EducationDetailsHead>
+              {profile?.education?.map((item) => (
+                <EducationDetailsContent>
+                  <Qualification>
+                    <EducationDetailsData>{item?.title}</EducationDetailsData>
+                  </Qualification>
+                  <Institution>
+                    <EducationDetailsData>
+                      {item?.institution}
+                    </EducationDetailsData>
+                  </Institution>
+                  <Score>
+                    <EducationDetailsData>{item?.score}</EducationDetailsData>
+                  </Score>
+                  <Year>
+                    <EducationDetailsData>{item?.year}</EducationDetailsData>
+                  </Year>
+                </EducationDetailsContent>
+              ))}
+            </EducationDetails>
+          </Section>
 
           <DetailHeadingContainer>
             <DetailHeading>Social Media Links</DetailHeading>
@@ -389,6 +363,7 @@ const Profile = () => {
               ))}
             </DetailContainer>
           </SocialContainer>
+
           <DetailHeadingContainer>
             <DetailHeading>Projects</DetailHeading>
           </DetailHeadingContainer>
