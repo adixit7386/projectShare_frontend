@@ -19,7 +19,7 @@ margin:0px;`;
 const Button = Styled.button`
 border:none;
 font-size:24px;
-background-color:black;
+background-color:#0081B4;
 border-radius:10px;
 color:white;
 transition:all 0.3s ease;
@@ -49,7 +49,7 @@ const Projects = () => {
     };
     fetchProjects();
   }, [user.accessToken]);
-  console.log(data);
+
   return (
     <Container>
       <Wrapper>
@@ -60,7 +60,7 @@ const Projects = () => {
               navigate("new");
             }}
           >
-            Create New Project
+            Create
           </Button>
         </Header>
         {loading && <Loader />}

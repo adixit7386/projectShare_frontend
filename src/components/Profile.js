@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Styled from "styled-components";
 import UploadIcon from "@mui/icons-material/Upload";
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useSelector, useDispatch } from "react-redux";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { validURL } from "../config/chatLogics";
 import { toggleWarningBar } from "../redux/warningReducer";
 import { loginSuccess } from "../redux/userReducer";
+import { Mobile } from "../responsive";
 import axios from "axios";
-import Toast from "../components/Toast";
 let nightMode = true;
 const Container = Styled.div`
 background-color:${(props) => (nightMode ? "#292929" : "white")};
@@ -105,7 +103,7 @@ font-size:30px;
 font-weight:500;
 color:#5A5A5A;`;
 const DetailInput = Styled.div`
-
+${Mobile({ width: "80%" })};
 width:40%;
 margin:10px 20px;`;
 const DetailText = Styled.span`
@@ -117,6 +115,37 @@ font-size:18px;
 const TitleContainer = Styled.div``;
 
 const InputDetail = Styled.input`
+padding:7px 12px;
+background-color:${(props) => (nightMode ? "#292929" : "#f6f8fa")};
+color:${(props) => (nightMode ? "white" : "grey")};
+&:focus{
+  outline:none;
+  background-color:${(props) => (nightMode ? "#292929" : "#f6f8fa")};
+  color:${(props) => (nightMode ? "white" : "black")};
+  border-bottom:1px solid blue;
+   
+};
+
+font-size:15px;
+border:none;
+border-bottom:1px solid grey;
+flex:4;
+&:-webkit-autofill,
+&:-webkit-autofill:hover, 
+&:-webkit-autofill:focus, 
+&:-webkit-autofill:active{
+  
+  -webkit-box-shadow: ${(props) =>
+    nightMode
+      ? "0 0 0 30px #292929 inset !important"
+      : "0 0 0 30px #f6f8fa inset !important"};
+    -webkit-text-fill-color: ${(props) => (nightMode ? "white" : "black")};
+  }
+
+ 
+  `;
+const InputDetailAdd = Styled.input`
+width:50%;
 padding:7px 12px;
 background-color:${(props) => (nightMode ? "#292929" : "#f6f8fa")};
 color:${(props) => (nightMode ? "white" : "grey")};
@@ -193,6 +222,7 @@ const Option = Styled.option`
 padding:7px 12px;`;
 
 const EducationDetails = Styled.div`
+overflow:scroll;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -329,6 +359,7 @@ const SkillDescription = Styled.div`
 
 margin:10px 20px;
 display:flex;
+flex-wrap:wrap;
 `;
 const SkillName = Styled.div`
 flex:3;
@@ -344,7 +375,7 @@ const AddSectionButton = Styled.button`
 margin-top:20px;
 padding:3px 5px;
 border:none;
-background-color:#3C84AB;
+background-color:#0081B4;
 color:white;
 border-radius:5px;
 font-size:24px;
@@ -361,7 +392,7 @@ const AddButton = Styled.button`
 margin-top:20px;
 padding:3px 5px;
 border:none;
-background-color:#3C84AB;
+background-color:#0081B4;
 color:white;
 border-radius:5px;
 font-size:24px;
@@ -370,7 +401,7 @@ transition:all 0.2s ease;
 cursor:pointer;
 &:hover{
   transform:scale(1.05);
-  background-color:#3C84FF;
+  background-color:#0081B4;
 }
 `;
 const AddButtonSingle = Styled.button`
@@ -378,7 +409,7 @@ const AddButtonSingle = Styled.button`
 
 padding:3px 5px;
 border:none;
-background-color:#3C84AB;
+background-color:#0081B4;
 color:white;
 border-radius:5px;
 font-size:24px;
@@ -404,7 +435,7 @@ margin-bottom:20px;
 margin-right:20px;
 padding:5px 12px;
 border:none;
-background-color:#00428A;
+background-color:#0081B4;
 color:white;
 border-radius:5px;
 font-size:24px;
@@ -419,7 +450,7 @@ margin-top:20px;
 margin-bottom:20px;
 padding:5px 12px;
 border:none;
-background-color:#00428A;
+background-color:#0081B4;
 color:white;
 border-radius:5px;
 font-size:24px;
@@ -429,6 +460,7 @@ cursor:pointer;
    transform:scale(1.06);;
 }`;
 const Section = Styled.div`
+
 border-radius:10px;
 padding:7px 12px;
 margin-bottom:10px;
@@ -1156,7 +1188,7 @@ const Profile = () => {
 
               <DetailInput>
                 <InputContainer>
-                  <InputDetail
+                  <InputDetailAdd
                     type="text"
                     name="skill"
                     value={skills.skill}
@@ -1239,7 +1271,7 @@ const Profile = () => {
                     <Option>Medium</Option>
                     <Option>Dev.to</Option>
                   </Select>
-                  <InputDetail
+                  <InputDetailAdd
                     type="link"
                     name="link"
                     value={social.link}

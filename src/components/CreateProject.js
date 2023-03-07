@@ -4,6 +4,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleWarningBar } from "../redux/warningReducer";
 import { validURL } from "../config/chatLogics";
+import { Mobile } from "../responsive";
 import axios from "axios";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 let nightMode = true;
@@ -29,7 +30,7 @@ justify-content:center;
 flex-wrap:wrap;`;
 
 const InputItem = Styled.div`
-
+${Mobile({ width: "100%" })}
 margin:10px 20px;
 width:45%;`;
 const InputItemDescription = Styled.div`
@@ -93,12 +94,12 @@ flex:4;
 const MembersInput = Styled.input`
 width:80%;
 padding:7px 12px;
-background-color:${(props) => (nightMode ? "#292929" : "white")};
+background-color:${(props) => (nightMode ? "#292929" : "#f6f8fa")};
 color:${(props) => (nightMode ? "white" : "grey")};
 border:none;
 &:focus{
   outline:none;
-  background-color:${(props) => (nightMode ? "#292929" : "white")};
+  background-color:${(props) => (nightMode ? "#292929" : "#f6f8fa")};
   color:${(props) => (nightMode ? "white" : "black")};
  
    
@@ -116,7 +117,7 @@ flex:4;
   -webkit-box-shadow: ${(props) =>
     nightMode
       ? "0 0 0 30px #292929 inset !important"
-      : "0 0 0 30px white inset !important"};
+      : "0 0 0 30px #f6f8fa inset !important"};
     -webkit-text-fill-color: ${(props) => (nightMode ? "white" : "black")};
   }`;
 const Select = Styled.select`
@@ -176,10 +177,11 @@ align-items:center;
 justify-content:flex-end;
 `;
 const CreateButton = Styled.button`
+border:none;
 margin:10px 30px;
 padding:5px 12px;
 font-size:24px;
-background-color:black;
+background-color:#0081B4;
 color:white;
 border-radius:10px;
 transition:all 0.3s ease;
@@ -190,14 +192,14 @@ cursor:pointer;
 
 `;
 const SearchMember = Styled.div`
-background-color:white;
+background-color:#f6f8fa;
 border:solid 1px grey;
 border-top:none;
 padding:5px 12px;
 position:absolute;
 border-bottom-right-radius:5px;
 border-bottom-left-radius:5px;
-
+${Mobile({ width: "80%" })}
 width:41%;`;
 const SearchContainer = Styled.div`
 display:flex;`;
@@ -421,10 +423,14 @@ const CreateProject = () => {
                   {members.map((item) => (
                     <ImgContainer>
                       <Image
+                        src={
+                          validURL(item.image)
+                            ? item.image
+                            : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                        }
                         onClick={() => {
                           deleteMember(item);
                         }}
-                        src={item.image}
                       />
                     </ImgContainer>
                   ))}

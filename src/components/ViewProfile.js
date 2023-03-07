@@ -296,8 +296,6 @@ const Profile = () => {
           },
         }
       );
-      console.log(data);
-      dispatch(toggleSidebar());
       dispatch(setActiveChat(data));
       dispatch(toggleUpdateChat());
       navigate("/chats");

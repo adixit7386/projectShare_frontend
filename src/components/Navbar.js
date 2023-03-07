@@ -4,7 +4,6 @@ import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import MailIcon from "@mui/icons-material/Mail";
 import { useNavigate } from "react-router-dom";
 import { Mobile } from "../responsive";
 import { toggleSidebar } from "../redux/sideReducer";

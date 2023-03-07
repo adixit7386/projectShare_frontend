@@ -5,7 +5,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleWarningBar } from "../redux/warningReducer";
 import { validURL } from "../config/chatLogics";
 import { useLocation } from "react-router-dom";
+import { Mobile } from "../responsive";
 import axios from "axios";
+import Loader from "../components/Loader";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 let nightMode = true;
 const Container = Styled.div`
@@ -30,7 +32,7 @@ justify-content:center;
 flex-wrap:wrap;`;
 
 const InputItem = Styled.div`
-
+${Mobile({ width: "100%" })};
 margin:10px 20px;
 width:45%;`;
 const InputItemDescription = Styled.div`
@@ -180,7 +182,8 @@ const CreateButton = Styled.button`
 margin:10px 30px;
 padding:5px 12px;
 font-size:24px;
-background-color:black;
+background-color:#0081B4;
+border:none;
 color:white;
 border-radius:10px;
 transition:all 0.3s ease;
@@ -273,12 +276,13 @@ const UpdateProject = () => {
   let [project, setProject] = useState({});
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
+  const [loadingFetch, setLoadingFetch] = useState(false);
+  const [loadingUpdate, setLoadingUpdate] = useState(false);
   const dispatch = useDispatch();
-
-  //fetching existing project before updating
 
   useEffect(() => {
     const fetchProject = async () => {
+      setLoadingFetch(true);
       try {
         const { data } = await axios.get(
           `http://localhost:5000/api/project/${projectId}`
@@ -288,6 +292,7 @@ const UpdateProject = () => {
       } catch (error) {
         console.log(error);
       }
+      setLoadingFetch(false);
     };
     fetchProject();
   }, [projectId]);
@@ -295,7 +300,9 @@ const UpdateProject = () => {
   const handleProject = (e) => {
     setProject({ ...project, [e.target.name]: e.target.value });
   };
+
   const user = useSelector((state) => state.user.currentUser);
+
   const [members, setMembers] = useState([
     {
       name: user.name,
@@ -354,6 +361,7 @@ const UpdateProject = () => {
     }
   };
   const createProject = async () => {
+    setLoadingUpdate(true);
     if (project.projectAdmin !== user._id) {
       handleNotification("You are not authorized");
     }
@@ -379,13 +387,14 @@ const UpdateProject = () => {
         project,
         { headers: { Authorization: `Bearer ${user.accessToken}` } }
       );
-      handleNotification("Please Fill All Fields");
+      handleNotification("Project Updated Successfully");
     } catch (error) {
       handleNotification("couldn't update project");
       console.log(error);
     }
+    setLoadingUpdate(false);
   };
-  console.log(project.visiblity);
+
   return (
     <Container>
       <Wrapper>
@@ -533,7 +542,7 @@ const UpdateProject = () => {
               createProject();
             }}
           >
-            Update
+            {loadingUpdate ? <Loader /> : "Update"}
           </CreateButton>
         </BottomContainer>
       </Wrapper>
