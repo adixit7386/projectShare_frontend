@@ -574,7 +574,7 @@ const Profile = () => {
     const getUserData = async () => {
       try {
         const savedUserProfile = await axios.get(
-          `http://localhost:5000/api/profile/${user._id}`
+          `https://projectshare-eight.vercel.app/api/profile/${user._id}`
         );
         let existingUserProfile = savedUserProfile.data;
 
@@ -635,7 +635,7 @@ const Profile = () => {
         return;
       }
       const res = await axios.post(
-        "http://localhost:5000/api/profile",
+        "https://projectshare-eight.vercel.app/api/profile",
         userProfile,
         config
       );
@@ -679,7 +679,7 @@ const Profile = () => {
         return;
       }
       const res = await axios.put(
-        "http://localhost:5000/api/profile",
+        "https://projectshare-eight.vercel.app/api/profile",
         userProfile,
         config
       );
@@ -728,7 +728,7 @@ const Profile = () => {
 
             try {
               const res = await axios.put(
-                `http://localhost:5000/api/user/register`,
+                `https://projectshare-eight.vercel.app/api/user/register`,
                 { image: imagelink },
                 config
               );

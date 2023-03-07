@@ -84,7 +84,7 @@ const SidebarContainer = () => {
     const fetchChat = async (userId) => {
       try {
         const { data } = await axios.get(
-          "http://localhost:5000/api/chat/",
+          "https://projectshare-eight.vercel.app/api/chat/",
 
           {
             headers: {

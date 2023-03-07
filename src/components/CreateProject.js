@@ -312,7 +312,7 @@ const CreateProject = () => {
   const handleClickSearch = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/api/user?search=${search}`,
+        `https://projectshare-eight.vercel.app/api/user?search=${search}`,
         { headers: { Authorization: `Bearer ${user.accessToken}` } }
       );
       setData(data);
@@ -341,7 +341,7 @@ const CreateProject = () => {
 
     try {
       let { data } = await axios.post(
-        "http://localhost:5000/api/project",
+        "https://projectshare-eight.vercel.app/api/project",
         project,
         { headers: { Authorization: `Bearer ${user.accessToken}` } }
       );

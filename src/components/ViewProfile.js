@@ -265,7 +265,7 @@ const Profile = () => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/profile/${userId}`,
+          `https://projectshare-eight.vercel.app/api/profile/${userId}`,
           { headers: { Authorization: `Bearer ${user.accessToken}` } }
         );
 
@@ -284,7 +284,7 @@ const Profile = () => {
   const createChat = async (userId) => {
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/chat/",
+        "https://projectshare-eight.vercel.app/api/chat/",
         { userId: userId },
         {
           headers: {

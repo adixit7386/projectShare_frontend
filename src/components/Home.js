@@ -65,14 +65,17 @@ const Home = () => {
       try {
         const res = search
           ? await axios.get(
-              `http://localhost:5000/api/profile?search=${search}`,
+              `https://projectshare-eight.vercel.app/api/profile?search=${search}`,
               {
                 headers: { Authorization: `Bearer ${user.accessToken}` },
               }
             )
-          : await axios.get("http://localhost:5000/api/profile", {
-              headers: { Authorization: `Bearer ${user.accessToken}` },
-            });
+          : await axios.get(
+              "https://projectshare-eight.vercel.app/api/profile",
+              {
+                headers: { Authorization: `Bearer ${user.accessToken}` },
+              }
+            );
         setPeople(res.data);
       } catch (error) {}
       setPeopleLoading(false);
@@ -86,14 +89,17 @@ const Home = () => {
       try {
         let res = search
           ? await axios.get(
-              `http://localhost:5000/api/project?search=${search}`,
+              `https://projectshare-eight.vercel.app/api/project?search=${search}`,
               {
                 headers: { Authorization: `Bearer ${user.accessToken}` },
               }
             )
-          : await axios.get("http://localhost:5000/api/project", {
-              headers: { Authorization: `Bearer ${user.accessToken}` },
-            });
+          : await axios.get(
+              "https://projectshare-eight.vercel.app/api/project",
+              {
+                headers: { Authorization: `Bearer ${user.accessToken}` },
+              }
+            );
         setProjects(res.data);
       } catch (error) {}
       setProjectLoading(false);

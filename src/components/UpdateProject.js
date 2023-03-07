@@ -93,7 +93,7 @@ flex:4;
 const MembersInput = Styled.input`
 width:80%;
 padding:7px 12px;
-background-color:white;
+background-color:#f6f8fa;
 color:grey;
 border:none;
 &:focus{
@@ -185,14 +185,14 @@ cursor:pointer;
 
 `;
 const SearchMember = Styled.div`
-background-color:white;
+background-color:#f6f8fa;
 border:solid 1px grey;
 border-top:none;
 padding:5px 12px;
 position:absolute;
 border-bottom-right-radius:5px;
 border-bottom-left-radius:5px;
-
+${Mobile({ width: "70%" })};
 width:41%;`;
 const SearchContainer = Styled.div`
 display:flex;`;
@@ -275,7 +275,7 @@ const UpdateProject = () => {
       setLoadingFetch(true);
       try {
         const { data } = await axios.get(
-          `http://localhost:5000/api/project/${projectId}`
+          `https://projectshare-eight.vercel.app/api/project/${projectId}`
         );
         const { createAt, updatedAt, __v, ...others } = data;
         setProject(others);
@@ -337,7 +337,7 @@ const UpdateProject = () => {
   const handleClickSearch = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/api/user?search=${search}`,
+        `https://projectshare-eight.vercel.app/api/user?search=${search}`,
         { headers: { Authorization: `Bearer ${user.accessToken}` } }
       );
       setData(data);
@@ -371,7 +371,7 @@ const UpdateProject = () => {
 
     try {
       let { data } = await axios.put(
-        "http://localhost:5000/api/project",
+        "https://projectshare-eight.vercel.app/api/project",
         project,
         { headers: { Authorization: `Bearer ${user.accessToken}` } }
       );

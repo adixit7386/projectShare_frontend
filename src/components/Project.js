@@ -96,7 +96,7 @@ const Project = () => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/project/${projectId}`
+          `https://projectshare-eight.vercel.app/api/project/${projectId}`
         );
 
         setProject(res.data);
@@ -112,9 +112,12 @@ const Project = () => {
     }
     setLoadingDelete(true);
     try {
-      await axios.delete(`http://localhost:5000/api/project/${projectId}`, {
-        headers: { Authorization: `Bearer ${user.accessToken}` },
-      });
+      await axios.delete(
+        `https://projectshare-eight.vercel.app/api/project/${projectId}`,
+        {
+          headers: { Authorization: `Bearer ${user.accessToken}` },
+        }
+      );
       handleNotification("Project Deleted Successfully");
       navigate("/projects");
     } catch (err) {

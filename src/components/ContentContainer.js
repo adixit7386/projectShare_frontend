@@ -223,7 +223,7 @@ color:lightgrey;
 margin:0 auto;
 `;
 
-const ENDPOINT = "http://localhost:5000";
+const ENDPOINT = "https://projectshare-eight.vercel.app";
 var socket, selectedChatCompare;
 const ContentContainer = () => {
   const toggleBar = useSelector((state) => state.personbar.toggle);
@@ -265,7 +265,7 @@ const ContentContainer = () => {
   const fetchMessage = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/api/message/${activeChat?._id}`,
+        `https://projectshare-eight.vercel.app/api/message/${activeChat?._id}`,
         {
           headers: {
             Authorization: `Bearer ${User.accessToken}`,
@@ -327,7 +327,7 @@ const ContentContainer = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/message/",
+        "https://projectshare-eight.vercel.app/api/message/",
         content,
         {
           headers: {

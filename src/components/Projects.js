@@ -38,9 +38,12 @@ const Projects = () => {
     const fetchProjects = async () => {
       setLoading(true);
       try {
-        let res = await axios.get("http://localhost:5000/api/project/user", {
-          headers: { Authorization: `Bearer ${user.accessToken}` },
-        });
+        let res = await axios.get(
+          "https://projectshare-eight.vercel.app/api/project/user",
+          {
+            headers: { Authorization: `Bearer ${user.accessToken}` },
+          }
+        );
         setData(res.data);
       } catch (error) {}
       setLoading(false);
