@@ -20,21 +20,17 @@ overflow:scroll;
 }
 background-color:#f8f9fa;
 color:black;
-${Mobile({
-  display: (props) => props.sidebar && "none",
-  position: "absolute",
-  top: "0px",
-  zIndex: "5",
-  left: "0px",
-  width: "200px",
-})};
+${Mobile({ maxWidth: "60px" })};
 `;
+
 const Wrapper = Styled.div`
 display:flex;
 align-items:flex-start;
 justify-content:center;
 
-padding:10px;`;
+padding:10px;
+${Mobile({ padding: "10px 2px" })};
+`;
 
 const Table = Styled.table`
 border:none;
@@ -68,8 +64,11 @@ justify-content:center;
 flex:1;`;
 const TdText = Styled.td`
 padding-left:10px;
+${Mobile({ display: "none" })};
+
 flex:3;`;
 const TdIcon2 = Styled.td`
+${Mobile({ display: "none" })};
 flex:1;`;
 const Heading = Styled.span`
 font-size:18px`;
