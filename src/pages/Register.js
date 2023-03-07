@@ -183,7 +183,7 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/user/register",
+        "https://projectshare-eight.vercel.app/api/user/register",
         user
       );
 
