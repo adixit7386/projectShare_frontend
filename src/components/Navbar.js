@@ -205,6 +205,7 @@ const Navbar = () => {
           </InputContainer>
           <SearchIconContainer>
             <SearchRoundedIcon
+              onClick={handleSearch()}
               style={{
                 height: "35px",
                 width: "35px",
