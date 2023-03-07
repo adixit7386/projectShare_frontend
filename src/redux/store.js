@@ -21,7 +21,7 @@ import updateChats from "./updateChats";
 import notificationBarReducer from "./notificationBarReducer";
 import warningReducer from "./warningReducer";
 const persistConfig = {
-  key: "root",
+  key: "projectshare:root",
   version: 1,
   storage,
 };
