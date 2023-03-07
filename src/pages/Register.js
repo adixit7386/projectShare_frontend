@@ -302,7 +302,6 @@ const Login = () => {
         </InputWrapper>
         <Button type="button" onClick={() => handleClick()}>
           {loadingRegister ? <Loader /> : "Register"}
-          Register
         </Button>
 
         <CheckboxContainer>
