@@ -86,6 +86,7 @@ margin-top:10px;`;
 const LeaderText = Styled.a``;
 
 const DescriptionContainer = Styled.div`
+text-align:justify;
 color:grey;
 font-weight:500;
 ${Mobile({

@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import Styled from "styled-components";
 import { useSelector } from "react-redux";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import { useDispatch } from "react-redux";
 import { toggleSidebar } from "../redux/sideReducer";
 import Loader from "../components/Loader";
 
 import axios from "axios";
 import { validURL } from "../config/chatLogics";
+import { useDispatch } from "react-redux";
 import { toggleWarningBar } from "../redux/warningReducer";
 import { toggleCreateGroup } from "../redux/createGroupReducer";
 import { setActiveChat } from "../redux/activeChatReducer";

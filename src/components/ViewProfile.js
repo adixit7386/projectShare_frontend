@@ -4,6 +4,16 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { validURL } from "../config/chatLogics";
+import { Mobile } from "../responsive";
+import { useDispatch } from "react-redux";
+import { toggleWarningBar } from "../redux/warningReducer";
+import { useNavigate } from "react-router-dom";
+import { toggleCreateGroup } from "../redux/createGroupReducer";
+import { toggleSidebar } from "../redux/sideReducer";
+import { setActiveChat } from "../redux/activeChatReducer";
+import { toggleUpdateChat } from "../redux/updateChats";
+import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
+import Loader from "../components/Loader";
 let nightMode = true;
 const Container = Styled.div`
 
@@ -100,6 +110,7 @@ color:grey;`;
 
 const DetailInput = Styled.div`
 width:40%;
+${Mobile({ width: "80%" })}
 margin:10px 20px;`;
 
 const InputContainer = Styled.div`
@@ -208,6 +219,7 @@ const LinkText = Styled.a`
 
 font-size:20px;`;
 const Paragraph = Styled.p`
+text-align:justify;
 align:left;`;
 
 const SkillsContainer = Styled.div`
@@ -236,9 +248,16 @@ justify-content:center;`;
 const Profile = () => {
   nightMode = useSelector((state) => state.nightmodebar.toggle);
   let location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   let userId = location.pathname.split("/")[2];
 
   const [loading, setLoading] = useState(false);
+  const IconStyle = {
+    height: "35px",
+    width: "35px",
+    cursor: "pointer",
+  };
   const [profile, setProfile] = useState();
   const user = useSelector((state) => state.user.currentUser);
 
@@ -259,14 +278,48 @@ const Profile = () => {
     };
     getUserProfile();
   }, []);
+  const ManageNotification = (message) => {
+    dispatch(toggleWarningBar(message));
+    setTimeout(() => {
+      dispatch(toggleWarningBar(""));
+    }, 3000);
+  };
+  const createChat = async (userId) => {
+    console.log(userId);
+    try {
+      const { data } = await axios.post(
+        "http://localhost:5000/api/chat/",
+        { userId: userId },
+        {
+          headers: {
+            Authorization: `Bearer ${user.accessToken}`,
+          },
+        }
+      );
+      console.log(data);
+      dispatch(toggleSidebar());
+      dispatch(setActiveChat(data));
+      dispatch(toggleUpdateChat());
+      navigate("/chats");
+    } catch (err) {
+      console.log(err);
+      ManageNotification("couldn't create a chat");
+    }
+  };
   return (
     <Container>
       {!profile ? (
-        <Wrapper>
-          <DetailHeadingContainer>
-            <DetailHeading>profile doesn't exist</DetailHeading>
-          </DetailHeadingContainer>
-        </Wrapper>
+        loading ? (
+          <Wrapper>
+            <Loader />
+          </Wrapper>
+        ) : (
+          <Wrapper>
+            <DetailHeadingContainer>
+              <DetailHeading>profile doesn't exist</DetailHeading>
+            </DetailHeadingContainer>
+          </Wrapper>
+        )
       ) : (
         <Wrapper>
           <HeadContainer>
@@ -298,6 +351,16 @@ const Profile = () => {
             <DetailInput>
               <StatusContainer>
                 <StatusContainerText>{profile?.status}</StatusContainerText>
+              </StatusContainer>
+            </DetailInput>
+            <DetailInput>
+              <StatusContainer>
+                <ChatBubbleIcon
+                  onClick={() => {
+                    createChat(profile.userId);
+                  }}
+                  style={IconStyle}
+                />
               </StatusContainer>
             </DetailInput>
 
@@ -381,7 +444,7 @@ const Profile = () => {
                   </DateSpan>
                 </ProjectDateContainer>
                 <ProjectLinkContainer>
-                  <Linked href={item?.link}>{item?.link}</Linked>
+                  <Linked href={item?.link}>Link</Linked>
                 </ProjectLinkContainer>
                 <ProjectDescriptionContainer>
                   <Paragraph>{item?.description}</Paragraph>
