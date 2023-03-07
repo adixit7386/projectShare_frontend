@@ -5,12 +5,14 @@ import SearchPeople from "./SearchPeople";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import Loader from "../components/Loader";
+import { useDispatch } from "react-redux";
+import { toggleWarningBar } from "../redux/warningReducer";
 import axios from "axios";
-let nightMode = true;
+
 const Container = Styled.div`
 max-width:100vw;
-background-color:${(props) => (nightMode ? "#292929" : "white")};
-color:${(props) => (nightMode ? "white" : "black")};
+background-color:white;
+color:black;
 position:sticky;
 height:calc(100vh - 60px);
 
@@ -34,8 +36,8 @@ align-items:center;
 justify-content:center;`;
 
 const Select = Styled.select`
-background-color:${(props) => (nightMode ? "#292929" : "white")};
-color:${(props) => (nightMode ? "white" : "black")};
+background-color:white;
+color:black;
 font-size:18px;
 border:none;
 padding:7px 12px;
@@ -45,10 +47,9 @@ padding:7px 12px;
 const Option = Styled.option`
 padding:5px 9px;`;
 const Home = () => {
-  nightMode = useSelector((state) => state.nightmodebar.toggle);
   const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
   const [peopleLoading, setPeopleLoading] = useState(false);
-  const [projectLoading, setProjectLoading] = useState(false);
   const [filter, setFilter] = useState("People");
   const [projects, setProjects] = useState([]);
   const [people, setPeople] = useState([]);
@@ -56,7 +57,12 @@ const Home = () => {
   let location = useLocation();
   location = location.pathname.split("/");
   let search = location[2];
-
+  const handleNotification = (message) => {
+    dispatch(toggleWarningBar(message));
+    setTimeout(() => {
+      dispatch(toggleWarningBar(""));
+    }, 3000);
+  };
   useEffect(() => {
     const fetchPeople = async () => {
       setPeopleLoading(true);
@@ -72,9 +78,10 @@ const Home = () => {
               headers: { Authorization: `Bearer ${user.accessToken}` },
             });
         setPeople(res.data);
-      } catch (error) {
-        console.log(error);
-      }
+        if (res.data.length === 0) {
+          handleNotification("No People found");
+        }
+      } catch (error) {}
       setPeopleLoading(false);
     };
     fetchPeople();
@@ -82,7 +89,6 @@ const Home = () => {
 
   useEffect(() => {
     const fetchProjects = async () => {
-      setProjectLoading(true);
       try {
         let res = search
           ? await axios.get(
@@ -95,10 +101,10 @@ const Home = () => {
               headers: { Authorization: `Bearer ${user.accessToken}` },
             });
         setProjects(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-      setProjectLoading(false);
+        if (res.data.length === 0) {
+          handleNotification("No Projects found");
+        }
+      } catch (error) {}
     };
     fetchProjects();
   }, [search, user.accessToken]);

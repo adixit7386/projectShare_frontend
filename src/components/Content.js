@@ -4,7 +4,6 @@ import Home from "../components/Home";
 import Profile from "../components/Profile";
 import ViewProfile from "../components/ViewProfile";
 import Chats from "../components/Chats";
-import Teams from "../components/Teams";
 import Projects from "../components/Projects";
 import CreateProject from "../components/CreateProject";
 import UpdateProject from "../components/UpdateProject";
@@ -17,7 +16,6 @@ const Container = Styled.div`
 flex:3.5;
 top:60px;
 position:sticky;
-
 overflow:scroll;
 height:calc(100vh - 60px);
 &::-webkit-scrollbar{
@@ -39,7 +37,7 @@ const Content = () => {
       {page === "profile" && Location.length <= 2 && <Profile />}
       {page === "profile" && Location.length > 2 && <ViewProfile />}
       {page === "chats" && <Chats />}
-      {page === "teams" && <Teams />}
+
       {page === "projects" && Location.length <= 2 && <Projects />}
       {page === "projects" && Location.length > 2 && Location[2] === "new" && (
         <CreateProject />

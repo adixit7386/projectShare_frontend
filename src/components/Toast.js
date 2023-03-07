@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
-import { toggleWarningBar } from "../redux/warningReducer";
-import WarningIcon from "@mui/icons-material/Warning";
+import { useSelector } from "react-redux";
 const ParentContainer = Styled.div`
 
 position:absolute;
@@ -42,7 +40,6 @@ font-size:20px;
 color:white;`;
 
 const Toast = () => {
-  const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const warning = useSelector((state) => state.warning);
   useEffect(() => {

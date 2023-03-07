@@ -1,14 +1,12 @@
 import React from "react";
 import Styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { validURL } from "../config/chatLogics";
 import { Mobile } from "../responsive";
-let nightMode = true;
 const ProjectContainer = Styled.div`
 max-width:100vw;
-background-color:${(props) => (nightMode ? "#1F1F1F" : "#f8f9fa")};
-color:${(props) => (nightMode ? "white" : "black")};
+background-color:#f8f9fa;
+color:black;
 padding:7px 12px;
 cursor:pointer;
 margin:10px 20px;
@@ -98,7 +96,6 @@ ${Mobile({
 flex:2;`;
 
 const Projects = ({ item }) => {
-  nightMode = useSelector((state) => state.nightmodebar.toggle);
   const navigate = useNavigate();
 
   return (
@@ -114,7 +111,6 @@ const Projects = ({ item }) => {
         <PeopleContainer>
           {item.members?.map((memberitem) => (
             <ImgContainer>
-              {console.log(item.members, item.projectAdmin)}
               <Image
                 admin={memberitem?._id === item.projectAdmin ? true : false}
                 src={

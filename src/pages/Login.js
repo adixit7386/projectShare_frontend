@@ -8,12 +8,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleWarningBar } from "../redux/warningReducer";
 
 import axios from "axios";
-let nightMode = true;
+
 const Container = Styled.div`
 height:100vh;
 
-background-color:${(props) => (nightMode ? "#1F1F1F" : "#f8f9fa")};
-color:${(props) => (nightMode ? "white" : "black")};
+background-color:#f8f9fa;
+color:black;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -28,7 +28,7 @@ flex-direction:column;
 width:300px;
 border-radius:10px;
 padding:40px 40px;
-background-color:${(props) => (nightMode ? "#292929" : "white")};
+background-color:white;
 
 `;
 const Title = Styled.h1`
@@ -53,7 +53,7 @@ const InputContainer = Styled.div`
   justify-content:center;
   padding:10px 5px;
   height:30px;
-  background-color:${(props) => (nightMode ? "#292929" : "white")};
+  background-color:white;
   border:solid gray 1px;
   border-top:${(props) => props.name === "password" && "none"};
   border-top-left-radius:${(props) => props.name === "username" && "5px"};
@@ -64,8 +64,8 @@ const InputContainer = Styled.div`
 `;
 const Input = Styled.input`
   font-size:18px;
-  background-color:${(props) => (nightMode ? "#292929" : "white")};
-  color:${(props) => (nightMode ? "white" : "grey")};
+  background-color:white;
+  color:grey;
   width:90%;
   height:90%;
   border:none;
@@ -73,8 +73,8 @@ const Input = Styled.input`
     width:90%;
     height:90%;
     border:none;
-    background-color:${(props) => (nightMode ? "#292929" : "white")};
-    color:${(props) => (nightMode ? "white" : "black")};
+    background-color:white;
+    color:black;
     outline:none;
   }
   &:-webkit-autofill,
@@ -82,11 +82,8 @@ const Input = Styled.input`
 &:-webkit-autofill:focus, 
 &:-webkit-autofill:active{
    
-    -webkit-box-shadow: ${(props) =>
-      nightMode
-        ? "0 0 0 30px #292929 inset !important"
-        : "0 0 0 30px white inset !important"};
-    -webkit-text-fill-color: ${(props) => (nightMode ? "white" : "black")};
+    -webkit-box-shadow:0 0 0 30px white inset !important;
+    -webkit-text-fill-color: black;
 }
 `;
 const CheckboxContainer = Styled.div`
@@ -119,8 +116,6 @@ cursor:pointer;
 const Warning = Styled.span`
 margin-top:10px;`;
 const Login = () => {
-  nightMode = useSelector((state) => state.nightmodebar.toggle);
-
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");

@@ -212,12 +212,10 @@ const SearchBar = () => {
           },
         }
       );
-      console.log(data);
       dispatch(toggleSidebar());
       dispatch(setActiveChat(data));
       dispatch(toggleUpdateChat());
     } catch (err) {
-      console.log(err);
       ManageNotification("couldn't create a chat");
     }
   };

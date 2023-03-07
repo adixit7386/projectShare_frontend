@@ -7,19 +7,19 @@ import { useSelector } from "react-redux";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Mobile } from "../responsive";
-let nightMode = true;
 const Container = Styled.div`
 
 flex:1;
 height:calc(100vh - 60px);
 position:sticky;
 top:60px;
+border-right:1px solid lightgrey;
 overflow:scroll;
 &::-webkit-scrollbar{
   display:none;
 }
-background-color:${(props) => (nightMode ? "#1F1F1F" : "#f8f9fa")};
-color:${(props) => (nightMode ? "white" : "black")};
+background-color:#f8f9fa;
+color:black;
 ${Mobile({
   display: (props) => props.sidebar && "none",
   position: "absolute",
@@ -40,7 +40,6 @@ const Table = Styled.table`
 border:none;
 
 width:90%;`;
-// const TableHeading=Styled.span``;
 const Tr = Styled.tr`
 margin-top:5px;
 
@@ -50,13 +49,7 @@ display:flex;
 align-items:center;
 border-radius:10px;
 background-color:${(props) =>
-  props.location === props.name
-    ? nightMode
-      ? "#292929"
-      : "#f6f9fa"
-    : nightMode
-    ? "#1F1F1F"
-    : "#f6f9fa"};
+  props.location === props.name ? "lightgray" : "#f6f9fa"};
   
 justify-content:center;
 
@@ -65,7 +58,7 @@ justify-content:center;
 &:hover{
   transform:scale(1.01);
   cursor:pointer;
-  background-color:${(props) => (nightMode ? "#292929" : "lightgrey")};;
+  background-color:lightgrey;
 
 }`;
 const TdIcon1 = Styled.td`
@@ -81,7 +74,6 @@ flex:1;`;
 const Heading = Styled.span`
 font-size:18px`;
 const Sidebar = () => {
-  nightMode = useSelector((state) => state.nightmodebar.toggle);
   const sidebar = useSelector((state) => state.sidebar.toggle);
 
   const navigate = useNavigate();

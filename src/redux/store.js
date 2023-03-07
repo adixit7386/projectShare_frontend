@@ -14,7 +14,6 @@ import userReducer from "./userReducer";
 import sideReducer from "./sideReducer";
 import personReducer from "./personReducer";
 import accountReducer from "./accountReducer";
-import nightModeReducer from "./nightModeReducer";
 import activeChatReducer from "./activeChatReducer";
 import createGroupReducer from "./createGroupReducer";
 import notificationReducer from "./notificationReducer";
@@ -31,7 +30,6 @@ const rootReducer = combineReducers({
   sidebar: sideReducer,
   personbar: personReducer,
   accountbar: accountReducer,
-  nightmodebar: nightModeReducer,
   activechat: activeChatReducer,
   creategroup: createGroupReducer,
   updatechats: updateChats,

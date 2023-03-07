@@ -13,7 +13,9 @@ justify-content:center;
 `;
 
 const Home = () => {
-  const handleClick = (e) => {};
+  const handleClick = (e) => {
+    console.log(e.target);
+  };
   return (
     <Container>
       <Navbar />

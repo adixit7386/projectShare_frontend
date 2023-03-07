@@ -14,14 +14,10 @@ import { setActiveChat } from "../redux/activeChatReducer";
 import { toggleUpdateChat } from "../redux/updateChats";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import Loader from "../components/Loader";
-let nightMode = true;
 const Container = Styled.div`
+background-color:white;
 
-background-color:${(props) => (nightMode ? "#1F1F1F" : "#f8f9fa")};
-color:${(props) => (nightMode ? "white" : "black")};
-margin:20px 20px ;
-border-radius:20px;
-box-shadow:0px 0px 10px lightgrey;`;
+color:black;`;
 
 const Wrapper = Styled.div`
 padding:10px;`;
@@ -177,6 +173,10 @@ const EducationDetailsData = Styled.span`
 font-size:18px;`;
 
 const Section = Styled.div`
+border-radius:10px;
+padding:7px 12px;
+margin-bottom:10px;
+background-color:#f6f8fa;
 `;
 
 const SocialContainer = Styled.div`
@@ -246,7 +246,6 @@ align-items:center;
 justify-content:center;`;
 
 const Profile = () => {
-  nightMode = useSelector((state) => state.nightmodebar.toggle);
   let location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -271,13 +270,11 @@ const Profile = () => {
         );
 
         setProfile(res.data);
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
       setLoading(false);
     };
     getUserProfile();
-  }, []);
+  }, [user.accessToken, userId]);
   const ManageNotification = (message) => {
     dispatch(toggleWarningBar(message));
     setTimeout(() => {
@@ -285,7 +282,6 @@ const Profile = () => {
     }, 3000);
   };
   const createChat = async (userId) => {
-    console.log(userId);
     try {
       const { data } = await axios.post(
         "http://localhost:5000/api/chat/",
@@ -300,7 +296,6 @@ const Profile = () => {
       dispatch(toggleUpdateChat());
       navigate("/chats");
     } catch (err) {
-      console.log(err);
       ManageNotification("couldn't create a chat");
     }
   };
@@ -320,54 +315,56 @@ const Profile = () => {
         )
       ) : (
         <Wrapper>
-          <HeadContainer>
-            <NameImgContainer>
-              <ImgContainer>
-                <Img
-                  src={
-                    validURL(profile?.userId?.image)
-                      ? profile.userId?.image
-                      : "https://wallpapers.com/images/high/deadpool-logo-cool-profile-picture-g2sv7i8j6nzd7tfa.webp"
-                  }
-                />
-                <Input id="image" type="file" hidden />
-              </ImgContainer>
-              <NameContainer>
-                <Name>{profile?.name}</Name>
-              </NameContainer>
-            </NameImgContainer>
-          </HeadContainer>
+          <Section>
+            <HeadContainer>
+              <NameImgContainer>
+                <ImgContainer>
+                  <Img
+                    src={
+                      validURL(profile?.userId?.image)
+                        ? profile.userId?.image
+                        : "https://wallpapers.com/images/high/deadpool-logo-cool-profile-picture-g2sv7i8j6nzd7tfa.webp"
+                    }
+                  />
+                  <Input id="image" type="file" hidden />
+                </ImgContainer>
+                <NameContainer>
+                  <Name>{profile?.name}</Name>
+                </NameContainer>
+              </NameImgContainer>
+            </HeadContainer>
 
-          <DetailContainer>
-            <DetailInput>
-              <JobTitleContainer>
-                <JobTitleContainerText>
-                  {profile?.jobtitle}
-                </JobTitleContainerText>
-              </JobTitleContainer>
-            </DetailInput>
-            <DetailInput>
-              <StatusContainer>
-                <StatusContainerText>{profile?.status}</StatusContainerText>
-              </StatusContainer>
-            </DetailInput>
-            <DetailInput>
-              <StatusContainer>
-                <ChatBubbleIcon
-                  onClick={() => {
-                    createChat(profile.userId);
-                  }}
-                  style={IconStyle}
-                />
-              </StatusContainer>
-            </DetailInput>
+            <DetailContainer>
+              <DetailInput>
+                <JobTitleContainer>
+                  <JobTitleContainerText>
+                    {profile?.jobtitle}
+                  </JobTitleContainerText>
+                </JobTitleContainer>
+              </DetailInput>
+              <DetailInput>
+                <StatusContainer>
+                  <StatusContainerText>{profile?.status}</StatusContainerText>
+                </StatusContainer>
+              </DetailInput>
+              <DetailInput>
+                <StatusContainer>
+                  <ChatBubbleIcon
+                    onClick={() => {
+                      createChat(profile.userId);
+                    }}
+                    style={IconStyle}
+                  />
+                </StatusContainer>
+              </DetailInput>
 
-            <DescriptionContainer>
-              <DescriptionContainerText>
-                {profile?.description}
-              </DescriptionContainerText>
-            </DescriptionContainer>
-          </DetailContainer>
+              <DescriptionContainer>
+                <DescriptionContainerText>
+                  {profile?.description}
+                </DescriptionContainerText>
+              </DescriptionContainer>
+            </DetailContainer>
+          </Section>
           <Section>
             <DetailHeadingContainer>
               <DetailHeading>Education Details</DetailHeading>
@@ -407,69 +404,72 @@ const Profile = () => {
               ))}
             </EducationDetails>
           </Section>
-
-          <DetailHeadingContainer>
-            <DetailHeading>Social Media Links</DetailHeading>
-          </DetailHeadingContainer>
-          <SocialContainer>
-            <DetailContainer>
-              {profile?.links?.map((item) => (
-                <DetailInput>
-                  <InputContainer>
-                    <LinkContainer>
-                      <LinkText href={item?.link}>{item?.website}</LinkText>
-                    </LinkContainer>
-                  </InputContainer>
-                </DetailInput>
-              ))}
-            </DetailContainer>
-          </SocialContainer>
-
-          <DetailHeadingContainer>
-            <DetailHeading>Projects</DetailHeading>
-          </DetailHeadingContainer>
-          <ProjectsContainer>
-            {profile?.projects?.map((item) => (
+          <Section>
+            <DetailHeadingContainer>
+              <DetailHeading>Social Media Links</DetailHeading>
+            </DetailHeadingContainer>
+            <SocialContainer>
               <DetailContainer>
-                <ProjectHeadContainer>
-                  <ProjectTitleContainer>
-                    <Label>{item?.title}</Label>
-                  </ProjectTitleContainer>
-                </ProjectHeadContainer>
-                <ProjectDateContainer>
-                  <DateSpan>
-                    {item?.from} to {item?.to}
-                  </DateSpan>
-                </ProjectDateContainer>
-                <ProjectLinkContainer>
-                  <Linked href={item?.link}>Link</Linked>
-                </ProjectLinkContainer>
-                <ProjectDescriptionContainer>
-                  <Paragraph>{item?.description}</Paragraph>
-                </ProjectDescriptionContainer>
+                {profile?.links?.map((item) => (
+                  <DetailInput>
+                    <InputContainer>
+                      <LinkContainer>
+                        <LinkText href={item?.link}>{item?.website}</LinkText>
+                      </LinkContainer>
+                    </InputContainer>
+                  </DetailInput>
+                ))}
               </DetailContainer>
-            ))}
-          </ProjectsContainer>
-
-          <DetailHeadingContainer>
-            <DetailHeading>Skills</DetailHeading>
-          </DetailHeadingContainer>
-          <SkillsContainer>
-            <DetailContainer>
-              {profile?.skills?.map((item) => (
-                <DetailInput>
-                  <SkillDescription>
-                    <SkillName>
-                      <SkillText>{item?.skill}</SkillText>
-                    </SkillName>
-                    <SkillRating>
-                      <SkillText>{item?.rating}</SkillText>
-                    </SkillRating>
-                  </SkillDescription>
-                </DetailInput>
+            </SocialContainer>
+          </Section>
+          <Section>
+            <DetailHeadingContainer>
+              <DetailHeading>Projects</DetailHeading>
+            </DetailHeadingContainer>
+            <ProjectsContainer>
+              {profile?.projects?.map((item) => (
+                <DetailContainer>
+                  <ProjectHeadContainer>
+                    <ProjectTitleContainer>
+                      <Label>{item?.title}</Label>
+                    </ProjectTitleContainer>
+                  </ProjectHeadContainer>
+                  <ProjectDateContainer>
+                    <DateSpan>
+                      {item?.from} to {item?.to}
+                    </DateSpan>
+                  </ProjectDateContainer>
+                  <ProjectLinkContainer>
+                    <Linked href={item?.link}>Link</Linked>
+                  </ProjectLinkContainer>
+                  <ProjectDescriptionContainer>
+                    <Paragraph>{item?.description}</Paragraph>
+                  </ProjectDescriptionContainer>
+                </DetailContainer>
               ))}
-            </DetailContainer>
-          </SkillsContainer>
+            </ProjectsContainer>
+          </Section>
+          <Section>
+            <DetailHeadingContainer>
+              <DetailHeading>Skills</DetailHeading>
+            </DetailHeadingContainer>
+            <SkillsContainer>
+              <DetailContainer>
+                {profile?.skills?.map((item) => (
+                  <DetailInput>
+                    <SkillDescription>
+                      <SkillName>
+                        <SkillText>{item?.skill}</SkillText>
+                      </SkillName>
+                      <SkillRating>
+                        <SkillText>{item?.rating}</SkillText>
+                      </SkillRating>
+                    </SkillDescription>
+                  </DetailInput>
+                ))}
+              </DetailContainer>
+            </SkillsContainer>
+          </Section>
         </Wrapper>
       )}
     </Container>

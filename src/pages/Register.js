@@ -7,12 +7,12 @@ import Loader from "../components/Loader";
 import { validURL } from "../config/chatLogics";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleWarningBar } from "../redux/warningReducer";
-let nightMode = true;
+
 const Container = Styled.div`
 
 height:100vh;
-background-color:${(props) => (nightMode ? "#1F1F1F" : "#f8f9fa")};
-color:${(props) => (nightMode ? "white" : "black")};
+background-color:#f8f9fa;
+color:black;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -26,7 +26,7 @@ justify-content:center;
 flex-direction:column;
 width:700px;
 padding:40px 40px;
-background-color:${(props) => (nightMode ? "#292929" : "white")};
+background-color:white;
 border-radius:10px;
 
 `;
@@ -68,12 +68,12 @@ margin:6px 12px;
 
 width:300px;
 ${Mobile({ margin: "3px 12px" })};
-background-color:${(props) => (nightMode ? "#292929" : "white")};
+background-color:white;
 `;
 const Input = Styled.input`
 
-background-color:${(props) => (nightMode ? "#292929" : "white")};
-  color:${(props) => (nightMode ? "white" : "grey")};
+background-color:white;
+  color:grey;
 font-size:18px;
 width:90%;
 height:90%;
@@ -89,8 +89,8 @@ transition:all 0.3s ease;
     font-size:18px;
 width:90%;
 height:90%;
-background-color:${(props) => (nightMode ? "#292929" : "white")};
-    color:${(props) => (nightMode ? "white" : "black")};
+background-color:white;
+    color:black;
 }
 
  &:-webkit-autofill,
@@ -98,11 +98,8 @@ background-color:${(props) => (nightMode ? "#292929" : "white")};
 &:-webkit-autofill:focus, 
 &:-webkit-autofill:active{
    
-    -webkit-box-shadow: ${(props) =>
-      nightMode
-        ? "0 0 0 30px #292929 inset !important"
-        : "0 0 0 30px white inset !important"};
-    -webkit-text-fill-color: ${(props) => (nightMode ? "white" : "black")};
+    -webkit-box-shadow:0 0 0 30px white inset !important;
+    -webkit-text-fill-color:black;
 }
 
 
@@ -146,7 +143,6 @@ border-radius:50%;
 object-fit:cover;`;
 const Label = Styled.label``;
 const Login = () => {
-  nightMode = useSelector((state) => state.nightmodebar.toggle);
   const dispatch = useDispatch();
   let user = {};
   const [userName, setUserName] = useState("");

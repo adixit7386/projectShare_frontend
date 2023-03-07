@@ -244,7 +244,6 @@ const CreateGroup = ({ toggle }) => {
       dispatch(toggleCreateGroup());
       navigate("/chats");
     } catch (err) {
-      console.log(err);
       handleNotification("couldn't create a chat");
     }
   };

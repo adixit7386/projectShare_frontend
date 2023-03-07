@@ -7,7 +7,7 @@ import { validURL } from "../config/chatLogics";
 import { Mobile } from "../responsive";
 import axios from "axios";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-let nightMode = true;
+
 const Container = Styled.div`
 
 `;
@@ -66,12 +66,12 @@ background-color:#f6f8fa;
 const Input = Styled.input`
 width:80%;
 padding:7px 12px;
-background-color:${(props) => (nightMode ? "#292929" : "#f6f8fa")};
-color:${(props) => (nightMode ? "white" : "grey")};
+background-color:#f6f8fa;
+color:grey;
 &:focus{
   outline:none;
-  background-color:${(props) => (nightMode ? "#292929" : "#f6f8fa")};
-  color:${(props) => (nightMode ? "white" : "black")};
+  background-color:#f6f8fa;
+  color:black;
   border-bottom:1px solid blue;
    
 };
@@ -85,22 +85,19 @@ flex:4;
 &:-webkit-autofill:focus, 
 &:-webkit-autofill:active{
   
-  -webkit-box-shadow: ${(props) =>
-    nightMode
-      ? "0 0 0 30px #292929 inset !important"
-      : "0 0 0 30px #f6f8fa inset !important"};
-    -webkit-text-fill-color: ${(props) => (nightMode ? "white" : "black")};
+  -webkit-box-shadow:0 0 0 30px #f6f8fa inset !important;
+    -webkit-text-fill-color: black;
   }`;
 const MembersInput = Styled.input`
 width:80%;
 padding:7px 12px;
-background-color:${(props) => (nightMode ? "#292929" : "#f6f8fa")};
-color:${(props) => (nightMode ? "white" : "grey")};
+background-color:#f6f8fa;
+color:grey;
 border:none;
 &:focus{
   outline:none;
-  background-color:${(props) => (nightMode ? "#292929" : "#f6f8fa")};
-  color:${(props) => (nightMode ? "white" : "black")};
+  background-color:#f6f8fa;
+  color:black;
  
    
 };
@@ -114,11 +111,8 @@ flex:4;
 &:-webkit-autofill:focus, 
 &:-webkit-autofill:active{
   
-  -webkit-box-shadow: ${(props) =>
-    nightMode
-      ? "0 0 0 30px #292929 inset !important"
-      : "0 0 0 30px #f6f8fa inset !important"};
-    -webkit-text-fill-color: ${(props) => (nightMode ? "white" : "black")};
+  -webkit-box-shadow:0 0 0 30px #f6f8fa inset !important;
+    -webkit-text-fill-color:black;
   }`;
 const Select = Styled.select`
 background-color:#f6f8fa;
@@ -150,13 +144,13 @@ justify-content:center;
 const Paragraph = Styled.textarea`
 
 border:None;
-background-color:${(props) => (nightMode ? "#292929" : "#f6f8fa")};
-  color:${(props) => (nightMode ? "white" : "grey")};
+background-color:#f6f8fa;
+  color:grey;
 
 &:focus{
   outline:none;
-  background-color:${(props) => (nightMode ? "#292929" : "#f6f8fa")};
-    color:${(props) => (nightMode ? "white" : "black")};
+  background-color:#f6f8fa;
+    color:black;
 };
 width:100%;
   &:-webkit-autofill,
@@ -164,11 +158,8 @@ width:100%;
 &:-webkit-autofill:focus, 
 &:-webkit-autofill:active{
    
-    -webkit-box-shadow: ${(props) =>
-      nightMode
-        ? "0 0 0 30px #292929 inset !important"
-        : "0 0 0 30px #f6f8fa inset !important"};
-    -webkit-text-fill-color: ${(props) => (nightMode ? "white" : "black")};
+    -webkit-box-shadow: 0 0 0 30px #f6f8fa inset !important;
+    -webkit-text-fill-color: black;
 }`;
 
 const BottomContainer = Styled.div`
@@ -267,7 +258,6 @@ justify-content:center;
 border:solid 1px grey;
 border-radius:5px;`;
 const CreateProject = () => {
-  nightMode = useSelector((item) => item.nightmodebar.toggle);
   let [project, setProject] = useState({});
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
@@ -355,10 +345,7 @@ const CreateProject = () => {
         project,
         { headers: { Authorization: `Bearer ${user.accessToken}` } }
       );
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
   return (
     <Container>

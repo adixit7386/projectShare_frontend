@@ -1,13 +1,12 @@
 import React from "react";
 import Styled from "styled-components";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { validURL } from "../config/chatLogics";
 import { Mobile } from "../responsive";
-let nightMode = true;
+
 const PeopleContainer = Styled.div`
-background-color:${(props) => (nightMode ? "#1F1F1F" : "#f8f9fa")};
-color:${(props) => (nightMode ? "white" : "black")};
+background-color:#f8f9fa;
+color:black;
 cursor:pointer;
 margin:10px 20px;
 display:flex;
@@ -84,7 +83,6 @@ object-fit:cover;
 
 border-radius:50%;`;
 const Projects = ({ item }) => {
-  nightMode = useSelector((state) => state.nightmodebar.toggle);
   const navigate = useNavigate();
   return (
     <PeopleContainer onClick={() => navigate(`/profile/${item?.userId._id}`)}>

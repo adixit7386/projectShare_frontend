@@ -100,30 +100,25 @@ const Project = () => {
         );
 
         setProject(res.data);
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
       setLoading(false);
     };
     fetchProject();
   }, [projectId]);
   const handleDelete = async () => {
-    console.log(project.projectAdmin.toString(), user._id);
     if (project.projectAdmin.toString() !== user._id) {
       handleNotification("You are not authorized");
       return;
     }
     setLoadingDelete(true);
     try {
-      const { data } = await axios.delete(
-        `http://localhost:5000/api/project/${projectId}`,
-        { headers: { Authorization: `Bearer ${user.accessToken}` } }
-      );
+      await axios.delete(`http://localhost:5000/api/project/${projectId}`, {
+        headers: { Authorization: `Bearer ${user.accessToken}` },
+      });
       handleNotification("Project Deleted Successfully");
       navigate("/projects");
     } catch (err) {
       handleNotification("You are not authorized");
-      console.log(err);
     }
     setLoadingDelete(false);
   };

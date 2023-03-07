@@ -343,9 +343,7 @@ const ContentContainer = () => {
 
         elem.scrollTop = elem.scrollHeight;
       }, 300);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
   const isSameUser = (fetchmessage, index) => {
     if (index === fetchmessage.length - 1) {

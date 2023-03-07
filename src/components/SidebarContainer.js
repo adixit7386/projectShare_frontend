@@ -97,7 +97,6 @@ const SidebarContainer = () => {
         // dispatch(setUserChats(data));
       } catch (err) {
         setLoading(false);
-        console.log(err);
       }
     };
     fetchChat();

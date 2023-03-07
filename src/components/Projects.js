@@ -42,9 +42,7 @@ const Projects = () => {
           headers: { Authorization: `Bearer ${user.accessToken}` },
         });
         setData(res.data);
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
       setLoading(false);
     };
     fetchProjects();

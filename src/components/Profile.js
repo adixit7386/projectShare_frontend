@@ -8,10 +8,10 @@ import { toggleWarningBar } from "../redux/warningReducer";
 import { loginSuccess } from "../redux/userReducer";
 import { Mobile } from "../responsive";
 import axios from "axios";
-let nightMode = true;
+
 const Container = Styled.div`
-background-color:${(props) => (nightMode ? "#292929" : "white")};
-color:${(props) => (nightMode ? "white" : "black")};
+background-color:white;
+color:black;
 `;
 
 const Wrapper = Styled.div`
@@ -51,8 +51,8 @@ font-size:28px;
 `;
 const Input = Styled.input`
 font-size:18px;
-  background-color:${(props) => (nightMode ? "#292929" : "white")};
-  color:${(props) => (nightMode ? "white" : "grey")};
+  background-color:white;
+  color:grey;
   width:90%;
   height:90%;
   border:none;
@@ -60,8 +60,8 @@ font-size:18px;
     width:90%;
     height:90%;
     border:none;
-    background-color:${(props) => (nightMode ? "#292929" : "white")};
-    color:${(props) => (nightMode ? "white" : "black")};
+    background-color:white;
+    color:black;
     outline:none;
   }
   &:-webkit-autofill,
@@ -69,16 +69,13 @@ font-size:18px;
 &:-webkit-autofill:focus, 
 &:-webkit-autofill:active{
    
-    -webkit-box-shadow: ${(props) =>
-      nightMode
-        ? "0 0 0 30px #292929 inset !important"
-        : "0 0 0 30px white inset !important"};
-    -webkit-text-fill-color: ${(props) => (nightMode ? "white" : "black")};
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    -webkit-text-fill-color: black;
 }
   `;
 
 const Label = Styled.label`
-color:${(props) => (nightMode ? "white" : "grey")};
+color:grey;
 font-weight:500;
 display:flex;
 align-items:center;
@@ -109,19 +106,19 @@ margin:10px 20px;`;
 const DetailText = Styled.span`
 font-weight:500;
 
-color:${(props) => (nightMode ? "white" : "grey")};
+color:grey;
 font-size:18px;
 `;
 const TitleContainer = Styled.div``;
 
 const InputDetail = Styled.input`
 padding:7px 12px;
-background-color:${(props) => (nightMode ? "#292929" : "#f6f8fa")};
-color:${(props) => (nightMode ? "white" : "grey")};
+background-color:#f6f8fa;
+color:grey;
 &:focus{
   outline:none;
-  background-color:${(props) => (nightMode ? "#292929" : "#f6f8fa")};
-  color:${(props) => (nightMode ? "white" : "black")};
+  background-color:#f6f8fa;
+  color:black;
   border-bottom:1px solid blue;
    
 };
@@ -135,11 +132,8 @@ flex:4;
 &:-webkit-autofill:focus, 
 &:-webkit-autofill:active{
   
-  -webkit-box-shadow: ${(props) =>
-    nightMode
-      ? "0 0 0 30px #292929 inset !important"
-      : "0 0 0 30px #f6f8fa inset !important"};
-    -webkit-text-fill-color: ${(props) => (nightMode ? "white" : "black")};
+  -webkit-box-shadow:0 0 0 30px #f6f8fa inset !important;
+    -webkit-text-fill-color:black;
   }
 
  
@@ -147,12 +141,12 @@ flex:4;
 const InputDetailAdd = Styled.input`
 width:50%;
 padding:7px 12px;
-background-color:${(props) => (nightMode ? "#292929" : "#f6f8fa")};
-color:${(props) => (nightMode ? "white" : "grey")};
+background-color:#f6f8fa;
+color:grey;
 &:focus{
   outline:none;
-  background-color:${(props) => (nightMode ? "#292929" : "#f6f8fa")};
-  color:${(props) => (nightMode ? "white" : "black")};
+  background-color:#f6f8fa;
+  color:black;
   border-bottom:1px solid blue;
    
 };
@@ -166,11 +160,8 @@ flex:4;
 &:-webkit-autofill:focus, 
 &:-webkit-autofill:active{
   
-  -webkit-box-shadow: ${(props) =>
-    nightMode
-      ? "0 0 0 30px #292929 inset !important"
-      : "0 0 0 30px #f6f8fa inset !important"};
-    -webkit-text-fill-color: ${(props) => (nightMode ? "white" : "black")};
+  -webkit-box-shadow:0 0 0 30px #f6f8fa inset !important;
+    -webkit-text-fill-color: black;
   }
 
  
@@ -196,13 +187,13 @@ border:none;
 flex:1;`;
 const TextArea = Styled.textarea`
 border:None;
-background-color:${(props) => (nightMode ? "#292929" : "#f6f8fa")};
-  color:${(props) => (nightMode ? "white" : "grey")};
+background-color:#f6f8fa;
+  color:grey;
 
 &:focus{
   outline:none;
-  background-color:${(props) => (nightMode ? "#292929" : "#f6f8fa")};
-    color:${(props) => (nightMode ? "white" : "black")};
+  background-color:#f6f8fa;
+    color:black;
 };
 width:100%;
   &:-webkit-autofill,
@@ -210,11 +201,8 @@ width:100%;
 &:-webkit-autofill:focus, 
 &:-webkit-autofill:active{
    
-    -webkit-box-shadow: ${(props) =>
-      nightMode
-        ? "0 0 0 30px #292929 inset !important"
-        : "0 0 0 30px white inset !important"};
-    -webkit-text-fill-color: ${(props) => (nightMode ? "white" : "black")};
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    -webkit-text-fill-color:black;
 }
 `;
 
@@ -223,6 +211,7 @@ padding:7px 12px;`;
 
 const EducationDetails = Styled.div`
 overflow:scroll;
+&::-webkit-scrollbar{display:none};
 display:flex;
 align-items:center;
 justify-content:center;
@@ -256,11 +245,7 @@ flex:1;
 display:flex;
 align-items:center;
 justify-content:center;`;
-const Edit = Styled.div`
-flex:1;
-display:flex;
-align-items:center;
-justify-content:center;`;
+
 const Delete = Styled.div`
 flex:1;
 display:flex;
@@ -467,7 +452,6 @@ margin-bottom:10px;
 background-color:#f6f8fa;
 `;
 const Profile = () => {
-  nightMode = useSelector((state) => state.nightmodebar.toggle);
   const user = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
   const [existingProfile, setExistingProfile] = useState(false);
@@ -593,7 +577,7 @@ const Profile = () => {
           `http://localhost:5000/api/profile/${user._id}`
         );
         let existingUserProfile = savedUserProfile.data;
-        console.log(existingProfile);
+
         if (existingUserProfile) {
           setExistingProfile(true);
           setPersonalDetails({
@@ -656,9 +640,7 @@ const Profile = () => {
         config
       );
       handleNotification("Profile created successfully");
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
   const handleUpdateProfile = async () => {
     userProfile = {
@@ -715,7 +697,6 @@ const Profile = () => {
       handleNotification("profile updated successfully");
     } catch (err) {
       handleNotification("server error");
-      console.log(err);
     }
   };
   const setFiles = (img) => {
@@ -757,19 +738,17 @@ const Profile = () => {
               dispatch(loginSuccess(res.data));
             } catch (error) {
               handleNotification("image couldn't be updated");
-              console.log(error);
             }
             setLoading(false);
           };
           getUserData();
         })
         .catch((err) => {
-          console.log(err);
           setLoading(false);
         });
     }
   };
-  console.log(educationArray);
+
   return (
     <Container>
       <Wrapper>

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { togglePersonBar } from "../redux/personReducer";
-import Toast from "./Toast";
 import axios from "axios";
 import { validURL } from "../config/chatLogics";
 import { setActiveChat } from "../redux/activeChatReducer";
@@ -213,9 +212,7 @@ const CreateGroup = ({ toggle }) => {
       );
       dispatch(setActiveChat(data));
       dispatch(toggleUpdateChat());
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
   const handleClick = async ({ userId, name }) => {
     if (activeChat.groupAdmin._id === User._id) {

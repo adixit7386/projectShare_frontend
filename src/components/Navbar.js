@@ -2,22 +2,21 @@ import React, { useState } from "react";
 import Styled from "styled-components";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from "@mui/icons-material/LightMode";
+
 import { useNavigate } from "react-router-dom";
 import { Mobile } from "../responsive";
 import { toggleSidebar } from "../redux/sideReducer";
 import AccountContainer from "../components/AccountContainer";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleNightMode } from "../redux/nightModeReducer";
+
 import { toggleAccountBar } from "../redux/accountReducer";
 import { validURL } from "../config/chatLogics";
-let nightMode = true;
+
 const Container = Styled.div`
 display:flex;
 align-items:center;
-background-color:${(props) => (nightMode ? "#1F1F1F" : "#f8f9fa")};
-color:${(props) => (nightMode ? "white" : "black")};
+background-color:#f8f9fa;
+color:black;
 
 position:sticky;
 z-index:2;
@@ -26,7 +25,7 @@ justify-content:center;
 height:59px;
 padding-left:20px;
 padding-right:20px;
-border-bottom:${(props) => (nightMode ? "#1F1F1F" : "1px solid lightgrey")};
+border-bottom:1px solid lightgrey;
 `;
 const Wrapper = Styled.div`
 flex:1;
@@ -58,10 +57,7 @@ margin: 0px auto 0px auto;
 cursor:pointer;
 font-size:32px;
 ${Mobile({ fontSize: "28px" })};`;
-const Span = Styled.span`
-color:#0081B4;
-font-size:32px;
-`;
+
 const Center = Styled.div`
 flex:1.3;
 display:flex;
@@ -78,13 +74,13 @@ border:solid 1.5px gray;
 border-top-left-radius:10px;
 border-bottom-left-radius:10px;
 padding:2px 20px;
-${Mobile({ padding: "2px 10px" })};
+${Mobile({ padding: "2px 10px", width: "60px" })};
 border-right:none;
 `;
 
 const Input = Styled.input`
-background-color:${(props) => (nightMode ? "#1F1F1F" : "#f6f9fa")};
-  color:${(props) => (nightMode ? "white" : "grey")};
+background-color:#f6f9fa;
+  color:grey;
 
 font-size: 18px;
 font-size: 18px;
@@ -99,8 +95,8 @@ outline:none;
 font-size: 18px;
 flex: 1;
 border:none;
-background-color:${(props) => (nightMode ? "#1F1F1F" : "#f6f9fa")};
-    color:${(props) => (nightMode ? "white" : "black")};
+background-color:#f6f9fa;
+    color:black;
 height: 35px;
 outline:none;
 }
@@ -109,13 +105,10 @@ outline:none;
 &:-webkit-autofill:focus, 
 &:-webkit-autofill:active{
    
-    -webkit-box-shadow: ${(props) =>
-      nightMode
-        ? "0 0 0 30px #1F1F1F inset !important"
-        : "0 0 0 30px #f6f9fa inset !important"};
-    -webkit-text-fill-color: ${(props) => (nightMode ? "white" : "black")};
+    -webkit-box-shadow:0 0 0 30px #f6f9fa inset !important;
+    -webkit-text-fill-color:black;
 };
-${Mobile({ maxWidth: "30px" })};
+${Mobile({ width: "90%" })};
 
 `;
 
@@ -148,35 +141,21 @@ cursor:pointer;
 display:flex;
 align-items:center;
 justify-content:center;
-
-
-
 `;
 
 const Img = Styled.img`
 height:30px;
 width:30px;
 border-radius:50%;
-filter:${() => nightMode && "invert(1)"};
 object-fit:cover;
-
-
 `;
-
-const DarkModeIconContainer = Styled.div`
-display:flex;
-align-items:center;
-justify-content:center;
-padding:5px 10px;`;
-const MailIconContainer = Styled.div`
-display:flex;
-align-items:center;
-justify-content:center;
-padding:5px 10px;`;
-
+const Span = Styled.span`
+font-size:32px;
+${Mobile({ display: "none" })};
+color:#0081B4;`;
 const Navbar = () => {
   const [search, setSearch] = useState("");
-  nightMode = useSelector((state) => state.nightmodebar.toggle);
+
   const accountBar = useSelector((state) => state.accountbar.toggle);
   const user = useSelector((state) => state.user.currentUser);
   const navigate = useNavigate();
@@ -189,21 +168,6 @@ const Navbar = () => {
     height: "35px",
     width: "35px",
     cursor: "pointer",
-  };
-  const IconStyleDarkMode = {
-    height: "30px",
-    width: "30px",
-    color: "black",
-    cursor: "pointer",
-  };
-  const IconStyleLightMode = {
-    height: "30px",
-    width: "30px",
-    color: "white",
-    cursor: "pointer",
-  };
-  const handleNightMode = () => {
-    dispatch(toggleNightMode());
   };
 
   return (
@@ -220,7 +184,7 @@ const Navbar = () => {
           <TitleContainer>
             <Title>
               project
-              {/* <Span>Share</Span> */}
+              <Span>Share</Span>
             </Title>
           </TitleContainer>
         </Left>
@@ -251,23 +215,6 @@ const Navbar = () => {
           </SearchIconContainer>
         </Center>
         <Right>
-          <DarkModeIconContainer>
-            {nightMode ? (
-              <DarkModeIcon
-                style={IconStyleLightMode}
-                onClick={() => {
-                  handleNightMode();
-                }}
-              />
-            ) : (
-              <LightModeIcon
-                style={IconStyleDarkMode}
-                onClick={() => {
-                  handleNightMode();
-                }}
-              />
-            )}
-          </DarkModeIconContainer>
           <UserContainer clicked={true}>
             <Img
               onClick={() => {
