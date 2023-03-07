@@ -352,6 +352,7 @@ const UpdateProject = () => {
     setLoadingUpdate(true);
     if (project.projectAdmin !== user._id) {
       handleNotification("You are not authorized");
+      return;
     }
     let projectMembers = [];
     members.map((item) => projectMembers.push(item._id));

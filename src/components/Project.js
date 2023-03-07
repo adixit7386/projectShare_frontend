@@ -12,7 +12,10 @@ const Container = Styled.div`
 max-width:100vw;
 `;
 const Wrapper = Styled.div`
-margin:10px 20px;
+background-color:#f8f9fa;
+border-radius:10px;
+padding:5px 10px;
+margin:10px 10px;
 `;
 const HeadContainer = Styled.div`
 display:flex;
@@ -31,9 +34,11 @@ align-items:center;
 justify-content:center;`;
 const PeopleContainer = Styled.div`
 flex:1;
-display:flex;
 
 `;
+const ProfileContainer = Styled.div`
+flex:1;
+display:flex;`;
 const ImgContainer = Styled.div`
 
 
@@ -48,6 +53,7 @@ border-radius:50%;
 height:50px;
 width:50px;`;
 const LinkContainer = Styled.div`
+display:flex;
 flex:1
 `;
 const Link = Styled.a``;
@@ -74,6 +80,11 @@ ${Mobile({
 &:hover{
     background-color:#0098B4;
 }`;
+const LabelContainer = Styled.div`
+padding:5px 10px;`;
+const Label = Styled.span`
+color:grey;
+font-size:18px;`;
 
 const Project = () => {
   const navigate = useNavigate();
@@ -134,19 +145,24 @@ const Project = () => {
         </HeadContainer>
         <MiddleContainer>
           <PeopleContainer>
-            {project.members?.map((item) => (
-              <ImgContainer>
-                <Image
-                  onClick={() => navigate(`/profile/${item._id}`)}
-                  admin={item._id === project.projectAdmin}
-                  src={
-                    validURL(item.image)
-                      ? item.image
-                      : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                  }
-                />
-              </ImgContainer>
-            ))}
+            <LabelContainer>
+              <Label>Members</Label>
+            </LabelContainer>
+            <ProfileContainer>
+              {project.members?.map((item) => (
+                <ImgContainer>
+                  <Image
+                    onClick={() => navigate(`/profile/${item._id}`)}
+                    admin={item._id === project.projectAdmin}
+                    src={
+                      validURL(item.image)
+                        ? item.image
+                        : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                    }
+                  />
+                </ImgContainer>
+              ))}
+            </ProfileContainer>
           </PeopleContainer>
           <LinkContainer>
             <Link href={project.link}>Link</Link>

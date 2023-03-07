@@ -1037,7 +1037,8 @@ const Profile = () => {
                 </ProjectHeadContainer>
                 <ProjectDateContainer>
                   <DateSpan>
-                    {item.from} <strong>to</strong> {item.to}
+                    {item.from.split("T")[0]} <strong>to</strong>{" "}
+                    {item.to.split("T")[0]}
                   </DateSpan>
                 </ProjectDateContainer>
                 <ProjectLinkContainer>
