@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleWarningBar } from "../redux/warningReducer";
 import { validURL } from "../config/chatLogics";
 import { Mobile } from "../responsive";
+import Loader from "../components/Loader";
 import axios from "axios";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
@@ -271,6 +272,7 @@ const CreateProject = () => {
   let [project, setProject] = useState({});
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const handleProject = (e) => {
     setProject({ ...project, [e.target.name]: e.target.value });
@@ -348,7 +350,7 @@ const CreateProject = () => {
     ) {
       handleNotification("Please Fill All Fields");
     }
-
+    setLoading(true);
     try {
       let { data } = await axios.post(
         "https://projectshare-eight.vercel.app/api/project",
@@ -357,6 +359,7 @@ const CreateProject = () => {
       );
       handleNotification("Created Project Successfully");
     } catch (error) {}
+    setLoading(false);
   };
   return (
     <Container>
@@ -502,7 +505,7 @@ const CreateProject = () => {
               createProject();
             }}
           >
-            Create
+            {loading ? <Loader /> : "Create"}
           </CreateButton>
         </BottomContainer>
       </Wrapper>
