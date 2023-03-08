@@ -440,7 +440,7 @@ const Profile = () => {
                   </ProjectHeadContainer>
                   <ProjectDateContainer>
                     <DateSpan>
-                      {item?.from} to {item?.to}
+                      {item?.from.split("T")[0]} to {item?.to.split("T")[0]}
                     </DateSpan>
                   </ProjectDateContainer>
                   <ProjectLinkContainer>
