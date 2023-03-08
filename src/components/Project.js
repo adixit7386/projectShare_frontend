@@ -12,18 +12,19 @@ const Container = Styled.div`
 max-width:100vw;
 `;
 const Wrapper = Styled.div`
+max-width:100%;
 background-color:#f8f9fa;
 border-radius:10px;
 padding:5px 10px;
 margin:10px 10px;
 `;
 const HeadContainer = Styled.div`
-display:flex;
-align-items:center;
-justify-content:center;
+
+max-width:100%;
+word-wrap:break-word;
 `;
 const Heading = Styled.h1`
-word-wrap:break-word;
+
 font-size:26px;
 margin:0px;
 `;

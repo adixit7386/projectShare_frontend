@@ -51,7 +51,7 @@ word-wrap:break-word;
 max-width:100%;
 flex:1;`;
 const TitleText = Styled.h1`
-word-wrap:break-word;
+
 
 font-size:20px;`;
 
