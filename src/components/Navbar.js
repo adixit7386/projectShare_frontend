@@ -144,8 +144,8 @@ justify-content:center;
 `;
 
 const Img = Styled.img`
-height:40px;
-width:40px;
+height:35px;
+width:35px;
 border-radius:50%;
 object-fit:cover;
 `;
