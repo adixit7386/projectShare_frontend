@@ -238,6 +238,9 @@ const SkillDescription = Styled.div`
 
 margin:10px 20px;
 display:flex;
+align-items:center;
+justify-content:center;
+flex-wrap:wrap;
 `;
 const SkillName = Styled.div`
 flex:3;
@@ -463,7 +466,9 @@ const Profile = () => {
                   <DetailInput>
                     <SkillDescription>
                       <SkillName>
-                        <SkillText>{item?.skill}</SkillText>
+                        <SkillText style={{ fontWeight: "500" }}>
+                          {item?.skill}
+                        </SkillText>
                       </SkillName>
                       <SkillRating>
                         <SkillText>{item?.rating}</SkillText>
