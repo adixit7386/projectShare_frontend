@@ -120,6 +120,10 @@ justify-content:center;
 `;
 
 const EducationDetails = Styled.div`
+overflow:scroll;
+&::-webkit-scrollbar{
+  display:none;
+}
 display:flex;
 align-items:center;
 justify-content:center;
