@@ -223,7 +223,7 @@ color:lightgrey;
 margin:0 auto;
 `;
 
-const ENDPOINT = "https://projectshare-eight.vercel.app";
+const ENDPOINT = "https://projectshare-eight.vercel.app/";
 var socket, selectedChatCompare;
 const ContentContainer = () => {
   const toggleBar = useSelector((state) => state.personbar.toggle);
