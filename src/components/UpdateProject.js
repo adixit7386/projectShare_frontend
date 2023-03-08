@@ -406,6 +406,9 @@ const UpdateProject = () => {
                 value={project.visibility}
                 onChange={(e) => handleProject(e)}
               >
+                <Option value="" default="true">
+                  --select--
+                </Option>
                 <Option>public</Option>
                 <Option>private</Option>
               </Select>

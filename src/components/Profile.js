@@ -597,9 +597,7 @@ const Profile = () => {
           setProjectsArray(existingUserProfile.projects);
         } else {
         }
-      } catch (error) {
-        handleNotification("Invalid UserId");
-      }
+      } catch (error) {}
       setProfileLoading(false);
     };
     getUserData();
@@ -1150,6 +1148,9 @@ const Profile = () => {
                           handleSkills(e);
                         }}
                       >
+                        <Option value="" default="true">
+                          --select--
+                        </Option>
                         <Option>Beginner</Option>
 
                         <Option>Intermediate</Option>
@@ -1209,6 +1210,9 @@ const Profile = () => {
                           handleSocialLinks(e);
                         }}
                       >
+                        <Option value="" default="true">
+                          --select--
+                        </Option>
                         <Option>LinkedIn</Option>
                         <Option>Instagram</Option>
                         <Option>Github</Option>

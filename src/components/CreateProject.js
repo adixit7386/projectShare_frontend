@@ -4,6 +4,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleWarningBar } from "../redux/warningReducer";
 import { validURL } from "../config/chatLogics";
+import { useNavigate } from "react-router-dom";
 import { Mobile } from "../responsive";
 import Loader from "../components/Loader";
 import axios from "axios";
@@ -55,24 +56,27 @@ border:solid 1px grey;
 padding:5px 12px;`;
 
 const MemberInputContainer = Styled.div`
-width:90%;
+
+display:flex;
+border-radius:5px;
+padding:5px 12px;
+position:relative;
 overflow:scroll;
 &::-webkit-scrollbar{
   display:none;
 }
 display:flex;
-border-radius:5px;
-padding:5px 12px;
-position:relative;
 `;
 const SearchMemberInputContainer = Styled.div`
+
+
+border-radius:5px;
+background-color:#f6f8fa;
 overflow:scroll;
 &::-webkit-scrollbar{
   display:none;
 }
-width:95%;
-border-radius:5px;
-background-color:#f6f8fa;
+
 `;
 const Input = Styled.input`
 width:80%;
@@ -201,7 +205,7 @@ padding:5px 12px;
 position:absolute;
 border-bottom-right-radius:5px;
 border-bottom-left-radius:5px;
-${Mobile({ width: "80%" })}
+${Mobile({ width: "70%" })};
 width:41%;`;
 const SearchContainer = Styled.div`
 display:flex;`;
@@ -270,6 +274,7 @@ border:solid 1px grey;
 border-radius:5px;`;
 const CreateProject = () => {
   let [project, setProject] = useState({});
+  const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -357,7 +362,8 @@ const CreateProject = () => {
         project,
         { headers: { Authorization: `Bearer ${user.accessToken}` } }
       );
-      handleNotification("Created Project Successfully");
+      handleNotification("Project Created Successfully");
+      navigate("/projects");
     } catch (error) {}
     setLoading(false);
   };
@@ -383,6 +389,9 @@ const CreateProject = () => {
             <Label>Visibility</Label>
             <InputContainer>
               <Select name="visibility" onChange={(e) => handleProject(e)}>
+                <Option value="" default="true">
+                  --select--
+                </Option>
                 <Option>public</Option>
                 <Option>private</Option>
               </Select>
