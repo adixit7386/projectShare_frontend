@@ -144,7 +144,8 @@ justify-content:center;
 `;
 
 const Paragraph = Styled.textarea`
-
+font-family: 'Roboto', sans-serif;
+spell-check:false;
 border:None;
 background-color:#f6f8fa;
   color:grey;
@@ -152,7 +153,7 @@ background-color:#f6f8fa;
 &:focus{
   outline:none;
   background-color:#f6f8fa;
-    color:black;
+    
 };
 width:100%;
   &:-webkit-autofill,
@@ -342,12 +343,7 @@ const UpdateProject = () => {
         { headers: { Authorization: `Bearer ${user.accessToken}` } }
       );
       setData(data);
-      if (data.length === 0) {
-        handleNotification("No User Found");
-      }
-    } catch (error) {
-      handleNotification("Search Failed");
-    }
+    } catch (error) {}
   };
   const createProject = async () => {
     setLoadingUpdate(true);
@@ -517,6 +513,7 @@ const UpdateProject = () => {
             <Label>Description</Label>
             <InputContainerDescription>
               <Paragraph
+                spellCheck="false"
                 onChange={(e) => handleProject(e)}
                 value={project.description}
                 name="description"

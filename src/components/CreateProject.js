@@ -153,7 +153,7 @@ justify-content:center;
 `;
 
 const Paragraph = Styled.textarea`
-
+font-family: 'Roboto', sans-serif;
 border:None;
 background-color:#f6f8fa;
   color:grey;
@@ -161,7 +161,7 @@ background-color:#f6f8fa;
 &:focus{
   outline:none;
   background-color:#f6f8fa;
-    color:black;
+    
 };
 width:100%;
   &:-webkit-autofill,
@@ -492,6 +492,7 @@ const CreateProject = () => {
             <Label>Description</Label>
             <InputContainerDescription>
               <Paragraph
+                spellCheck="false"
                 onChange={(e) => handleProject(e)}
                 name="description"
                 placeholder="Description of Project"

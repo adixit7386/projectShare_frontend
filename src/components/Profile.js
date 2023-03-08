@@ -186,6 +186,7 @@ const Select = Styled.select`
 border:none;
 flex:1;`;
 const TextArea = Styled.textarea`
+font-family: 'Roboto', sans-serif;
 border:None;
 background-color:#f6f8fa;
   color:grey;
@@ -193,7 +194,7 @@ background-color:#f6f8fa;
 &:focus{
   outline:none;
   background-color:#f6f8fa;
-    color:black;
+  
 };
 width:100%;
   &:-webkit-autofill,
@@ -828,6 +829,7 @@ const Profile = () => {
               </TitleContainer>
               <InputContainer>
                 <TextArea
+                  spellCheck="false"
                   name="description"
                   value={personalDetails.description}
                   placeholder="Introduction and career Objective"
