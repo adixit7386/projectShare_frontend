@@ -3,6 +3,7 @@ import Styled from "styled-components";
 import PersonContainer from "../components/PersonContainer";
 import SendIcon from "@mui/icons-material/Send";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import { togglePersonBar } from "../redux/personReducer";
 import { getSender } from "../config/chatLogics";
@@ -89,7 +90,7 @@ justify-content:center;`;
 
 const InputContainer = Styled.div`
 flex:9;
-height:45px;
+height:40px;
 display:flex;
 align-items:center;
 jusify-content:center;
@@ -122,7 +123,7 @@ background-color:white;
 
 const SearchIconContainer = Styled.div`
 background-color:white;
-height:45px;
+height:40px;
 width:35px;
 border:solid 1px gray;
 border-left:none;
@@ -235,6 +236,7 @@ const ContentContainer = () => {
   const [loading, setLoading] = useState(false);
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
+  const [sending, setSending] = useState(false);
   const handleClick = () => {
     dispatch(togglePersonBar());
   };
@@ -319,12 +321,13 @@ const ContentContainer = () => {
     });
   }, [dispatch, notification]);
   const sendMessage = async () => {
+    setSending(true);
     socket.emit("stop typing", activeChat?._id);
     if (message === "") {
       return;
     }
     let content = { chatId: activeChat?._id, message: message };
-
+    setMessage("");
     try {
       const { data } = await axios.post(
         "https://projectshare.onrender.com/api/message/",
@@ -337,12 +340,13 @@ const ContentContainer = () => {
       );
       socket.emit("new message", data);
       fetchMessage();
-      setMessage("");
+
       setTimeout(() => {
         var elem = document.getElementById("data");
 
         elem.scrollTop = elem.scrollHeight;
       }, 300);
+      setSending(false);
     } catch (error) {}
   };
   const isSameUser = (fetchmessage, index) => {
@@ -496,21 +500,28 @@ const ContentContainer = () => {
                     />
                   </InputContainer>
                   <SearchIconContainer>
-                    <SendIcon
-                      style={{
-                        height: "35px",
-                        width: "35px",
-                        cursor: "pointer",
-                        color: "#0081B4",
-                        "@media max-width:(480px)": {
-                          height: "30px",
-                          width: "30px",
-                        },
-                      }}
-                      onClick={() => {
-                        sendMessage();
-                      }}
-                    />
+                    {sending ? (
+                      <MoreHorizOutlinedIcon
+                        style={{
+                          height: "35px",
+                          width: "35px",
+                          cursor: "pointer",
+                          color: "#0081B4",
+                        }}
+                      />
+                    ) : (
+                      <SendIcon
+                        style={{
+                          height: "35px",
+                          width: "35px",
+                          cursor: "pointer",
+                          color: "#0081B4",
+                        }}
+                        onClick={() => {
+                          sendMessage();
+                        }}
+                      />
+                    )}
                   </SearchIconContainer>
                 </Center>
               </SendContainer>

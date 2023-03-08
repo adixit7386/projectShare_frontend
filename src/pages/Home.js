@@ -14,7 +14,7 @@ justify-content:center;
 
 const Home = () => {
   const handleClick = (e) => {
-    console.log(e.target);
+    // console.log(e.target);
   };
   return (
     <Container>
