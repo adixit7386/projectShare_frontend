@@ -321,12 +321,12 @@ const ContentContainer = () => {
     });
   }, [dispatch, notification]);
   const sendMessage = async () => {
-    setSending(true);
     socket.emit("stop typing", activeChat?._id);
     if (message === "") {
       return;
     }
     let content = { chatId: activeChat?._id, message: message };
+    setSending(true);
     setMessage("");
     try {
       const { data } = await axios.post(
