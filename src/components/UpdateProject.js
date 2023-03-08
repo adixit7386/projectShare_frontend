@@ -98,9 +98,9 @@ color:grey;
 border:none;
 &:focus{
   outline:none;
-  background-color:white;
+  
   color:black;
- 
+ background-color:#f6f8fa;
    
 };
 
@@ -145,7 +145,6 @@ justify-content:center;
 
 const Paragraph = Styled.textarea`
 font-family: 'Roboto', sans-serif;
-spell-check:false;
 border:None;
 background-color:#f6f8fa;
   color:grey;
