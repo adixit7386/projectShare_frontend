@@ -8,6 +8,7 @@ import { toggleWarningBar } from "../redux/warningReducer";
 import { loginSuccess } from "../redux/userReducer";
 import { Mobile } from "../responsive";
 import axios from "axios";
+import Loader from "../components/Loader";
 
 const Container = Styled.div`
 background-color:white;
@@ -455,6 +456,8 @@ background-color:#f6f8fa;
 const Profile = () => {
   const user = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
+  const [profileloading, setProfileLoading] = useState(false);
+  const [submitLoading, setSubmitLoading] = useState(false);
   const [existingProfile, setExistingProfile] = useState(false);
   const [personalDetails, setPersonalDetails] = useState({});
   const [educationDetails, setEducationDetails] = useState({
@@ -573,6 +576,7 @@ const Profile = () => {
 
   useEffect(() => {
     const getUserData = async () => {
+      setProfileLoading(true);
       try {
         const savedUserProfile = await axios.get(
           `https://projectshare.onrender.com/api/profile/${user._id}`
@@ -596,6 +600,7 @@ const Profile = () => {
       } catch (error) {
         handleNotification("Invalid UserId");
       }
+      setProfileLoading(false);
     };
     getUserData();
   }, [user._id]);
@@ -630,6 +635,7 @@ const Profile = () => {
       }
       return true;
     };
+    setSubmitLoading(true);
     try {
       if (!validUserProfile(userProfile)) {
         handleNotification("please fill all the details");
@@ -642,6 +648,7 @@ const Profile = () => {
       );
       handleNotification("Profile created successfully");
     } catch (err) {}
+    setSubmitLoading(false);
   };
   const handleUpdateProfile = async () => {
     userProfile = {
@@ -674,6 +681,7 @@ const Profile = () => {
       }
       return true;
     };
+    setSubmitLoading(true);
     try {
       if (!validUserProfile(userProfile)) {
         handleNotification("please fill all the details");
@@ -699,6 +707,7 @@ const Profile = () => {
     } catch (err) {
       handleNotification("server error");
     }
+    setSubmitLoading(false);
   };
   const setFiles = (img) => {
     setLoading(true);
@@ -753,377 +762,331 @@ const Profile = () => {
   return (
     <Container>
       <Wrapper>
-        <Section>
-          <HeadContainer>
-            <NameImgContainer>
-              <ImgContainer>
-                <Img
-                  src={
-                    validURL(imgLink)
-                      ? imgLink
-                      : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                  }
-                />
-                <Input
-                  id="image"
-                  type="file"
-                  onChange={(e) => setFiles(e.target.files[0])}
-                  hidden
-                />
-                <Label htmlFor="image">
-                  {loading ? "uploading..." : "Upload Image"} <UploadIcon />
-                </Label>
-              </ImgContainer>
-            </NameImgContainer>
-          </HeadContainer>
-
-          <DetailHeadingContainer>
-            <DetailHeading>Personal Details</DetailHeading>
-          </DetailHeadingContainer>
-          <DetailContainer>
-            <DetailInput>
-              <TitleContainer>
-                <DetailText>Name</DetailText>
-              </TitleContainer>
-              <InputContainer>
-                <InputDetail
-                  type="text"
-                  name="name"
-                  value={personalDetails.name}
-                  onChange={(e) => handlePersonalDetails(e)}
-                  placeholder={"name"}
-                />
-              </InputContainer>
-            </DetailInput>
-            <DetailInput>
-              <TitleContainer>
-                <DetailText>Job Title</DetailText>
-              </TitleContainer>
-              <InputContainer>
-                <InputDetail
-                  type="text"
-                  name="jobtitle"
-                  value={personalDetails.jobtitle}
-                  placeholder={"SDE 2 Amazon"}
-                  onChange={(e) => handlePersonalDetails(e)}
-                />
-              </InputContainer>
-            </DetailInput>
-            <DetailInput>
-              <TitleContainer>
-                <DetailText>Status</DetailText>
-              </TitleContainer>
-              <InputContainer>
-                <InputDetail
-                  type="text"
-                  name="status"
-                  value={personalDetails.status}
-                  placeholder={"occupied"}
-                  onChange={(e) => handlePersonalDetails(e)}
-                />
-              </InputContainer>
-            </DetailInput>
-            <DetailInput>
-              <TitleContainer>
-                <DetailText>About Myself</DetailText>
-              </TitleContainer>
-              <InputContainer>
-                <TextArea
-                  spellCheck="false"
-                  name="description"
-                  value={personalDetails.description}
-                  placeholder="Introduction and career Objective"
-                  onChange={(e) => handlePersonalDetails(e)}
-                ></TextArea>
-              </InputContainer>
-            </DetailInput>
-            {/* <DetailInput>
-            <TitleContainer>
-              <DetailText>DOB:</DetailText>
-            </TitleContainer>
-            <InputContainer>
-              <InputDetail
-                name="dob"
-                type="date"
-                onChange={(e) => handlePersonalDetails(e)}
-              />
-              <Select>
-                <Option>Public</Option>
-                <Option>Private</Option>
-              </Select>
-            </InputContainer>
-          </DetailInput>
-          <DetailInput>
-            <TitleContainer>
-              <DetailText>E-mail</DetailText>
-            </TitleContainer>
-            <InputContainer>
-              <InputDetail
-                name="email"
-                type="email"
-                placeholder={"abc@def.com"}
-                onChange={(e) => handlePersonalDetails(e)}
-              />
-              <Select>
-                <Option>Public</Option>
-                <Option>Private</Option>
-              </Select>
-            </InputContainer>
-          </DetailInput>
-          <DetailInput>
-            <TitleContainer>
-              <DetailText>Contact</DetailText>
-            </TitleContainer>
-            <InputContainer>
-              <InputDetail
-                name="contact"
-                type="contact"
-                placeholder={"+91 1234567"}
-                onChange={(e) => handlePersonalDetails(e)}
-              />
-              <Select>
-                <Option>Public</Option>
-                <Option>Private</Option>
-              </Select>
-            </InputContainer>
-          </DetailInput> */}
-          </DetailContainer>
-        </Section>
-        <Section>
-          <DetailHeadingContainer>
-            <DetailHeading>Education Details</DetailHeading>
-          </DetailHeadingContainer>
-          <EducationDetails>
-            <EducationDetailsHead>
-              <Qualification>
-                <EducationDetailsHeading>Title</EducationDetailsHeading>
-              </Qualification>
-              <Institution>
-                <EducationDetailsHeading>Institution</EducationDetailsHeading>
-              </Institution>
-              <Score>
-                <EducationDetailsHeading>Score</EducationDetailsHeading>
-              </Score>
-              <Year>
-                <EducationDetailsHeading>Year</EducationDetailsHeading>
-              </Year>
-
-              <Delete>
-                <EducationDetailsHeading>Delete</EducationDetailsHeading>
-              </Delete>
-            </EducationDetailsHead>
-            {educationArray?.map((item) => (
-              <EducationDetailsContent>
-                <Qualification>
-                  <EducationDetailsData>{item.title}</EducationDetailsData>
-                </Qualification>
-                <Institution>
-                  <EducationDetailsData>
-                    {item.institution}
-                  </EducationDetailsData>
-                </Institution>
-                <Score>
-                  <EducationDetailsData>{item.score}</EducationDetailsData>
-                </Score>
-                <Year>
-                  <EducationDetailsData>{item.year}</EducationDetailsData>
-                </Year>
-
-                <Delete>
-                  <EducationDetailsData>
-                    <DeleteIcon
-                      onClick={() => deleteEducationDetail(item)}
-                      style={{ color: "red", cursor: "pointer" }}
+        {profileloading === false ? (
+          <>
+            <Section>
+              <HeadContainer>
+                <NameImgContainer>
+                  <ImgContainer>
+                    <Img
+                      src={
+                        validURL(imgLink)
+                          ? imgLink
+                          : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                      }
                     />
-                  </EducationDetailsData>
-                </Delete>
-              </EducationDetailsContent>
-            ))}
-          </EducationDetails>
-          <EducationDetailsInput>
-            <DetailInput>
-              <TitleContainer>
-                <DetailText>Title:</DetailText>
-              </TitleContainer>
-              <InputContainer>
-                <InputDetail
-                  name="title"
-                  onChange={(e) => {
-                    handleEducationDetails(e);
-                  }}
-                  value={educationDetails.title}
-                  type="text"
-                  placeholder={"B. Tech"}
-                />
-              </InputContainer>
-            </DetailInput>
-            <DetailInput>
-              <TitleContainer>
-                <DetailText>Institution</DetailText>
-              </TitleContainer>
-              <InputContainer>
-                <InputDetail
-                  name="institution"
-                  onChange={(e) => {
-                    handleEducationDetails(e);
-                  }}
-                  value={educationDetails.institution}
-                  type="text"
-                  placeholder={"Abc College"}
-                />
-              </InputContainer>
-            </DetailInput>
-            <DetailInput>
-              <TitleContainer>
-                <DetailText>Score</DetailText>
-              </TitleContainer>
-              <InputContainer>
-                <InputDetail
-                  type="text"
-                  name="score"
-                  onChange={(e) => {
-                    handleEducationDetails(e);
-                  }}
-                  value={educationDetails.score}
-                  placeholder={"A+"}
-                />
-              </InputContainer>
-            </DetailInput>
-            <DetailInput>
-              <TitleContainer>
-                <DetailText>Year</DetailText>
-              </TitleContainer>
-              <InputContainer>
-                <InputDetail
-                  name="year"
-                  onChange={(e) => {
-                    handleEducationDetails(e);
-                  }}
-                  value={educationDetails.year}
-                  type="text"
-                  placeholder={"2020"}
-                />
-              </InputContainer>
-            </DetailInput>
+                    <Input
+                      id="image"
+                      type="file"
+                      onChange={(e) => setFiles(e.target.files[0])}
+                      hidden
+                    />
+                    <Label htmlFor="image">
+                      {loading ? "uploading..." : "Upload Image"} <UploadIcon />
+                    </Label>
+                  </ImgContainer>
+                </NameImgContainer>
+              </HeadContainer>
 
-            <AddContainer>
-              <IconContainer>
-                <AddSectionButton onClick={() => addEducationDetails()}>
-                  Add
-                </AddSectionButton>
-              </IconContainer>
-            </AddContainer>
-          </EducationDetailsInput>
-        </Section>
-        <Section>
-          <DetailHeadingContainer>
-            <DetailHeading>Projects</DetailHeading>
-          </DetailHeadingContainer>
-          <ProjectsContainer>
-            {projectsArray?.map((item) => (
+              <DetailHeadingContainer>
+                <DetailHeading>Personal Details</DetailHeading>
+              </DetailHeadingContainer>
               <DetailContainer>
-                <ProjectHeadContainer>
-                  <ProjectTitleContainer>
-                    <Label>{item.title}</Label>
-                  </ProjectTitleContainer>
-                  <ProjectIconContainer>
-                    <DeleteIcon
-                      onClick={() => deleteProjectsArray(item)}
-                      style={{
-                        color: "red",
-                        cursor: "pointer",
-                        marginRight: "20px",
-                      }}
+                <DetailInput>
+                  <TitleContainer>
+                    <DetailText>Name</DetailText>
+                  </TitleContainer>
+                  <InputContainer>
+                    <InputDetail
+                      type="text"
+                      name="name"
+                      value={personalDetails.name}
+                      onChange={(e) => handlePersonalDetails(e)}
+                      placeholder={"name"}
                     />
-                  </ProjectIconContainer>
-                </ProjectHeadContainer>
-                <ProjectDateContainer>
-                  <DateSpan>
-                    {item.from.split("T")[0]} <strong>to</strong>{" "}
-                    {item.to.split("T")[0]}
-                  </DateSpan>
-                </ProjectDateContainer>
-                <ProjectLinkContainer>
-                  <Linked href={item.link}>{item.link}</Linked>
-                </ProjectLinkContainer>
-                <ProjectDescriptionContainer>
-                  <Paragraph>{item.description}</Paragraph>
-                </ProjectDescriptionContainer>
+                  </InputContainer>
+                </DetailInput>
+                <DetailInput>
+                  <TitleContainer>
+                    <DetailText>Job Title</DetailText>
+                  </TitleContainer>
+                  <InputContainer>
+                    <InputDetail
+                      type="text"
+                      name="jobtitle"
+                      value={personalDetails.jobtitle}
+                      placeholder={"SDE 2 Amazon"}
+                      onChange={(e) => handlePersonalDetails(e)}
+                    />
+                  </InputContainer>
+                </DetailInput>
+                <DetailInput>
+                  <TitleContainer>
+                    <DetailText>Status</DetailText>
+                  </TitleContainer>
+                  <InputContainer>
+                    <InputDetail
+                      type="text"
+                      name="status"
+                      value={personalDetails.status}
+                      placeholder={"occupied"}
+                      onChange={(e) => handlePersonalDetails(e)}
+                    />
+                  </InputContainer>
+                </DetailInput>
+                <DetailInput>
+                  <TitleContainer>
+                    <DetailText>About Myself</DetailText>
+                  </TitleContainer>
+                  <InputContainer>
+                    <TextArea
+                      spellCheck="false"
+                      name="description"
+                      value={personalDetails.description}
+                      placeholder="Introduction and career Objective"
+                      onChange={(e) => handlePersonalDetails(e)}
+                    ></TextArea>
+                  </InputContainer>
+                </DetailInput>
               </DetailContainer>
-            ))}
-          </ProjectsContainer>
-          <ProjectsInputContainer>
-            <DetailContainer>
-              <DetailInput>
-                <TitleContainer>
-                  <DetailText>Title</DetailText>
-                </TitleContainer>
-                <InputContainer>
-                  <InputDetail
-                    type="text"
-                    name="title"
-                    value={projects.title}
-                    onChange={(e) => handleProjects(e)}
-                    placeholder={"Image Impainting"}
-                  />
-                </InputContainer>
-              </DetailInput>
-              <DetailInput>
-                <TitleContainer>
-                  <DetailText>Duration</DetailText>
-                </TitleContainer>
-                <InputContainer>
-                  <span>From</span>
-                  <InputDetail
-                    name="from"
-                    value={projects.from}
-                    onChange={(e) => handleProjects(e)}
-                    type="date"
-                  />
-                  <span>To</span>
-                  <InputDetail
-                    name="to"
-                    value={projects.to}
-                    onChange={(e) => handleProjects(e)}
-                    type="date"
-                  />
-                </InputContainer>
-              </DetailInput>
-              <DetailInput>
-                <TitleContainer>
-                  <DetailText>Link</DetailText>
-                </TitleContainer>
-                <InputContainer>
-                  <InputDetail
-                    type="text"
-                    name="link"
-                    value={projects.link}
-                    onChange={(e) => handleProjects(e)}
-                    placeholder={"http://localhost:3000"}
-                  />
-                </InputContainer>
-              </DetailInput>
-              <DetailInput>
-                <TitleContainer>
-                  <DetailText>Description</DetailText>
-                </TitleContainer>
-                <InputContainer>
-                  <TextArea
-                    onChange={(e) => handleProjects(e)}
-                    value={projects.description}
-                    name="description"
-                    placeholder="about project"
-                  ></TextArea>
-                </InputContainer>
-              </DetailInput>
-            </DetailContainer>
+            </Section>
+            <Section>
+              <DetailHeadingContainer>
+                <DetailHeading>Education Details</DetailHeading>
+              </DetailHeadingContainer>
+              <EducationDetails>
+                <EducationDetailsHead>
+                  <Qualification>
+                    <EducationDetailsHeading>Title</EducationDetailsHeading>
+                  </Qualification>
+                  <Institution>
+                    <EducationDetailsHeading>
+                      Institution
+                    </EducationDetailsHeading>
+                  </Institution>
+                  <Score>
+                    <EducationDetailsHeading>Score</EducationDetailsHeading>
+                  </Score>
+                  <Year>
+                    <EducationDetailsHeading>Year</EducationDetailsHeading>
+                  </Year>
 
-            <AddContainer>
-              <IconContainer>
-                <AddSectionButton onClick={() => addProjectsArray()}>
-                  Add
-                </AddSectionButton>
-                {/* <AddIcon
+                  <Delete>
+                    <EducationDetailsHeading>Delete</EducationDetailsHeading>
+                  </Delete>
+                </EducationDetailsHead>
+                {educationArray?.map((item) => (
+                  <EducationDetailsContent>
+                    <Qualification>
+                      <EducationDetailsData>{item.title}</EducationDetailsData>
+                    </Qualification>
+                    <Institution>
+                      <EducationDetailsData>
+                        {item.institution}
+                      </EducationDetailsData>
+                    </Institution>
+                    <Score>
+                      <EducationDetailsData>{item.score}</EducationDetailsData>
+                    </Score>
+                    <Year>
+                      <EducationDetailsData>{item.year}</EducationDetailsData>
+                    </Year>
+
+                    <Delete>
+                      <EducationDetailsData>
+                        <DeleteIcon
+                          onClick={() => deleteEducationDetail(item)}
+                          style={{ color: "red", cursor: "pointer" }}
+                        />
+                      </EducationDetailsData>
+                    </Delete>
+                  </EducationDetailsContent>
+                ))}
+              </EducationDetails>
+              <EducationDetailsInput>
+                <DetailInput>
+                  <TitleContainer>
+                    <DetailText>Title:</DetailText>
+                  </TitleContainer>
+                  <InputContainer>
+                    <InputDetail
+                      name="title"
+                      onChange={(e) => {
+                        handleEducationDetails(e);
+                      }}
+                      value={educationDetails.title}
+                      type="text"
+                      placeholder={"B. Tech"}
+                    />
+                  </InputContainer>
+                </DetailInput>
+                <DetailInput>
+                  <TitleContainer>
+                    <DetailText>Institution</DetailText>
+                  </TitleContainer>
+                  <InputContainer>
+                    <InputDetail
+                      name="institution"
+                      onChange={(e) => {
+                        handleEducationDetails(e);
+                      }}
+                      value={educationDetails.institution}
+                      type="text"
+                      placeholder={"Abc College"}
+                    />
+                  </InputContainer>
+                </DetailInput>
+                <DetailInput>
+                  <TitleContainer>
+                    <DetailText>Score</DetailText>
+                  </TitleContainer>
+                  <InputContainer>
+                    <InputDetail
+                      type="text"
+                      name="score"
+                      onChange={(e) => {
+                        handleEducationDetails(e);
+                      }}
+                      value={educationDetails.score}
+                      placeholder={"A+"}
+                    />
+                  </InputContainer>
+                </DetailInput>
+                <DetailInput>
+                  <TitleContainer>
+                    <DetailText>Year</DetailText>
+                  </TitleContainer>
+                  <InputContainer>
+                    <InputDetail
+                      name="year"
+                      onChange={(e) => {
+                        handleEducationDetails(e);
+                      }}
+                      value={educationDetails.year}
+                      type="text"
+                      placeholder={"2020"}
+                    />
+                  </InputContainer>
+                </DetailInput>
+
+                <AddContainer>
+                  <IconContainer>
+                    <AddSectionButton onClick={() => addEducationDetails()}>
+                      Add
+                    </AddSectionButton>
+                  </IconContainer>
+                </AddContainer>
+              </EducationDetailsInput>
+            </Section>
+            <Section>
+              <DetailHeadingContainer>
+                <DetailHeading>Projects</DetailHeading>
+              </DetailHeadingContainer>
+              <ProjectsContainer>
+                {projectsArray?.map((item) => (
+                  <DetailContainer>
+                    <ProjectHeadContainer>
+                      <ProjectTitleContainer>
+                        <Label>{item.title}</Label>
+                      </ProjectTitleContainer>
+                      <ProjectIconContainer>
+                        <DeleteIcon
+                          onClick={() => deleteProjectsArray(item)}
+                          style={{
+                            color: "red",
+                            cursor: "pointer",
+                            marginRight: "20px",
+                          }}
+                        />
+                      </ProjectIconContainer>
+                    </ProjectHeadContainer>
+                    <ProjectDateContainer>
+                      <DateSpan>
+                        {item.from.split("T")[0]} <strong>to</strong>{" "}
+                        {item.to.split("T")[0]}
+                      </DateSpan>
+                    </ProjectDateContainer>
+                    <ProjectLinkContainer>
+                      <Linked href={item.link}>Link</Linked>
+                    </ProjectLinkContainer>
+                    <ProjectDescriptionContainer>
+                      <Paragraph>{item.description}</Paragraph>
+                    </ProjectDescriptionContainer>
+                  </DetailContainer>
+                ))}
+              </ProjectsContainer>
+              <ProjectsInputContainer>
+                <DetailContainer>
+                  <DetailInput>
+                    <TitleContainer>
+                      <DetailText>Title</DetailText>
+                    </TitleContainer>
+                    <InputContainer>
+                      <InputDetail
+                        type="text"
+                        name="title"
+                        value={projects.title}
+                        onChange={(e) => handleProjects(e)}
+                        placeholder={"Image Inpainting"}
+                      />
+                    </InputContainer>
+                  </DetailInput>
+                  <DetailInput>
+                    <TitleContainer>
+                      <DetailText>Duration</DetailText>
+                    </TitleContainer>
+                    <InputContainer>
+                      <span>From</span>
+                      <InputDetail
+                        name="from"
+                        value={projects.from}
+                        onChange={(e) => handleProjects(e)}
+                        type="date"
+                      />
+                      <span>To</span>
+                      <InputDetail
+                        name="to"
+                        value={projects.to}
+                        onChange={(e) => handleProjects(e)}
+                        type="date"
+                      />
+                    </InputContainer>
+                  </DetailInput>
+                  <DetailInput>
+                    <TitleContainer>
+                      <DetailText>Link</DetailText>
+                    </TitleContainer>
+                    <InputContainer>
+                      <InputDetail
+                        type="text"
+                        name="link"
+                        value={projects.link}
+                        onChange={(e) => handleProjects(e)}
+                        placeholder={"http://localhost:3000"}
+                      />
+                    </InputContainer>
+                  </DetailInput>
+                  <DetailInput>
+                    <TitleContainer>
+                      <DetailText>Description</DetailText>
+                    </TitleContainer>
+                    <InputContainer>
+                      <TextArea
+                        onChange={(e) => handleProjects(e)}
+                        value={projects.description}
+                        name="description"
+                        placeholder="about project"
+                      ></TextArea>
+                    </InputContainer>
+                  </DetailInput>
+                </DetailContainer>
+
+                <AddContainer>
+                  <IconContainer>
+                    <AddSectionButton onClick={() => addProjectsArray()}>
+                      Add
+                    </AddSectionButton>
+                    {/* <AddIcon
               style={{
                 color: "green",
                 height: "70px",
@@ -1131,137 +1094,70 @@ const Profile = () => {
                 cursor: "pointer",
               }}
             /> */}
-              </IconContainer>
-            </AddContainer>
-          </ProjectsInputContainer>
-        </Section>
-        <Section>
-          <DetailHeadingContainer>
-            <DetailHeading>Skills</DetailHeading>
-          </DetailHeadingContainer>
-          <SkillsContainer>
-            <DetailContainer>
-              {skillsArray?.map((item) => {
-                return (
+                  </IconContainer>
+                </AddContainer>
+              </ProjectsInputContainer>
+            </Section>
+            <Section>
+              <DetailHeadingContainer>
+                <DetailHeading>Skills</DetailHeading>
+              </DetailHeadingContainer>
+              <SkillsContainer>
+                <DetailContainer>
+                  {skillsArray?.map((item) => {
+                    return (
+                      <DetailInput>
+                        <SkillDescription>
+                          <SkillName>
+                            <SkillText style={{ fontWeight: "500" }}>
+                              {item.skill}
+                            </SkillText>
+                          </SkillName>
+                          <SkillRating>
+                            <SkillText>{item.rating}</SkillText>
+                          </SkillRating>
+                          <IconContainer>
+                            <DeleteIcon
+                              onClick={() => deleteSkillsArray(item)}
+                              style={{
+                                color: "red",
+                                cursor: "pointer",
+                                marginRight: "10px",
+                              }}
+                            />
+                          </IconContainer>
+                        </SkillDescription>
+                      </DetailInput>
+                    );
+                  })}
+
                   <DetailInput>
-                    <SkillDescription>
-                      <SkillName>
-                        <SkillText style={{ fontWeight: "500" }}>
-                          {item.skill}
-                        </SkillText>
-                      </SkillName>
-                      <SkillRating>
-                        <SkillText>{item.rating}</SkillText>
-                      </SkillRating>
-                      <IconContainer>
-                        <DeleteIcon
-                          onClick={() => deleteSkillsArray(item)}
-                          style={{
-                            color: "red",
-                            cursor: "pointer",
-                            marginRight: "10px",
-                          }}
-                        />
-                      </IconContainer>
-                    </SkillDescription>
-                  </DetailInput>
-                );
-              })}
-
-              <DetailInput>
-                <InputContainer>
-                  <InputDetailAdd
-                    type="text"
-                    name="skill"
-                    value={skills.skill}
-                    onChange={(e) => {
-                      handleSkills(e);
-                    }}
-                    placeholder={"javascript"}
-                  />
-
-                  <Select
-                    name="rating"
-                    value={skills.rating}
-                    onChange={(e) => {
-                      handleSkills(e);
-                    }}
-                  >
-                    <Option>Beginner</Option>
-
-                    <Option>Intermediate</Option>
-                    <Option>Advanced</Option>
-                    <Option>Professional</Option>
-                  </Select>
-                  <IconContainer>
-                    {/* <AddIcon
-                    style={{
-                      color: "green",
-                      height: "30px",
-                      width: "30px",
-                      cursor: "pointer",
-                    }}
-                  /> */}
-                    <AddButtonSingle onClick={() => addSkillsArray()}>
-                      Add
-                    </AddButtonSingle>
-                  </IconContainer>
-                </InputContainer>
-              </DetailInput>
-            </DetailContainer>
-          </SkillsContainer>
-        </Section>
-        <Section>
-          <DetailHeadingContainer>
-            <DetailHeading>Social Media Links</DetailHeading>
-          </DetailHeadingContainer>
-          <SocialContainer>
-            <DetailContainer>
-              {socialArray?.map((item) => (
-                <DetailInput>
-                  <InputContainer>
-                    <LinkContainer>
-                      <LinkText href={item.link}>{item.website}</LinkText>
-                    </LinkContainer>
-
-                    <IconContainer>
-                      <DeleteIcon
-                        onClick={() => deleteSocialLinks(item)}
-                        style={{
-                          color: "red",
-                          cursor: "pointer",
-                          marginRight: "10px",
+                    <InputContainer>
+                      <InputDetailAdd
+                        type="text"
+                        name="skill"
+                        value={skills.skill}
+                        onChange={(e) => {
+                          handleSkills(e);
                         }}
+                        placeholder={"javascript"}
                       />
-                    </IconContainer>
-                  </InputContainer>
-                </DetailInput>
-              ))}
 
-              <DetailInput>
-                <InputContainer>
-                  <Select
-                    name="website"
-                    onChange={(e) => {
-                      handleSocialLinks(e);
-                    }}
-                  >
-                    <Option>LinkedIn</Option>
-                    <Option>Instagram</Option>
-                    <Option>Github</Option>
-                    <Option>LeetCode</Option>
-                    <Option>Medium</Option>
-                    <Option>Dev.to</Option>
-                  </Select>
-                  <InputDetailAdd
-                    type="link"
-                    name="link"
-                    value={social.link}
-                    onChange={(e) => handleSocialLinks(e)}
-                    placeholder={"sdlfkjdsf@cga.co"}
-                  />
-                  <IconContainer>
-                    {/* <AddIcon
+                      <Select
+                        name="rating"
+                        value={skills.rating}
+                        onChange={(e) => {
+                          handleSkills(e);
+                        }}
+                      >
+                        <Option>Beginner</Option>
+
+                        <Option>Intermediate</Option>
+                        <Option>Advanced</Option>
+                        <Option>Professional</Option>
+                      </Select>
+                      <IconContainer>
+                        {/* <AddIcon
                     style={{
                       color: "green",
                       height: "30px",
@@ -1269,43 +1165,114 @@ const Profile = () => {
                       cursor: "pointer",
                     }}
                   /> */}
-                  </IconContainer>
-                  <AddButton
-                    onClick={() => {
-                      addSocialArray();
-                    }}
-                  >
-                    Add
-                  </AddButton>
-                </InputContainer>
-              </DetailInput>
-            </DetailContainer>
-          </SocialContainer>
-        </Section>
+                        <AddButtonSingle onClick={() => addSkillsArray()}>
+                          Add
+                        </AddButtonSingle>
+                      </IconContainer>
+                    </InputContainer>
+                  </DetailInput>
+                </DetailContainer>
+              </SkillsContainer>
+            </Section>
+            <Section>
+              <DetailHeadingContainer>
+                <DetailHeading>Social Media Links</DetailHeading>
+              </DetailHeadingContainer>
+              <SocialContainer>
+                <DetailContainer>
+                  {socialArray?.map((item) => (
+                    <DetailInput>
+                      <InputContainer>
+                        <LinkContainer>
+                          <LinkText href={item.link}>{item.website}</LinkText>
+                        </LinkContainer>
 
-        <Section>
-          <SubmitContainer>
-            <IconContainer>
-              {existingProfile === false ? (
-                <CreateButton
-                  onClick={() => {
-                    handleCreateProfile();
-                  }}
-                >
-                  Create
-                </CreateButton>
-              ) : (
-                <UpdateButton
-                  onClick={() => {
-                    handleUpdateProfile();
-                  }}
-                >
-                  Update
-                </UpdateButton>
-              )}
-            </IconContainer>
-          </SubmitContainer>
-        </Section>
+                        <IconContainer>
+                          <DeleteIcon
+                            onClick={() => deleteSocialLinks(item)}
+                            style={{
+                              color: "red",
+                              cursor: "pointer",
+                              marginRight: "10px",
+                            }}
+                          />
+                        </IconContainer>
+                      </InputContainer>
+                    </DetailInput>
+                  ))}
+
+                  <DetailInput>
+                    <InputContainer>
+                      <Select
+                        name="website"
+                        onChange={(e) => {
+                          handleSocialLinks(e);
+                        }}
+                      >
+                        <Option>LinkedIn</Option>
+                        <Option>Instagram</Option>
+                        <Option>Github</Option>
+                        <Option>LeetCode</Option>
+                        <Option>Medium</Option>
+                        <Option>Dev.to</Option>
+                      </Select>
+                      <InputDetailAdd
+                        type="link"
+                        name="link"
+                        value={social.link}
+                        onChange={(e) => handleSocialLinks(e)}
+                        placeholder={"sdlfkjdsf@cga.co"}
+                      />
+                      <IconContainer>
+                        {/* <AddIcon
+                    style={{
+                      color: "green",
+                      height: "30px",
+                      width: "30px",
+                      cursor: "pointer",
+                    }}
+                  /> */}
+                      </IconContainer>
+                      <AddButton
+                        onClick={() => {
+                          addSocialArray();
+                        }}
+                      >
+                        Add
+                      </AddButton>
+                    </InputContainer>
+                  </DetailInput>
+                </DetailContainer>
+              </SocialContainer>
+            </Section>
+
+            <Section>
+              <SubmitContainer>
+                <IconContainer>
+                  {existingProfile === false ? (
+                    <CreateButton
+                      onClick={() => {
+                        handleCreateProfile();
+                      }}
+                    >
+                      {submitLoading ? <Loader /> : "Create"}}
+                    </CreateButton>
+                  ) : (
+                    <UpdateButton
+                      onClick={() => {
+                        handleUpdateProfile();
+                      }}
+                    >
+                      {submitLoading ? <Loader /> : "Update"}
+                    </UpdateButton>
+                  )}
+                </IconContainer>
+              </SubmitContainer>
+            </Section>
+          </>
+        ) : (
+          <Loader />
+        )}
       </Wrapper>
     </Container>
   );
