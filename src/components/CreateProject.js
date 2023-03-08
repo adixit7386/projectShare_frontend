@@ -15,6 +15,7 @@ const Container = Styled.div`
 const Wrapper = Styled.div`
 background-color:#f6f8fa;
 border-radius:10px;
+padding:10px 10px;
 margin:10px 10px;`;
 const Header = Styled.div`
 
@@ -53,13 +54,22 @@ border:solid 1px grey;
 padding:5px 12px;`;
 
 const MemberInputContainer = Styled.div`
+width:90%;
+overflow:scroll;
+&::-webkit-scrollbar{
+  display:none;
+}
 display:flex;
 border-radius:5px;
 padding:5px 12px;
 position:relative;
 `;
 const SearchMemberInputContainer = Styled.div`
-width:100%;
+overflow:scroll;
+&::-webkit-scrollbar{
+  display:none;
+}
+width:95%;
 border-radius:5px;
 background-color:#f6f8fa;
 `;
@@ -345,13 +355,14 @@ const CreateProject = () => {
         project,
         { headers: { Authorization: `Bearer ${user.accessToken}` } }
       );
+      handleNotification("Created Project Successfully");
     } catch (error) {}
   };
   return (
     <Container>
       <Wrapper>
         <Header>
-          <Heading>Create New Project</Heading>
+          <Heading>Create Project</Heading>
         </Header>
         <MiddleContainer>
           <InputItem>
