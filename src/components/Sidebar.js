@@ -20,7 +20,7 @@ overflow:scroll;
 }
 background-color:#f8f9fa;
 color:black;
-${Mobile({ maxWidth: "60px" })};
+${Mobile({ maxWidth: "60px", display: (props) => props.sidebar && "none" })};
 `;
 
 const Wrapper = Styled.div`
@@ -34,7 +34,6 @@ ${Mobile({ padding: "10px 2px" })};
 
 const Table = Styled.table`
 border:none;
-
 width:90%;`;
 const Tr = Styled.tr`
 margin-top:5px;
@@ -46,11 +45,7 @@ align-items:center;
 border-radius:10px;
 background-color:${(props) =>
   props.location === props.name ? "lightgray" : "#f6f9fa"};
-  
 justify-content:center;
-
-
-
 &:hover{
   transform:scale(1.01);
   cursor:pointer;

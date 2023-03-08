@@ -158,6 +158,7 @@ const Navbar = () => {
 
   const accountBar = useSelector((state) => state.accountbar.toggle);
   const user = useSelector((state) => state.user.currentUser);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

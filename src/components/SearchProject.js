@@ -56,7 +56,11 @@ const TitleText = Styled.h1`
 font-size:20px;`;
 
 const PeopleContainer = Styled.div`
-
+width:100%;
+overflow:scroll;
+&::-webkit-scrollbar{
+  display:none;
+};
 margin-top:10px;
 display:flex;
 

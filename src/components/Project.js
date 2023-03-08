@@ -36,13 +36,16 @@ justify-content:center;`;
 const PeopleContainer = Styled.div`
 flex:1;
 
+
 `;
 const ProfileContainer = Styled.div`
+overflow:scroll;
+&::-webkit-scrollbar{
+  display:none;
+}
 flex:1;
 display:flex;`;
 const ImgContainer = Styled.div`
-
-
 height:50px;
 width:50px;
 margin-right:10px;`;
