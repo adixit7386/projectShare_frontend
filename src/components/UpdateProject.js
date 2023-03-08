@@ -276,7 +276,7 @@ const UpdateProject = () => {
       setLoadingFetch(true);
       try {
         const { data } = await axios.get(
-          `https://projectshare-eight.vercel.app/api/project/${projectId}`
+          `https://projectshare.onrender.com/api/project/${projectId}`
         );
         const { createAt, updatedAt, __v, ...others } = data;
         setProject(others);
@@ -338,7 +338,7 @@ const UpdateProject = () => {
   const handleClickSearch = async () => {
     try {
       const { data } = await axios.get(
-        `https://projectshare-eight.vercel.app/api/user?search=${search}`,
+        `https://projectshare.onrender.com/api/user?search=${search}`,
         { headers: { Authorization: `Bearer ${user.accessToken}` } }
       );
       setData(data);
@@ -368,7 +368,7 @@ const UpdateProject = () => {
 
     try {
       let { data } = await axios.put(
-        "https://projectshare-eight.vercel.app/api/project",
+        "https://projectshare.onrender.com/api/project",
         project,
         { headers: { Authorization: `Bearer ${user.accessToken}` } }
       );

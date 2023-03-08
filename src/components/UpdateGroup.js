@@ -185,7 +185,7 @@ const CreateGroup = ({ toggle }) => {
   const handleClickSearch = async () => {
     try {
       const { data } = await axios.get(
-        `https://projectshare-eight.vercel.app/api/user?search=${search}`,
+        `https://projectshare.onrender.com/api/user?search=${search}`,
         { headers: { Authorization: `Bearer ${User.accessToken}` } }
       );
       setData(data);
@@ -206,7 +206,7 @@ const CreateGroup = ({ toggle }) => {
       };
 
       const { data } = await axios.put(
-        "https://projectshare-eight.vercel.app/api/chat/rename",
+        "https://projectshare.onrender.com/api/chat/rename",
         { ChatId: activeChat._id, ChatName: ChatName },
         config
       );
@@ -224,7 +224,7 @@ const CreateGroup = ({ toggle }) => {
 
     try {
       const { data } = await axios.put(
-        "https://projectshare-eight.vercel.app/api/chat/groupadd",
+        "https://projectshare.onrender.com/api/chat/groupadd",
         users,
         {
           headers: {
@@ -255,7 +255,7 @@ const CreateGroup = ({ toggle }) => {
 
     try {
       const { data } = await axios.put(
-        "https://projectshare-eight.vercel.app/api/chat/groupremove",
+        "https://projectshare.onrender.com/api/chat/groupremove",
         users,
         {
           headers: {

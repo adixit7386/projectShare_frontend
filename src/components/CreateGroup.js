@@ -195,7 +195,7 @@ const CreateGroup = ({ toggle }) => {
   const handleClickSearch = async () => {
     try {
       const { data } = await axios.get(
-        `https://projectshare-eight.vercel.app/api/user?search=${search}`,
+        `https://projectshare.onrender.com/api/user?search=${search}`,
         { headers: { Authorization: `Bearer ${User.accessToken}` } }
       );
       setData(data);
@@ -230,7 +230,7 @@ const CreateGroup = ({ toggle }) => {
 
     try {
       const { data } = await axios.post(
-        "https://projectshare-eight.vercel.app/api/chat/group",
+        "https://projectshare.onrender.com/api/chat/group",
         group,
         {
           headers: {

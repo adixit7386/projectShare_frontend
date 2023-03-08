@@ -111,7 +111,7 @@ const Project = () => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `https://projectshare-eight.vercel.app/api/project/${projectId}`
+          `https://projectshare.onrender.com/api/project/${projectId}`
         );
 
         setProject(res.data);
@@ -128,7 +128,7 @@ const Project = () => {
     setLoadingDelete(true);
     try {
       await axios.delete(
-        `https://projectshare-eight.vercel.app/api/project/${projectId}`,
+        `https://projectshare.onrender.com/api/project/${projectId}`,
         {
           headers: { Authorization: `Bearer ${user.accessToken}` },
         }

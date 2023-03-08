@@ -183,7 +183,7 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-        "https://projectshare-eight.vercel.app/api/user/register",
+        "https://projectshare.onrender.com/api/user/register",
         user
       );
 

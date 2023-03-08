@@ -39,7 +39,7 @@ const Projects = () => {
       setLoading(true);
       try {
         let res = await axios.get(
-          "https://projectshare-eight.vercel.app/api/project/user",
+          "https://projectshare.onrender.com/api/project/user",
           {
             headers: { Authorization: `Bearer ${user.accessToken}` },
           }

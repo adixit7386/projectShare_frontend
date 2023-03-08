@@ -204,7 +204,7 @@ const SearchBar = () => {
   const createChat = async (userId) => {
     try {
       const { data } = await axios.post(
-        "https://projectshare-eight.vercel.app/api/chat/",
+        "https://projectshare.onrender.com/api/chat/",
         { userId: userId },
         {
           headers: {
@@ -230,7 +230,7 @@ const SearchBar = () => {
     setLoading(true);
     try {
       const { data } = await axios.get(
-        `https://projectshare-eight.vercel.app/api/user?search=${search}`,
+        `https://projectshare.onrender.com/api/user?search=${search}`,
         { headers: { Authorization: `Bearer ${user.accessToken}` } }
       );
       setData(data);

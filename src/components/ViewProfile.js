@@ -272,7 +272,7 @@ const Profile = () => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `https://projectshare-eight.vercel.app/api/profile/${userId}`,
+          `https://projectshare.onrender.com/api/profile/${userId}`,
           { headers: { Authorization: `Bearer ${user.accessToken}` } }
         );
 
@@ -291,7 +291,7 @@ const Profile = () => {
   const createChat = async (userId) => {
     try {
       const { data } = await axios.post(
-        "https://projectshare-eight.vercel.app/api/chat/",
+        "https://projectshare.onrender.com/api/chat/",
         { userId: userId },
         {
           headers: {
