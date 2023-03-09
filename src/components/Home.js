@@ -100,7 +100,7 @@ const Home = () => {
     };
     fetchProjects();
   }, [search, user.accessToken]);
-
+  console.log(people, projects);
   return (
     <Container>
       <Header>

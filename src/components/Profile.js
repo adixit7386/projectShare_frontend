@@ -1259,7 +1259,7 @@ const Profile = () => {
                         handleCreateProfile();
                       }}
                     >
-                      {submitLoading ? <Loader /> : "Create"}}
+                      {submitLoading ? <Loader /> : "Create"}
                     </CreateButton>
                   ) : (
                     <UpdateButton
