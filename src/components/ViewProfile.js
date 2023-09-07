@@ -102,7 +102,7 @@ justify-content:center;`;
 const DetailHeading = Styled.span`
 font-size:30px;
 font-weight:500;
-color:grey;`;
+color:black;`;
 
 const DetailInput = Styled.div`
 width:40%;
@@ -180,7 +180,7 @@ const Section = Styled.div`
 border-radius:10px;
 padding:7px 12px;
 margin-bottom:10px;
-background-color:#f6f8fa;
+background-color:white;
 `;
 
 const SocialContainer = Styled.div`
@@ -357,9 +357,10 @@ const Profile = () => {
               <DetailInput>
                 <StatusContainer>
                   <ChatBubbleIcon
-                    onClick={() => {
-                      createChat(profile.userId);
-                    }}
+                    disabled
+                    // onClick={() => {
+                    //   createChat(profile.userId);
+                    // }}
                     style={IconStyle}
                   />
                 </StatusContainer>

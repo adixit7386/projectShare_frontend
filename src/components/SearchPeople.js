@@ -5,7 +5,8 @@ import { validURL } from "../config/chatLogics";
 import { Mobile } from "../responsive";
 
 const PeopleContainer = Styled.div`
-background-color:#f8f9fa;
+/* background-color:#f8f9fa; */
+border:solid 1px lightgray;
 color:black;
 cursor:pointer;
 margin:10px 20px;
@@ -86,17 +87,6 @@ const Projects = ({ item }) => {
   const navigate = useNavigate();
   return (
     <PeopleContainer onClick={() => navigate(`/profile/${item?.userId._id}`)}>
-      <DetailContainer>
-        <NameContainer>
-          <NameText>{item.name}</NameText>
-        </NameContainer>
-        <RoleContainer>
-          <RoleText>{item.jobtitle}</RoleText>
-        </RoleContainer>
-        <StatusContainer>
-          <StatusText>{item.status}</StatusText>
-        </StatusContainer>
-      </DetailContainer>
       <ProfileContainer>
         <ImageContainer>
           <Img
@@ -108,6 +98,18 @@ const Projects = ({ item }) => {
           />
         </ImageContainer>
       </ProfileContainer>
+      <DetailContainer>
+        <NameContainer>
+          <NameText>{item.name}</NameText>
+        </NameContainer>
+        <RoleContainer>
+          <RoleText>{item.jobtitle}</RoleText>
+        </RoleContainer>
+        <StatusContainer>
+          <StatusText>{item.status}</StatusText>
+        </StatusContainer>
+      </DetailContainer>
+
       <DescriptionContainer>
         <ParagraphContainer>
           {item.description.slice(0, 250)}....

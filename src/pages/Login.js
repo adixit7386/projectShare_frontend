@@ -27,18 +27,19 @@ justify-content:center;
 flex-direction:column;
 width:300px;
 border-radius:10px;
+
 padding:40px 40px;
 background-color:white;
 
 `;
 const Title = Styled.h1`
-font-size:40px;
+font-size:35px;
 margin-top:10px;
 margin-bottom:10px;
 `;
 const Span = Styled.span`
 color:#0081B4;
-font-size:40px;
+font-size:35px;
 `;
 
 const LoginText = Styled.span`
@@ -181,11 +182,11 @@ const Login = () => {
           />
         </InputContainer>
         <CheckboxContainer>
-          <Input
+          {/* <Input
             style={{ width: "20px", marginRight: "10px" }}
             type="checkbox"
-          />
-          <label>Remember Me</label>
+          /> */}
+          {/* <label>Remember Me</label> */}
         </CheckboxContainer>
         <Button
           type="submit"

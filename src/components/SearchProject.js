@@ -5,9 +5,9 @@ import { validURL } from "../config/chatLogics";
 import { Mobile } from "../responsive";
 const ProjectContainer = Styled.div`
 max-width:100vw;
-background-color:#f8f9fa;
 color:black;
 padding:7px 12px;
+border:solid 1px lightgray;
 cursor:pointer;
 margin:10px 20px;
 display:flex;

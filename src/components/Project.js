@@ -13,7 +13,7 @@ max-width:100vw;
 `;
 const Wrapper = Styled.div`
 max-width:100%;
-background-color:#f8f9fa;
+background-color:white;
 border-radius:10px;
 padding:5px 10px;
 margin:10px 10px;

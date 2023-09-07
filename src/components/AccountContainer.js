@@ -1,5 +1,6 @@
 import React from "react";
 import Styled from "styled-components";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleAccountBar } from "../redux/accountReducer";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +14,7 @@ top:0px;
 left:0px;
 z-index:5;
 background-color:${(props) =>
-  props.toggle ? "rgba(0,0,0,0.2)" : "rgba(0,0,0,0.09)"};
+  props.toggle ? "rgba(0,0,0,0.4)" : "rgba(0,0,0,0.2)"};
 height:100vh;
 width:100vw;
 visibility:${(props) => (props.toggle ? "visible" : "hidden")};
@@ -21,6 +22,7 @@ display:flex;
 align-items:center;
 justify-content:center;
 transition:background-color 0.5s ease;
+
 `;
 
 const Container = Styled.div`
@@ -59,6 +61,15 @@ border-radius:50%;
 object-fit:cover;
 
 `;
+const IconContainer = Styled.div`
+width:30px;
+height:30px;
+border-radius:5px;
+display:flex;
+align-items:center;
+justify-content:center;
+background-color:#ff0506;
+color:white;`;
 
 const EmailContainer = Styled.div`
 display:flex;
@@ -82,6 +93,15 @@ cursor:pointer;
 background-color:#0081B4;
 color:white;
 height:15%;`;
+
+const CloseIconContainer = Styled.div`
+padding-top:5px;
+padding-right:5px;
+display:flex;
+align-items:center;
+justify-content:flex-end;
+height:10%;
+`;
 const PersonContainer = ({ toggle }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -107,6 +127,20 @@ const PersonContainer = ({ toggle }) => {
       toggle={toggle}
     >
       <Container>
+        <CloseIconContainer>
+          <IconContainer>
+            <CloseRoundedIcon
+              style={{
+                height: "30px",
+                width: "30px",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                dispatch(toggleAccountBar());
+              }}
+            />
+          </IconContainer>
+        </CloseIconContainer>
         <HeadingContainer>
           <Heading>{user?.name}</Heading>
         </HeadingContainer>

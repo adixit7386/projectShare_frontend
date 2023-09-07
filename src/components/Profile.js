@@ -11,14 +11,17 @@ import axios from "axios";
 import Loader from "../components/Loader";
 
 const Container = Styled.div`
+
 background-color:white;
 color:black;
 `;
 
 const Wrapper = Styled.div`
+
 padding:10px;`;
 
 const HeadContainer = Styled.div`
+
 display:flex;
 align-items:center;
 justify-content:center;
@@ -114,11 +117,11 @@ const TitleContainer = Styled.div``;
 
 const InputDetail = Styled.input`
 padding:7px 12px;
-background-color:#f6f8fa;
+background-color:white;
 color:grey;
 &:focus{
   outline:none;
-  background-color:#f6f8fa;
+  background-color:white;
   color:black;
   border-bottom:1px solid blue;
    
@@ -133,7 +136,7 @@ flex:4;
 &:-webkit-autofill:focus, 
 &:-webkit-autofill:active{
   
-  -webkit-box-shadow:0 0 0 30px #f6f8fa inset !important;
+  -webkit-box-shadow:0 0 0 30px white inset !important;
     -webkit-text-fill-color:black;
   }
 
@@ -142,11 +145,11 @@ flex:4;
 const InputDetailAdd = Styled.input`
 width:50%;
 padding:7px 12px;
-background-color:#f6f8fa;
+background-color:white;
 color:grey;
 &:focus{
   outline:none;
-  background-color:#f6f8fa;
+  background-color:white;
   color:black;
   border-bottom:1px solid blue;
    
@@ -161,7 +164,7 @@ flex:4;
 &:-webkit-autofill:focus, 
 &:-webkit-autofill:active{
   
-  -webkit-box-shadow:0 0 0 30px #f6f8fa inset !important;
+  -webkit-box-shadow:0 0 0 30px white inset !important;
     -webkit-text-fill-color: black;
   }
 
@@ -171,7 +174,7 @@ const InputContainer = Styled.div`
   margin-top:10px;
   padding:2px 3px;
   border:none;
- background-color:#f6f8fa;
+ background-color:white;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -180,7 +183,7 @@ const InputContainer = Styled.div`
   `;
 const Select = Styled.select`
   padding:7px 12px;
-  background-color:#f6f8fa;
+  background-color:white;
 &:focus{
   outline:none;
 };
@@ -189,12 +192,12 @@ flex:1;`;
 const TextArea = Styled.textarea`
 font-family: 'Roboto', sans-serif;
 border:None;
-background-color:#f6f8fa;
+background-color:white;
   color:grey;
 
 &:focus{
   outline:none;
-  background-color:#f6f8fa;
+  background-color:white;
   
 };
 width:100%;
@@ -451,7 +454,8 @@ const Section = Styled.div`
 border-radius:10px;
 padding:7px 12px;
 margin-bottom:10px;
-background-color:#f6f8fa;
+background-color:white;
+border:solid 1px lightgray;
 `;
 const Profile = () => {
   const user = useSelector((state) => state.user.currentUser);
@@ -827,7 +831,7 @@ const Profile = () => {
                       type="text"
                       name="status"
                       value={personalDetails.status}
-                      placeholder={"occupied"}
+                      placeholder={"Available"}
                       onChange={(e) => handlePersonalDetails(e)}
                     />
                   </InputContainer>

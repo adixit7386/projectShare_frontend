@@ -31,13 +31,13 @@ border-radius:10px;
 
 `;
 const Title = Styled.h1`
-font-size:40px;
+font-size:35px;
 margin-top:10px;
 margin-bottom:10px;
 `;
 const Span = Styled.span`
 color:#0081B4;
-font-size:40px;
+font-size:35px;
 `;
 
 const LoginText = Styled.span`

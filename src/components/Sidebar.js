@@ -18,7 +18,7 @@ overflow:scroll;
 &::-webkit-scrollbar{
   display:none;
 }
-background-color:#f8f9fa;
+background-color:white;
 color:black;
 ${Mobile({ maxWidth: "60px", display: (props) => props.sidebar && "none" })};
 `;
@@ -43,8 +43,8 @@ padding-bottom:10px;
 display:flex;
 align-items:center;
 border-radius:10px;
-background-color:${(props) =>
-  props.location === props.name ? "lightgray" : "#f6f9fa"};
+border:${(props) =>
+  props.location === props.name ? "solid 1px lightgray" : "none"};
 justify-content:center;
 &:hover{
   transform:scale(1.01);
@@ -115,21 +115,7 @@ const Sidebar = () => {
             </TdText>
             <TdIcon2></TdIcon2>
           </Tr>
-          <Tr
-            location={Location}
-            name={"chats"}
-            onClick={() => {
-              handleClick("chats");
-            }}
-          >
-            <TdIcon1>
-              <ChatBubbleIcon style={IconStyle} />
-            </TdIcon1>
-            <TdText>
-              <Heading>Chats</Heading>
-            </TdText>
-            <TdIcon2></TdIcon2>
-          </Tr>
+
           <Tr
             location={Location}
             name={"projects"}
@@ -145,6 +131,21 @@ const Sidebar = () => {
             </TdText>
             <TdIcon2></TdIcon2>
           </Tr>
+          {/*<Tr
+            location={Location}
+            name={"chats"}
+            onClick={() => {
+              handleClick("chats");
+            }}
+          >
+            <TdIcon1>
+              <ChatBubbleIcon style={IconStyle} />
+            </TdIcon1>
+            <TdText>
+              <Heading>Chats</Heading>
+            </TdText>
+            <TdIcon2></TdIcon2>
+          </Tr>*/}
         </Table>
       </Wrapper>
     </Container>

@@ -15,7 +15,7 @@ import { validURL } from "../config/chatLogics";
 const Container = Styled.div`
 display:flex;
 align-items:center;
-background-color:#f8f9fa;
+background-color:white;
 color:black;
 
 position:sticky;
@@ -70,23 +70,23 @@ height:35px;
 display:flex;
 align-items:center;
 jusify-content:center;
-border:solid 1.5px gray;
-border-top-left-radius:10px;
-border-bottom-left-radius:10px;
+border:solid 2px gray;
+border-top-left-radius:50px;
+border-bottom-left-radius:50px;
+
+background-color:white;
 padding:2px 20px;
 ${Mobile({ padding: "2px 10px", width: "60px" })};
 border-right:none;
 `;
 
 const Input = Styled.input`
-background-color:#f6f9fa;
-  color:grey;
-
+background-color:white;
+color:grey;
 font-size: 18px;
 font-size: 18px;
 flex: 1;
 border:none;
-
 height: 30px;
 outline:none;
  
@@ -95,7 +95,7 @@ outline:none;
 font-size: 18px;
 flex: 1;
 border:none;
-background-color:#f6f9fa;
+background-color:white;
     color:black;
 height: 35px;
 outline:none;
@@ -119,9 +119,9 @@ border-left:none;
 display:flex;
 align-items:center;
 jusify-content:center;
-border:solid 1.5px gray;
-border-top-right-radius:10px;
-border-bottom-right-radius:10px;
+border:solid 2px gray;
+border-top-right-radius:50px;
+border-bottom-right-radius:50px;
 padding:2px 4px;
 `;
 
@@ -192,7 +192,7 @@ const Navbar = () => {
         <Center>
           <InputContainer>
             <Input
-              placeholder="Search Projects or People"
+              placeholder="Search"
               className="NavbarInput"
               onChange={(e) => {
                 setSearch(e.target.value);

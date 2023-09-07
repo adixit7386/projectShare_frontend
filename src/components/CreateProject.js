@@ -15,7 +15,7 @@ const Container = Styled.div`
 `;
 
 const Wrapper = Styled.div`
-background-color:#f6f8fa;
+background-color:white;
 border-radius:10px;
 padding:10px 10px;
 margin:10px 10px;`;
@@ -47,7 +47,7 @@ const InputContainer = Styled.div`
   margin-top:10px;
   padding:2px 3px;
   border:none;
-  background-color:#f6f8fa;
+  background-color:white;
   `;
 const InputContainerDescription = Styled.div`
 margin-top:10px;
@@ -71,7 +71,7 @@ const SearchMemberInputContainer = Styled.div`
 
 
 border-radius:5px;
-background-color:#f6f8fa;
+background-color:white;
 overflow:scroll;
 &::-webkit-scrollbar{
   display:none;
@@ -81,11 +81,11 @@ overflow:scroll;
 const Input = Styled.input`
 width:80%;
 padding:7px 12px;
-background-color:#f6f8fa;
+background-color:white;
 color:grey;
 &:focus{
   outline:none;
-  background-color:#f6f8fa;
+  background-color:white;
   color:black;
   border-bottom:1px solid blue;
    
@@ -100,18 +100,18 @@ flex:4;
 &:-webkit-autofill:focus, 
 &:-webkit-autofill:active{
   
-  -webkit-box-shadow:0 0 0 30px #f6f8fa inset !important;
+  -webkit-box-shadow:0 0 0 30px white inset !important;
     -webkit-text-fill-color: black;
   }`;
 const MembersInput = Styled.input`
 width:80%;
 padding:7px 12px;
-background-color:#f6f8fa;
+background-color:white;
 color:grey;
 border:none;
 &:focus{
   outline:none;
-  background-color:#f6f8fa;
+  background-color:white;
   color:black;
  
    
@@ -126,11 +126,11 @@ flex:4;
 &:-webkit-autofill:focus, 
 &:-webkit-autofill:active{
   
-  -webkit-box-shadow:0 0 0 30px #f6f8fa inset !important;
+  -webkit-box-shadow:0 0 0 30px white inset !important;
     -webkit-text-fill-color:black;
   }`;
 const Select = Styled.select`
-background-color:#f6f8fa;
+background-color:white;
 border:none;
 &:focus{
     outline:none;
@@ -159,12 +159,12 @@ justify-content:center;
 const Paragraph = Styled.textarea`
 font-family: 'Roboto', sans-serif;
 border:None;
-background-color:#f6f8fa;
+background-color:white;
   color:grey;
 
 &:focus{
   outline:none;
-  background-color:#f6f8fa;
+  background-color:white;
     
 };
 width:100%;
@@ -173,7 +173,7 @@ width:100%;
 &:-webkit-autofill:focus, 
 &:-webkit-autofill:active{
    
-    -webkit-box-shadow: 0 0 0 30px #f6f8fa inset !important;
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
     -webkit-text-fill-color: black;
 }`;
 
@@ -198,7 +198,7 @@ cursor:pointer;
 
 `;
 const SearchMember = Styled.div`
-background-color:#f6f8fa;
+background-color:white;
 border:solid 1px grey;
 border-top:none;
 padding:5px 12px;
