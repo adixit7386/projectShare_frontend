@@ -358,9 +358,9 @@ const Profile = () => {
                 <StatusContainer>
                   <ChatBubbleIcon
                     disabled
-                    // onClick={() => {
-                    //   createChat(profile.userId);
-                    // }}
+                     onClick={() => {
+                     createChat(profile.userId);
+                    }}
                     style={IconStyle}
                   />
                 </StatusContainer>
