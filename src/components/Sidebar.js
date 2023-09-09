@@ -131,7 +131,7 @@ const Sidebar = () => {
             </TdText>
             <TdIcon2></TdIcon2>
           </Tr>
-          {/*<Tr
+          <Tr
             location={Location}
             name={"chats"}
             onClick={() => {
@@ -145,7 +145,7 @@ const Sidebar = () => {
               <Heading>Chats</Heading>
             </TdText>
             <TdIcon2></TdIcon2>
-          </Tr>*/}
+          </Tr>
         </Table>
       </Wrapper>
     </Container>
